@@ -8,7 +8,7 @@
 		<version>2.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.quickdev</groupId>
+	<groupId>com.economysa</groupId>
 	<artifactId>api-base</artifactId>
 	<version>1.0</version>
 	<name>api-base</name>
@@ -18,7 +18,7 @@
 		<java.version>15</java.version>
 		<maven.compiler.source>15</maven.compiler.source>
 		<maven.compiler.target>15</maven.compiler.target>
-		<docker.image.prefix>quickdev</docker.image.prefix>
+		<docker.image.prefix>economysa</docker.image.prefix>
 	</properties>
 
 	<dependencies>
