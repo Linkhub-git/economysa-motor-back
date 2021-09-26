@@ -22,9 +22,9 @@ public class VendedorController {
 		return new ResponseEntity(service.list(pageable), HttpStatus.OK);
 	}
 
-	@GetMapping("/{id}")
-	public ResponseEntity<Vendedor> get(@PathVariable String id) {
-		return new ResponseEntity(service.get(id), HttpStatus.OK);
+	@GetMapping("/{code}")
+	public ResponseEntity<Vendedor> get(@PathVariable String code) {
+		return new ResponseEntity(service.get(code), HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -37,8 +37,8 @@ public class VendedorController {
 		return new ResponseEntity(service.update(vendedor), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/{id}")
-	public ResponseEntity<String> delete(@PathVariable String id) {
-		return new ResponseEntity(service.delete(id), HttpStatus.NO_CONTENT);
+	@DeleteMapping("/{code}")
+	public ResponseEntity<String> delete(@PathVariable String code) {
+		return new ResponseEntity(service.delete(code), HttpStatus.NO_CONTENT);
 	}
 }

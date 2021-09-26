@@ -25,7 +25,7 @@ public class ConstantCore {
 	public static final String ASTERISK = "*";
 	public static final String MAX_AGE_VALUE = "3600";
 	public static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type";
-	public static final String ALLOWED_HTTP_METHODS = "POST, GET, OPTIONS, DELETE";
+	public static final String ALLOWED_HTTP_METHODS = "POST, GET, PUT, OPTIONS, DELETE";
 
 	public static final String HTTP_METHOD_GET = "GET";
 	public static final String HTTP_METHOD_POST = "POST";
