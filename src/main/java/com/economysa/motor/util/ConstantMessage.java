@@ -16,4 +16,10 @@ public class ConstantMessage {
 	public static final String ERROR_INPUT_VALIDATION_FAILED = "Input Validation Failed";
 
 	public static final String USER_NOT_FOUND_EMAIL = "El correo ingresado no se encuentra registrado";
+
+	public static final String ACTIVE = "Activo";
+	public static final String INACTIVE = "Inactivo";
+
+	public static final String PROVIDER_NOT_FOUND = "No se encontró el proveedor";
+	public static final String PROVIDER_ALREADY_EXISTS = "Ya existe el proveedor para el ID registrado";
 }

@@ -10,7 +10,6 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.Date;
 
-@Sql({"/schema.sql"})
 @SpringBootApplication
 public class ApiBaseApplication implements CommandLineRunner {
 
@@ -22,7 +21,7 @@ public class ApiBaseApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User user = new User();
+		/*User user = new User();
 		user.setId(1L);
 		user.setEmail("jcieza90@gmail.com");
 		user.setPassword("{bcrypt}$2a$10$51VMRmGqcLqojqXkZFFwIufc7trvCmTp/dDVmeBSTUVZoQhrEB/YK");
@@ -32,6 +31,6 @@ public class ApiBaseApplication implements CommandLineRunner {
 		user.setPhone("983552193");
 		user.setCreationDate(new Date());
 		user.setStatus(Boolean.TRUE);
-		repository.save(user);
+		repository.save(user);*/
 	}
 }
