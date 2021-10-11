@@ -22,4 +22,7 @@ public class ConstantMessage {
 
 	public static final String PROVIDER_NOT_FOUND = "No se encontró el proveedor";
 	public static final String PROVIDER_ALREADY_EXISTS = "Ya existe el proveedor para el ID registrado";
+
+	public static final String PRODUCT_NOT_FOUND = "No se encontró el producto";
+	public static final String PRODUCT_ALREADY_EXISTS = "Ya existe el producto para el ID registrado";
 }

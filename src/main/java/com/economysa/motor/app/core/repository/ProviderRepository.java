@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public interface ProviderRepository extends CrudRepository<Provider, String> {
 
-	@Query("select p from Provider p order by p.name asc")
+	@Query("select p from Provider p where p.status = true order by p.name asc")
 	Page<Provider> findAll(Pageable pageable);
 
 	@Query("select p from Provider p where p.id = :id and p.status = true")

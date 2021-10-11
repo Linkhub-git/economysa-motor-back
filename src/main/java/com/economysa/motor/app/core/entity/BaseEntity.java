@@ -64,9 +64,21 @@ public class BaseEntity {
 
 	@NotNull
 	@Column(name = "_status")
+	@ApiModelProperty(
+			name = "status",
+			value = "Estado del registro en el sistema",
+			example = "true|false",
+			dataType = "Boolean"
+	)
 	private Boolean status;
 
 	@Transient
+	@ApiModelProperty(
+			name = "statusText",
+			value = "Estado en formato texto indicando el estado actual del registro en el sistema",
+			example = "Activo|Inactivo",
+			dataType = "String"
+	)
 	private String statusText;
 
 	public String getStatusText() {
