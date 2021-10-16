@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 public interface ProviderService {
 
 	Page<Provider> list(Pageable pageable);
-	Provider get(String id);
+	Provider get(Long id);
 	Provider create(String creationUser, ProviderRequest request);
-	Provider update(String updateUser, String id, ProviderRequest request);
-	Provider delete(String updateUser, String id);
+	Provider update(String updateUser, Long id, ProviderRequest request);
+	Provider delete(String updateUser, Long id);
 }

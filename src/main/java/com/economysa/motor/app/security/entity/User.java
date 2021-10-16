@@ -22,6 +22,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Table(name = "tsegu_user")
 @ApiModel(value = "Usuario", description = "Usuario del sistema")
 public class User {
 
@@ -45,6 +46,7 @@ public class User {
 			dataType = "String",
 			required = true,
 			position = 1)
+	@Column(name = "_email")
 	private String email;
 
 	@NotBlank
@@ -57,6 +59,7 @@ public class User {
 			dataType = "String",
 			required = true,
 			position = 2)
+	@Column(name = "_password")
 	private String password;
 
 	@NotBlank
@@ -68,6 +71,7 @@ public class User {
 			dataType = "String",
 			required = true,
 			position = 3)
+	@Column(name = "_role")
 	private String role;
 
 	@NotBlank
@@ -79,6 +83,7 @@ public class User {
 			dataType = "String",
 			required = true,
 			position = 4)
+	@Column(name = "_name")
 	private String name;
 
 	@NotBlank
@@ -90,6 +95,7 @@ public class User {
 			dataType = "String",
 			required = true,
 			position = 5)
+	@Column(name = "last_name")
 	private String lastName;
 
 	@Size(max = 9)
@@ -100,6 +106,7 @@ public class User {
 			dataType = "String",
 			required = false,
 			position = 6)
+	@Column(name = "_phone")
 	private String phone;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -111,6 +118,7 @@ public class User {
 			dataType = "Date",
 			required = true,
 			position = 7)
+	@Column(name = "creation_date")
 	private Date creationDate;
 
 	@NotNull
@@ -121,5 +129,6 @@ public class User {
 			dataType = "Boolean",
 			required = true,
 			position = 8)
+	@Column(name = "_status")
 	private Boolean status;
 }

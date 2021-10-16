@@ -25,4 +25,28 @@ public class ConstantMessage {
 
 	public static final String PRODUCT_NOT_FOUND = "No se encontró el producto";
 	public static final String PRODUCT_ALREADY_EXISTS = "Ya existe el producto para el ID registrado";
+
+	public static final String MODALITY_NOT_FOUND = "No se encontró la modalidad";
+
+	public static final String PROMOTION_TYPE_NOT_FOUND = "No se encontró el tipo de promoción";
+
+	public static final String MECHANIC_NOT_FOUND = "No se encontró la mecánica";
+	public static final String MECHANIC_ALREADY_EXISTS = "Ya existe una mecánica para el ID registrado";
+	public static final String MECHANIC_ERROR_NULL_PERCENTAGE_DISCOUNT = "El porcentaje no puede estar vacío para una mecánica de tipo descuento";
+	public static final String MECHANIC_ERROR_NULL_FACTOR_BONUS_QUANTITY = "El factor y la cantidad no pueden ser vacíos para una mecánica de tipo bonificación";
+
+	public static final String MECHANIC_TYPE_BONUS = "B";
+	public static final String MECHANIC_TYPE_BONUS_TEXT = "Bonificación";
+	public static final String MECHANIC_TYPE_SOLES = "S";
+	public static final String MECHANIC_TYPE_SOLES_TEXT = "Soles";
+
+	public static final String MECHANIC_MODALITY_PROVIDER = "P";
+	public static final String MECHANIC_MODALITY_PROVIDER_TEXT = "Proveedor";
+	public static final String MECHANIC_MODALITY_ARTICLE = "A";
+	public static final String MECHANIC_MODALITY_ARTICLE_TEXT = "Artículo";
+
+	public static final String MECHANIC_UNIT_UNITY = "U";
+	public static final String MECHANIC_UNIT_UNITY_TEXT = "Unidades";
+	public static final String MECHANIC_UNIT_SOLES = "S";
+	public static final String MECHANIC_UNIT_SOLES_TEXT = "Soles";
 }

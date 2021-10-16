@@ -20,17 +20,16 @@ import java.math.BigDecimal;
 public class Product extends BaseEntity {
 
   @Id
-  @Size(max = 10)
-  @Column(name = "id", updatable = false, unique = true)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   @ApiModelProperty(
       name = "id",
       value = "Identificador único por Producto",
-      example = "0007963",
-      dataType = "String",
+      example = "1000",
+      dataType = "Long",
       required = true,
       position = 0
   )
-  private String id;
+  private Long id;
 
   @JoinColumn(name = "_provider", referencedColumnName = "id")
   @ManyToOne(optional = false)

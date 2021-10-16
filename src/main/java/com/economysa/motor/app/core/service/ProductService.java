@@ -8,8 +8,8 @@ import org.springframework.data.domain.Pageable;
 public interface ProductService {
 
   Page<Product> list(Pageable pageable);
-  Product get(String id);
+  Product get(Long id);
   Product create(String creationUser, ProductRequest request);
-  Product update(String updateUser, String id, ProductRequest request);
-  Product delete(String updateUser, String id);
+  Product update(String updateUser, Long id, ProductRequest request);
+  Product delete(String updateUser, Long id);
 }

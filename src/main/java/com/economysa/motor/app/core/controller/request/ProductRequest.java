@@ -16,28 +16,16 @@ import java.math.BigDecimal;
 @ApiModel(value = "Producto Request", description = "Contiene la información necesaria para crear/actualizar un Producto")
 public class ProductRequest {
 
-  @Size(max = 20)
-  @ApiModelProperty(
-      name = "id",
-      value = "Identificador único por Producto",
-      example = "0007963",
-      dataType = "String",
-      required = true,
-      position = 0
-  )
-  private String id;
-
   @NotNull
-  @Size(min = 1, max = 20)
   @ApiModelProperty(
       name = "provider",
       value = "Proveedor al cual pertenece el producto",
-      example = "0007690",
-      dataType = "Provider",
+      example = "1000",
+      dataType = "Long",
       required = true,
       position = 1
   )
-  private String provider;
+  private Long provider;
 
   @NotNull
   @Size(min = 1, max = 50)

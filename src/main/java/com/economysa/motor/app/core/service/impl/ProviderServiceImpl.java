@@ -31,7 +31,6 @@ public class ProviderServiceImpl implements ProviderService {
 
 	private Provider init(String creationUser, ProviderRequest request) {
 		Provider provider = init();
-		provider.setId(request.getId());
 		provider.setName(request.getName());
 		provider.setRuc(request.getRuc());
 		provider.setCreationUser(creationUser);
@@ -44,7 +43,7 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
-	public Provider get(String id) {
+	public Provider get(Long id) {
 		Optional<Provider> provider = repository.findById(id);
 		if (!provider.isPresent()) {
 			log.info("No Provider entity for ID [ " + id + " ]");
@@ -55,14 +54,13 @@ public class ProviderServiceImpl implements ProviderService {
 
 	@Override
 	public Provider create(String creationUser, ProviderRequest request) {
-		validateId(request.getId());
 		Provider provider = init(creationUser, request);
 
 		return repository.save(provider);
 	}
 
 	@Override
-	public Provider update(String updateUser, String id, ProviderRequest request) {
+	public Provider update(String updateUser, Long id, ProviderRequest request) {
 		Provider provider = get(id);
 		provider.setName(request.getName());
 		provider.setRuc(request.getRuc());
@@ -73,20 +71,12 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
-	public Provider delete(String updateUser, String id) {
+	public Provider delete(String updateUser, Long id) {
 		Provider provider = get(id);
 		provider.setStatus(Boolean.FALSE);
 		provider.setUpdateUser(updateUser);
 		provider.setUpdateDate(UtilCore.UtilDate.fechaActual());
 
 		return repository.save(provider);
-	}
-
-	private void validateId(String id) {
-		Optional<Provider> provider = repository.findById(id);
-		if (provider.isPresent()) {
-			log.info("Already exists a Provider for ID [ " + id + " ]");
-			throw new ConflictRequestException(ConstantMessage.PROVIDER_ALREADY_EXISTS);
-		}
 	}
 }

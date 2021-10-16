@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,17 +19,16 @@ import javax.validation.constraints.Size;
 public class Provider extends BaseEntity {
 
 	@Id
-	@Size(max = 10)
-	@Column(name = "id", updatable = false, unique = true)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@ApiModelProperty(
 			name = "id",
 			value = "Identificador único por Proveedor",
-			example = "000752",
-			dataType = "String",
+			example = "1000",
+			dataType = "Long",
 			required = true,
 			position = 0
 	)
-	private String id;
+	private Long id;
 
 	@NotNull
 	@Size(min = 1, max = 50)

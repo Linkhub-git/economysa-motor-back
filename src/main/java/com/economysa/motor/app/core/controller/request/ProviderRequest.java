@@ -15,17 +15,6 @@ import javax.validation.constraints.Size;
 @ApiModel(value = "Proveedor Request", description = "Contiene la información necesaria para crear/actualizar un Proveedor")
 public class ProviderRequest {
 
-	@Size(max = 10)
-	@ApiModelProperty(
-			name = "id",
-			value = "Identificador único por Proveedor",
-			example = "000752",
-			dataType = "String",
-			required = true,
-			position = 0
-	)
-	private String id;
-
 	@NotNull
 	@Size(min = 1, max = 50)
 	@ApiModelProperty(

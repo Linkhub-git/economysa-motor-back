@@ -15,5 +15,5 @@ public interface ProviderRepository extends CrudRepository<Provider, String> {
 	Page<Provider> findAll(Pageable pageable);
 
 	@Query("select p from Provider p where p.id = :id and p.status = true")
-	Optional<Provider> findById(@Param("id") String id);
+	Optional<Provider> findById(@Param("id") Long id);
 }

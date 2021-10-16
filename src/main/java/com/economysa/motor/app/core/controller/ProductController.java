@@ -70,7 +70,7 @@ public class ProductController {
   })
   @GetMapping("/{id}")
   public ResponseEntity<Product> get(@ApiParam(value = "Identificador del Producto", required = true)
-                                     @PathVariable String id) {
+                                     @PathVariable Long id) {
     return new ResponseEntity(service.get(id), HttpStatus.OK);
   }
 
@@ -132,7 +132,7 @@ public class ProductController {
   @PutMapping("/{id}")
   public ResponseEntity<Product> update(@AuthenticationPrincipal UserDetails details,
                                         @ApiParam(value = "Identificador del Producto", required = true)
-                                        @PathVariable String id,
+                                        @PathVariable Long id,
                                         @ApiParam(value = "Cuerpo de la petición", required = true)
                                         @Valid @RequestBody ProductRequest request) {
     return new ResponseEntity(service.update(details.getUsername(), id, request), HttpStatus.OK);
@@ -163,7 +163,7 @@ public class ProductController {
   @DeleteMapping("/{id}")
   public ResponseEntity<Product> delete(@AuthenticationPrincipal UserDetails details,
                                         @ApiParam(value = "Identificador del Producto", required = true)
-                                        @PathVariable String id) {
+                                        @PathVariable Long id) {
     return new ResponseEntity(service.delete(details.getUsername(), id), HttpStatus.OK);
   }
 }

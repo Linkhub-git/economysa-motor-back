@@ -15,5 +15,5 @@ public interface ProductRepository extends CrudRepository<Product, String> {
   Page<Product> findAll(Pageable pageable);
 
   @Query("select p from Product p where p.id = :id and p.status = true")
-  Optional<Product> findById(@Param("id") String id);
+  Optional<Product> findById(@Param("id") Long id);
 }

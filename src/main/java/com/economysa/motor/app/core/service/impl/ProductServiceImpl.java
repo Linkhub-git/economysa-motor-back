@@ -5,7 +5,6 @@ import com.economysa.motor.app.core.entity.Product;
 import com.economysa.motor.app.core.repository.ProductRepository;
 import com.economysa.motor.app.core.service.ProductService;
 import com.economysa.motor.app.core.service.ProviderService;
-import com.economysa.motor.error.exception.ConflictRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
@@ -41,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
 
   private Product init(String creationUser, ProductRequest request) {
     Product product = init();
-    product.setId(request.getId());
     product = setData(product, request);
     product.setCreationUser(creationUser);
     return product;
@@ -67,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Product get(String id) {
+  public Product get(Long id) {
     Optional<Product> product = repository.findById(id);
     if (!product.isPresent()) {
       log.info("No Product entity for ID [ " + id + " ]");
@@ -78,14 +76,13 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public Product create(String creationUser, ProductRequest request) {
-    validateId(request.getId());
     Product product = init(creationUser, request);
 
     return repository.save(product);
   }
 
   @Override
-  public Product update(String updateUser, String id, ProductRequest request) {
+  public Product update(String updateUser, Long id, ProductRequest request) {
     Product product = get(id);
     product = setData(product, request);
     product.setUpdateUser(updateUser);
@@ -95,7 +92,7 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Product delete(String updateUser, String id) {
+  public Product delete(String updateUser, Long id) {
     Product product = get(id);
     product.setStatus(Boolean.FALSE);
     product.setUpdateUser(updateUser);
@@ -104,15 +101,8 @@ public class ProductServiceImpl implements ProductService {
     return repository.save(product);
   }
 
-  private void validateId(String id) {
-    Optional<Product> product = repository.findById(id);
-    if (product.isPresent()) {
-      log.info("Already exists a Product for ID [ " + id + " ]");
-      throw new ConflictRequestException(ConstantMessage.PRODUCT_ALREADY_EXISTS);
-    }
-  }
-
   private BigDecimal calculateFinalPrice() {
+    // TODO: 16/10/21 Consultar como calcular el precio final
     return BigDecimal.ONE;
   }
 }

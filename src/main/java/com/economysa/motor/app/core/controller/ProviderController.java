@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
 
 import javax.validation.Valid;
 
@@ -71,7 +70,7 @@ public class ProviderController {
 	})
 	@GetMapping("/{id}")
 	public ResponseEntity<Provider> get(@ApiParam(value = "Identificador del Proveedor", required = true)
-																			@PathVariable String id) {
+																			@PathVariable Long id) {
 		return new ResponseEntity(service.get(id), HttpStatus.OK);
 	}
 
@@ -133,7 +132,7 @@ public class ProviderController {
 	@PutMapping("/{id}")
 	public ResponseEntity<Provider> update(@AuthenticationPrincipal UserDetails details,
 																				 @ApiParam(value = "Identificador del Proveedor", required = true)
-																				 @PathVariable String id,
+																				 @PathVariable Long id,
 																				 @ApiParam(value = "Cuerpo de la petición", required = true)
 																				 @Valid @RequestBody ProviderRequest request) {
 		return new ResponseEntity(service.update(details.getUsername(), id, request), HttpStatus.OK);
@@ -164,7 +163,7 @@ public class ProviderController {
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Provider> delete(@AuthenticationPrincipal UserDetails details,
 																				 @ApiParam(value = "Identificador del Proveedor", required = true)
-																				 @PathVariable String id) {
+																				 @PathVariable Long id) {
 		return new ResponseEntity(service.delete(details.getUsername(), id), HttpStatus.OK);
 	}
 }
