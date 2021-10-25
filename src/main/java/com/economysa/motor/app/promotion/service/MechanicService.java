@@ -10,5 +10,6 @@ public interface MechanicService {
   Page<Mechanic> list(Pageable pageable);
   Mechanic get(Long id);
   Mechanic create(String creationUser, MechanicRequest request);
+  Mechanic update(Long id, String updateUser, MechanicRequest request);
   Mechanic delete(String updateUser, Long id);
 }

@@ -152,4 +152,11 @@ public class Product extends BaseEntity {
       position = 10
   )
   private BigDecimal finalPrice;
+
+  @Transient
+  private String productDescription;
+
+  public String getProductDescription() {
+    return provider.getName() + " - " + name;
+  }
 }

@@ -25,9 +25,6 @@ public class MechanicRequest {
   @Size(min = 1, max = 1)
   private String mechanicUnit;
 
-  @NotNull
-  private String targetId;
-
   private BigDecimal factor;
 
   private BigDecimal bonusQuantity;

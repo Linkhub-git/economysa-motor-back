@@ -15,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,6 +63,16 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public Page<Product> list(Pageable pageable) {
     return repository.findAll(pageable);
+  }
+
+  @Override
+  public List<Product> listByProvider(Long providerId) {
+    return repository.findByProvider(providerId);
+  }
+
+  @Override
+  public List<Product> search(String name) {
+    return repository.find(name);
   }
 
   @Override

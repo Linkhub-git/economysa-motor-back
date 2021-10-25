@@ -36,6 +36,13 @@ public class MechanicController {
     return new ResponseEntity(service.create(details.getUsername(), request), HttpStatus.CREATED);
   }
 
+  @PutMapping("/{id}")
+  public ResponseEntity<Mechanic> update(@AuthenticationPrincipal UserDetails details,
+                                         @PathVariable Long id,
+                                         @Valid @RequestBody MechanicRequest request) {
+    return new ResponseEntity(service.update(id, details.getUsername(), request), HttpStatus.OK);
+  }
+
   @DeleteMapping("/{id}")
   public ResponseEntity<Mechanic> delete(@AuthenticationPrincipal UserDetails details,
                                          @PathVariable Long id) {

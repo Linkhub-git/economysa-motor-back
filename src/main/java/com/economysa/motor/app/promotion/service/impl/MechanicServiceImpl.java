@@ -41,7 +41,6 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setMechanicType(request.getMechanicType());
     mechanic.setMechanicModality(request.getMechanicModality());
     mechanic.setMechanicUnit(request.getMechanicUnit());
-    mechanic.setTargetId(request.getTargetId());
     mechanic.setFactor(request.getFactor());
     mechanic.setBonusQuantity(request.getBonusQuantity());
     mechanic.setPercentageDiscount(request.getPercentageDiscount());
@@ -72,6 +71,20 @@ public class MechanicServiceImpl implements MechanicService {
   }
 
   @Override
+  public Mechanic update(Long id, String updateUser, MechanicRequest request) {
+    Mechanic mechanic = get(id);
+    validateRequest(request);
+
+    mechanic.setFactor(request.getFactor());
+    mechanic.setBonusQuantity(request.getBonusQuantity());
+    mechanic.setPercentageDiscount(request.getPercentageDiscount());
+    mechanic.setUpdateUser(updateUser);
+    mechanic.setUpdateDate(UtilCore.UtilDate.fechaActual());
+
+    return repository.save(mechanic);
+  }
+
+  @Override
   public Mechanic delete(String updateUser, Long id) {
     Mechanic mechanic = get(id);
     mechanic.setStatus(Boolean.FALSE);
@@ -86,16 +99,16 @@ public class MechanicServiceImpl implements MechanicService {
   }
 
   private void validateMechanicType(MechanicRequest request) {
+    log.info(request);
     if (request.getMechanicType().equals(ConstantMessage.MECHANIC_TYPE_SOLES)
         && request.getPercentageDiscount() == null) {
       log.info("PercentageDiscount cannot be null for MechanicType Soles");
       throw new BadRequestException(ConstantMessage.MECHANIC_ERROR_NULL_PERCENTAGE_DISCOUNT);
-    }
-
-    if (request.getMechanicType().equals(ConstantMessage.MECHANIC_TYPE_BONUS)
-        && (request.getFactor() == null) || request.getBonusQuantity() == null) {
-      log.info("Factor and BonusQuantity must be different from null for MechanicType Bonus");
-      throw new BadRequestException(ConstantMessage.MECHANIC_ERROR_NULL_FACTOR_BONUS_QUANTITY);
+    } else if (request.getMechanicType().equals(ConstantMessage.MECHANIC_TYPE_BONUS)) {
+      if (request.getFactor() == null || request.getBonusQuantity() == null) {
+        log.info("Factor and BonusQuantity must be different from null for MechanicType Bonus");
+        throw new BadRequestException(ConstantMessage.MECHANIC_ERROR_NULL_FACTOR_BONUS_QUANTITY);
+      }
     }
   }
 }

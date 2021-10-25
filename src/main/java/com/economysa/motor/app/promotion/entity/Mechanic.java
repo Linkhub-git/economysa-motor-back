@@ -37,11 +37,6 @@ public class Mechanic extends BaseEntity {
   @Column(name = "mechanic_unit")
   private String mechanicUnit;
 
-  @NotNull
-  @Size(min = 1, max = 10)
-  @Column(name = "target_id")
-  private String targetId;
-
   @Column(name = "_factor")
   private BigDecimal factor;
 

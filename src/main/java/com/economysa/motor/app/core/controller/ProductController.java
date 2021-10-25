@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/secured/product")
@@ -44,6 +45,11 @@ public class ProductController {
   @GetMapping
   public ResponseEntity<Page<Product>> list(Pageable pageable) {
     return new ResponseEntity(service.list(pageable), HttpStatus.OK);
+  }
+
+  @GetMapping("/search")
+  public ResponseEntity<List<Product>> search(@RequestParam String name) {
+    return new ResponseEntity(service.search(name), HttpStatus.OK);
   }
 
   @ApiOperation(

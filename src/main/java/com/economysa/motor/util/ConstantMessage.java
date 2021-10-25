@@ -35,6 +35,10 @@ public class ConstantMessage {
 	public static final String MECHANIC_ERROR_NULL_PERCENTAGE_DISCOUNT = "El porcentaje no puede estar vacío para una mecánica de tipo descuento";
 	public static final String MECHANIC_ERROR_NULL_FACTOR_BONUS_QUANTITY = "El factor y la cantidad no pueden ser vacíos para una mecánica de tipo bonificación";
 
+	public static final String MECHANIC_TARGET_NOT_FOUND = "No se encontró el target id";
+
+	public static final String MECHANIC_BONUS_NOT_FOUND = "No se encontró el producto a bonificar";
+
 	public static final String MECHANIC_TYPE_BONUS = "B";
 	public static final String MECHANIC_TYPE_BONUS_TEXT = "Bonificación";
 	public static final String MECHANIC_TYPE_SOLES = "S";
