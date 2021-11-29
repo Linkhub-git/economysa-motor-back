@@ -1,0 +1,25 @@
+# Spring Config
+spring:
+  datasource:
+    url: jdbc:mysql://quickdev-development.c0woeikboooh.us-west-2.rds.amazonaws.com/economysa?allowPublicKeyRetrieval=true&useSSL=false
+    username: admin
+    password: quickdeveloper123
+
+    driver-class-name: com.mysql.jdbc.Driver
+    max-active: 10
+    initial-size: 5
+    max-idle: 5
+    min-idle: 1
+    test-while-idle: true
+    test-on-borrow: true
+    validation-query: SELECT 1
+    time-between-eviction-runs-millis: 5000
+    min-evictable-idle-time-millis: 60000
+
+  # Jpa
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: false
+
+  cache:
+    type: none

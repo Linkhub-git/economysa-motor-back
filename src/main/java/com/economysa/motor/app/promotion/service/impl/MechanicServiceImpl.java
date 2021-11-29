@@ -4,7 +4,6 @@ import com.economysa.motor.app.promotion.controller.request.MechanicRequest;
 import com.economysa.motor.app.promotion.entity.Mechanic;
 import com.economysa.motor.app.promotion.repository.MechanicRepository;
 import com.economysa.motor.app.promotion.service.MechanicService;
-import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
@@ -14,6 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -25,7 +25,7 @@ public class MechanicServiceImpl implements MechanicService {
   private Mechanic init() {
     Mechanic mechanic = new Mechanic();
     mechanic.setCreationDate(UtilCore.UtilDate.fechaActual());
-    mechanic.setStatus(Boolean.TRUE);
+    mechanic.setStatus(ConstantMessage.MECHANIC_STATUS_CREATED);
     return mechanic;
   }
 
@@ -38,12 +38,17 @@ public class MechanicServiceImpl implements MechanicService {
   }
 
   private Mechanic setData(Mechanic mechanic, MechanicRequest request) {
-    mechanic.setMechanicType(request.getMechanicType());
-    mechanic.setMechanicModality(request.getMechanicModality());
-    mechanic.setMechanicUnit(request.getMechanicUnit());
+    mechanic.setCode(request.getCode());
+    mechanic.setDescription(request.getDescription());
+    mechanic.setStartDate(new Date(request.getStartDate()));
+    mechanic.setEndDate(new Date(request.getEndDate()));
+    mechanic.setAccumulate(request.getAccumulate());
+    mechanic.setPromotionType(request.getPromotionType());
+    mechanic.setType(request.getType());
+    mechanic.setRange1(request.getRange1());
+    mechanic.setRange2(request.getRange2());
     mechanic.setFactor(request.getFactor());
-    mechanic.setBonusQuantity(request.getBonusQuantity());
-    mechanic.setPercentageDiscount(request.getPercentageDiscount());
+    mechanic.setConditional(request.getConditional());
     return mechanic;
   }
 
@@ -64,20 +69,16 @@ public class MechanicServiceImpl implements MechanicService {
 
   @Override
   public Mechanic create(String creationUser, MechanicRequest request) {
-    validateRequest(request);
     Mechanic mechanic = init(creationUser, request);
-
     return repository.save(mechanic);
   }
 
   @Override
   public Mechanic update(Long id, String updateUser, MechanicRequest request) {
+    log.info("Update mechanic: " + request);
     Mechanic mechanic = get(id);
-    validateRequest(request);
 
-    mechanic.setFactor(request.getFactor());
-    mechanic.setBonusQuantity(request.getBonusQuantity());
-    mechanic.setPercentageDiscount(request.getPercentageDiscount());
+    mechanic = setData(mechanic, request);
     mechanic.setUpdateUser(updateUser);
     mechanic.setUpdateDate(UtilCore.UtilDate.fechaActual());
 
@@ -87,28 +88,10 @@ public class MechanicServiceImpl implements MechanicService {
   @Override
   public Mechanic delete(String updateUser, Long id) {
     Mechanic mechanic = get(id);
-    mechanic.setStatus(Boolean.FALSE);
+    mechanic.setStatus(ConstantMessage.MECHANIC_STATUS_DELETED);
     mechanic.setUpdateUser(updateUser);
     mechanic.setUpdateDate(UtilCore.UtilDate.fechaActual());
 
     return repository.save(mechanic);
-  }
-
-  private void validateRequest(MechanicRequest request) {
-    validateMechanicType(request);
-  }
-
-  private void validateMechanicType(MechanicRequest request) {
-    log.info(request);
-    if (request.getMechanicType().equals(ConstantMessage.MECHANIC_TYPE_SOLES)
-        && request.getPercentageDiscount() == null) {
-      log.info("PercentageDiscount cannot be null for MechanicType Soles");
-      throw new BadRequestException(ConstantMessage.MECHANIC_ERROR_NULL_PERCENTAGE_DISCOUNT);
-    } else if (request.getMechanicType().equals(ConstantMessage.MECHANIC_TYPE_BONUS)) {
-      if (request.getFactor() == null || request.getBonusQuantity() == null) {
-        log.info("Factor and BonusQuantity must be different from null for MechanicType Bonus");
-        throw new BadRequestException(ConstantMessage.MECHANIC_ERROR_NULL_FACTOR_BONUS_QUANTITY);
-      }
-    }
   }
 }

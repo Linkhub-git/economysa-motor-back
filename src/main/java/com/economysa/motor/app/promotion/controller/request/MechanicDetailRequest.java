@@ -5,25 +5,28 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
+import javax.validation.constraints.Size;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MechanicBonusRequest {
+public class MechanicDetailRequest {
 
   @NotNull
   private Long mechanic;
 
-  private BigDecimal percentageDiscount;
-
-  private BigDecimal bonusQuantity;
-
-  private BigDecimal bonusMax;
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String included;
 
   @NotNull
-  private Long product;
+  @Size(min = 1, max = 1)
+  private String type;
 
   @NotNull
-  private Integer priority;
+  private Long code;
+
+  @NotNull
+  @Size(min = 1, max = 100)
+  private String description;
 }

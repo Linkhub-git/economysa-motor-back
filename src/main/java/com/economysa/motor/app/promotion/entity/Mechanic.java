@@ -1,6 +1,5 @@
 package com.economysa.motor.app.promotion.entity;
 
-import com.economysa.motor.app.core.entity.BaseEntity;
 import com.economysa.motor.util.ConstantMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,81 +9,99 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "tprom_mechanic")
-public class Mechanic extends BaseEntity {
+public class Mechanic {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "_code")
   @NotNull
-  @Size(min = 1, max = 1)
-  @Column(name = "mechanic_type")
-  private String mechanicType;
+  @Size(min = 1, max = 20)
+  private String code;
 
+  @Column(name = "_description")
   @NotNull
-  @Size(min = 1, max = 1)
-  @Column(name = "mechanic_modality")
-  private String mechanicModality;
+  @Size(min = 1, max = 100)
+  private String description;
 
+  @Column(name = "start_date")
+  @NotNull
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date startDate;
+
+  @Column(name = "end_date")
+  @NotNull
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date endDate;
+
+  @Column(name = "accumulate")
   @NotNull
   @Size(min = 1, max = 1)
-  @Column(name = "mechanic_unit")
-  private String mechanicUnit;
+  private String accumulate;
+
+  @Column(name = "promotion_type")
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String promotionType;
+
+  @Column(name = "_type")
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String type;
+
+  @Column(name = "range1")
+  private BigDecimal range1;
+
+  @Column(name = "range2")
+  private BigDecimal range2;
 
   @Column(name = "_factor")
   private BigDecimal factor;
 
-  @Column(name = "bonus_quantity")
-  private BigDecimal bonusQuantity;
+  @Column(name = "conditional")
+  @Size(max = 1)
+  private String conditional;
 
-  @Column(name = "percentage_discount")
-  private BigDecimal percentageDiscount;
+  @Column(name = "creation_user")
+  @NotNull
+  private String creationUser;
+
+  @Column(name = "creation_date")
+  @NotNull
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date creationDate;
+
+  @Column(name = "update_user")
+  private String updateUser;
+
+  @Column(name = "update_date")
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updateDate;
+
+  @Column(name = "_status")
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String status;
 
   @Transient
-  private String mechanicTypeText;
+  private String statusText;
 
-  @Transient
-  private String mechanicModalityText;
-
-  @Transient
-  private String mechanicUnitText;
-
-  public String getMechanicTypeText() {
-    switch (mechanicType) {
-      case ConstantMessage.MECHANIC_TYPE_BONUS:
-        return ConstantMessage.MECHANIC_TYPE_BONUS_TEXT;
-      case ConstantMessage.MECHANIC_TYPE_SOLES:
-        return ConstantMessage.MECHANIC_TYPE_SOLES_TEXT;
+  public String getStatusText() {
+    switch (status) {
+      case ConstantMessage.MECHANIC_STATUS_CREATED:
+        return ConstantMessage.MECHANIC_STATUS_CREATED_TEXT;
+      case ConstantMessage.MECHANIC_STATUS_DELETED:
+        return ConstantMessage.MECHANIC_STATUS_DELETED_TEXT;
       default:
-        throw new IllegalArgumentException("No MechanicType found for this value");
-    }
-  }
-
-  public String getMechanicModalityText() {
-    switch (mechanicModality) {
-      case ConstantMessage.MECHANIC_MODALITY_PROVIDER:
-        return ConstantMessage.MECHANIC_MODALITY_PROVIDER_TEXT;
-      case ConstantMessage.MECHANIC_MODALITY_ARTICLE:
-        return ConstantMessage.MECHANIC_MODALITY_ARTICLE_TEXT;
-      default:
-        throw new IllegalArgumentException("No MechanicModality found for this value");
-    }
-  }
-
-  public String getMechanicUnitText() {
-    switch (mechanicUnit) {
-      case ConstantMessage.MECHANIC_UNIT_UNITY:
-        return ConstantMessage.MECHANIC_UNIT_UNITY_TEXT;
-      case ConstantMessage.MECHANIC_UNIT_SOLES:
-        return ConstantMessage.MECHANIC_UNIT_SOLES_TEXT;
-      default:
-        throw new IllegalArgumentException("No Mechanicunit found for this value");
+        throw new IllegalArgumentException("Invalid Status");
     }
   }
 }

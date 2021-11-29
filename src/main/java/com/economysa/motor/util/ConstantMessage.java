@@ -53,4 +53,19 @@ public class ConstantMessage {
 	public static final String MECHANIC_UNIT_UNITY_TEXT = "Unidades";
 	public static final String MECHANIC_UNIT_SOLES = "S";
 	public static final String MECHANIC_UNIT_SOLES_TEXT = "Soles";
+
+	public static final String MECHANIC_STATUS_CREATED = "C";
+	public static final String MECHANIC_STATUS_CREATED_TEXT = "Creada";
+	public static final String MECHANIC_STATUS_DELETED = "D";
+	public static final String MECHANIC_STATUS_DELETED_TEXT = "Eliminada";
+
+	public static final String MECHANIC_INCLUDED_YES = "I";
+	public static final String MECHANIC_INCLUDED_YES_TEXT = "Incluye";
+	public static final String MECHANIC_INCLUDED_NO = "E";
+	public static final String MECHANIC_INCLUDED_NO_TEXT = "Excluye";
+
+	public static final String MECHANIC_TYPE_ARTICLE = "A";
+	public static final String MECHANIC_TYPE_ARTICLE_TEXT = "Articulo";
+	public static final String MECHANIC_TYPE_PROVIDER = "P";
+	public static final String MECHANIC_TYPE_PROVIDER_TEXT = "Proveedor";
 }

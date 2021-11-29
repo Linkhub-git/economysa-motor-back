@@ -14,20 +14,37 @@ import java.math.BigDecimal;
 public class MechanicRequest {
 
   @NotNull
-  @Size(min = 1, max = 1)
-  private String mechanicType;
+  @Size(min = 1, max = 20)
+  private String code;
+
+  @NotNull
+  @Size(min = 1, max = 100)
+  private String description;
+
+  @NotNull
+  private Long startDate;
+
+  @NotNull
+  private Long endDate;
 
   @NotNull
   @Size(min = 1, max = 1)
-  private String mechanicModality;
+  private String accumulate;
 
   @NotNull
   @Size(min = 1, max = 1)
-  private String mechanicUnit;
+  private String promotionType;
+
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String type;
+
+  private BigDecimal range1;
+
+  private BigDecimal range2;
 
   private BigDecimal factor;
 
-  private BigDecimal bonusQuantity;
-
-  private BigDecimal percentageDiscount;
+  @Size(max = 1)
+  private String conditional;
 }

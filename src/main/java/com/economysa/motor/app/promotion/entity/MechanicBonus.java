@@ -1,6 +1,5 @@
 package com.economysa.motor.app.promotion.entity;
 
-import com.economysa.motor.app.core.entity.BaseEntity;
 import com.economysa.motor.app.core.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,21 +14,34 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Entity
 @Table(name = "tprom_mechanic_bonus")
-public class MechanicBonus extends BaseEntity {
+public class MechanicBonus {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JoinColumn(name = "product_id", referencedColumnName = "id")
+  @JoinColumn(name = "_mechanic", referencedColumnName = "id")
   @ManyToOne(optional = false)
+  private Mechanic mechanic;
+
+  @Column(name = "percentage_discount")
+  private BigDecimal percentageDiscount;
+
+  @Column(name = "bonus_quantity")
+  private BigDecimal bonusQuantity;
+
+  @Column(name = "bonus_max")
+  private BigDecimal bonusMax;
+
+  @JoinColumn(name = "_product", referencedColumnName = "id")
+  @ManyToOne
   private Product product;
 
+  @Column(name = "_priority")
   @NotNull
-  @Column(name = "_mechanic")
-  private Long mechanic;
+  private Integer priority;
 
+  @Column(name = "quantity_use")
   @NotNull
-  @Column(name = "_stock")
-  private BigDecimal stock;
+  private BigDecimal quantityUse;
 }
