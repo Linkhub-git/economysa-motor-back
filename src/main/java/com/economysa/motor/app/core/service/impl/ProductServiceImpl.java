@@ -1,6 +1,6 @@
 package com.economysa.motor.app.core.service.impl;
 
-import com.economysa.motor.app.core.controller.request.ProductRequest;
+import com.economysa.motor.app.core.controller.dto.ProductDto;
 import com.economysa.motor.app.core.entity.Product;
 import com.economysa.motor.app.core.repository.ProductRepository;
 import com.economysa.motor.app.core.service.ProductService;
@@ -39,14 +39,14 @@ public class ProductServiceImpl implements ProductService {
     return product;
   }
 
-  private Product init(String creationUser, ProductRequest request) {
+  private Product init(String creationUser, ProductDto request) {
     Product product = init();
     product = setData(product, request);
     product.setCreationUser(creationUser);
     return product;
   }
 
-  private Product setData(Product product, ProductRequest request) {
+  private Product setData(Product product, ProductDto request) {
     product.setProvider(providerService.get(request.getProvider()));
     product.setName(request.getName());
     product.setPurchasePackaging(request.getPurchasePackaging());
@@ -86,14 +86,14 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
-  public Product create(String creationUser, ProductRequest request) {
+  public Product create(String creationUser, ProductDto request) {
     Product product = init(creationUser, request);
 
     return repository.save(product);
   }
 
   @Override
-  public Product update(String updateUser, Long id, ProductRequest request) {
+  public Product update(String updateUser, Long id, ProductDto request) {
     Product product = get(id);
     product = setData(product, request);
     product.setUpdateUser(updateUser);

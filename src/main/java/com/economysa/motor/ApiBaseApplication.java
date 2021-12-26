@@ -1,11 +1,9 @@
 package com.economysa.motor;
 
-import com.economysa.motor.app.core.controller.request.ProductRequest;
 import com.economysa.motor.app.core.entity.Product;
 import com.economysa.motor.app.core.repository.ProductRepository;
 import com.economysa.motor.app.core.service.ProductService;
 import com.economysa.motor.app.core.service.ProviderService;
-import com.economysa.motor.app.security.entity.User;
 import com.economysa.motor.app.security.repository.UserRepository;
 import com.economysa.motor.util.UtilCore;
 import lombok.extern.log4j.Log4j2;
@@ -17,17 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 

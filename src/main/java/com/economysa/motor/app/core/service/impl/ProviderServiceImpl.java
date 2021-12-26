@@ -1,10 +1,9 @@
 package com.economysa.motor.app.core.service.impl;
 
-import com.economysa.motor.app.core.controller.request.ProviderRequest;
+import com.economysa.motor.app.core.controller.dto.ProviderDto;
 import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.app.core.repository.ProviderRepository;
 import com.economysa.motor.app.core.service.ProviderService;
-import com.economysa.motor.error.exception.ConflictRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
@@ -30,7 +29,7 @@ public class ProviderServiceImpl implements ProviderService {
 		return provider;
 	}
 
-	private Provider init(String creationUser, ProviderRequest request) {
+	private Provider init(String creationUser, ProviderDto request) {
 		Provider provider = init();
 		provider.setName(request.getName());
 		provider.setRuc(request.getRuc());
@@ -59,14 +58,14 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
-	public Provider create(String creationUser, ProviderRequest request) {
+	public Provider create(String creationUser, ProviderDto request) {
 		Provider provider = init(creationUser, request);
 
 		return repository.save(provider);
 	}
 
 	@Override
-	public Provider update(String updateUser, Long id, ProviderRequest request) {
+	public Provider update(String updateUser, Long id, ProviderDto request) {
 		Provider provider = get(id);
 		provider.setName(request.getName());
 		provider.setRuc(request.getRuc());

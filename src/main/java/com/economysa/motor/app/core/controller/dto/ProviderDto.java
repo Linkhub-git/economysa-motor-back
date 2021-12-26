@@ -1,4 +1,4 @@
-package com.economysa.motor.app.core.controller.request;
+package com.economysa.motor.app.core.controller.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "Proveedor Request", description = "Contiene la información necesaria para crear/actualizar un Proveedor")
-public class ProviderRequest {
+public class ProviderDto {
 
 	@NotNull
 	@Size(min = 1, max = 50)

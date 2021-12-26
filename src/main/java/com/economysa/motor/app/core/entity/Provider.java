@@ -30,9 +30,9 @@ public class Provider extends BaseEntity {
 	)
 	private Long id;
 
+	@Column(name = "_name")
 	@NotNull
 	@Size(min = 1, max = 50)
-	@Column(name = "_name")
 	@ApiModelProperty(
 			name = "name",
 			value = "Nombre del Proveedor",
@@ -43,9 +43,9 @@ public class Provider extends BaseEntity {
 	)
 	private String name;
 
+	@Column(name = "_ruc")
 	@NotNull
 	@Size(min = 1, max = 20)
-	@Column(name = "_ruc")
 	@ApiModelProperty(
 			name = "ruc",
 			value = "RUC del Proveedor",

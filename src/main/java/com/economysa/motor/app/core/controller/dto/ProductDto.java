@@ -1,4 +1,4 @@
-package com.economysa.motor.app.core.controller.request;
+package com.economysa.motor.app.core.controller.dto;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 @ApiModel(value = "Producto Request", description = "Contiene la información necesaria para crear/actualizar un Producto")
-public class ProductRequest {
+public class ProductDto {
 
   @NotNull
   @ApiModelProperty(

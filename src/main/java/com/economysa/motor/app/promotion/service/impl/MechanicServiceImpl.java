@@ -32,13 +32,13 @@ public class MechanicServiceImpl implements MechanicService {
   private Mechanic init(String creationUser, MechanicRequest request) {
     Mechanic mechanic = init();
     mechanic = setData(mechanic, request);
+    mechanic.setCode(generateMechanicCode());
     mechanic.setCreationUser(creationUser);
     mechanic.setCreationDate(UtilCore.UtilDate.fechaActual());
     return mechanic;
   }
 
   private Mechanic setData(Mechanic mechanic, MechanicRequest request) {
-    mechanic.setCode(request.getCode());
     mechanic.setDescription(request.getDescription());
     mechanic.setStartDate(new Date(request.getStartDate()));
     mechanic.setEndDate(new Date(request.getEndDate()));
@@ -93,5 +93,16 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setUpdateDate(UtilCore.UtilDate.fechaActual());
 
     return repository.save(mechanic);
+  }
+
+  private String generateMechanicCode() {
+    long cant = repository.count() + 1;
+    cant = cant + 10000;
+    int n0 = 7 - String.valueOf(cant).length();
+    String zero = "";
+    for (int i = 0; i < n0; i++) {
+      zero += "0";
+    }
+    return zero + cant;
   }
 }

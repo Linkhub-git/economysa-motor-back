@@ -1,7 +1,6 @@
 package com.economysa.motor.app.core.entity;
 
 import com.economysa.motor.util.ConstantMessage;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,9 +17,9 @@ import java.util.Date;
 @MappedSuperclass
 public class BaseEntity {
 
+	@Column(name = "creation_user")
 	@NotNull
 	@Size(min = 5, max = 50)
-	@Column(name = "creation_user")
 	@ApiModelProperty(
 			name = "creationUser",
 			value = "Usuario del sistema que creó el registro",
@@ -30,9 +29,9 @@ public class BaseEntity {
 	)
 	private String creationUser;
 
+	@Column(name = "creation_date")
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "creation_date")
 	@ApiModelProperty(
 			name = "creationDate",
 			value = "Fecha del sistema en la cual se creó el registro",
@@ -42,8 +41,8 @@ public class BaseEntity {
 	)
 	private Date creationDate;
 
-	@Size(min = 5, max = 50)
 	@Column(name = "update_user")
+	@Size(min = 5, max = 50)
 	@ApiModelProperty(
 			name = "updateUser",
 			value = "Usuario del sistema que realiza alguna actualización en el registro",
@@ -52,8 +51,8 @@ public class BaseEntity {
 	)
 	private String updateUser;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "update_date")
+	@Temporal(TemporalType.TIMESTAMP)
 	@ApiModelProperty(
 			name = "updateDate",
 			value = "Fecha del sistema en la cual se realiza una actualización en el registro",
@@ -62,8 +61,8 @@ public class BaseEntity {
 	)
 	private Date updateDate;
 
-	@NotNull
 	@Column(name = "_status")
+	@NotNull
 	@ApiModelProperty(
 			name = "status",
 			value = "Estado del registro en el sistema",

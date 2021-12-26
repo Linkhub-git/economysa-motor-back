@@ -43,9 +43,9 @@ public class Product extends BaseEntity {
   )
   private Provider provider;
 
+  @Column(name = "_name")
   @NotNull
   @Size(min = 1, max = 50)
-  @Column(name = "_name")
   @ApiModelProperty(
       name = "name",
       value = "Nombre del producto",
@@ -56,9 +56,9 @@ public class Product extends BaseEntity {
   )
   private String name;
 
+  @Column(name = "purchase_packaging")
   @NotNull
   @Size(min = 1, max = 20)
-  @Column(name = "purchase_packaging")
   @ApiModelProperty(
       name = "purchasePackaging",
       value = "PurchasePackaging",
@@ -69,8 +69,8 @@ public class Product extends BaseEntity {
   )
   private String purchasePackaging;
 
-  @NotNull
   @Column(name = "master_stock_amount")
+  @NotNull
   @ApiModelProperty(
       name = "masterStockAmount",
       value = "MasterStockAmount",
@@ -81,8 +81,8 @@ public class Product extends BaseEntity {
   )
   private BigDecimal masterStockAmount;
 
-  @NotNull
   @Column(name = "sales_packaging")
+  @NotNull
   @ApiModelProperty(
       name = "salesPackaging",
       value = "SalesPackaging",
@@ -93,8 +93,8 @@ public class Product extends BaseEntity {
   )
   private BigDecimal salesPackaging;
 
-  @NotNull
   @Column(name = "stock_amount")
+  @NotNull
   @ApiModelProperty(
       name = "stockAmount",
       value = "StockAmount",
@@ -105,8 +105,8 @@ public class Product extends BaseEntity {
   )
   private BigDecimal stockAmount;
 
-  @NotNull
   @Column(name = "_stock")
+  @NotNull
   @ApiModelProperty(
       name = "stock",
       value = "Stock",
@@ -117,8 +117,8 @@ public class Product extends BaseEntity {
   )
   private BigDecimal stock;
 
-  @NotNull
   @Column(name = "base_price")
+  @NotNull
   @ApiModelProperty(
       name = "basePrice",
       value = "BasePrice",
@@ -129,8 +129,8 @@ public class Product extends BaseEntity {
   )
   private BigDecimal basePrice;
 
-  @NotNull
   @Column(name = "_margin")
+  @NotNull
   @ApiModelProperty(
       name = "margin",
       value = "Margin",
@@ -141,8 +141,8 @@ public class Product extends BaseEntity {
   )
   private BigDecimal margin;
 
-  @NotNull
   @Column(name = "final_price")
+  @NotNull
   @ApiModelProperty(
       name = "finalPrice",
       value = "FinalPrice",

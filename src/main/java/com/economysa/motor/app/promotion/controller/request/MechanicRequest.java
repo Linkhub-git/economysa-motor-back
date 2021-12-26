@@ -14,10 +14,6 @@ import java.math.BigDecimal;
 public class MechanicRequest {
 
   @NotNull
-  @Size(min = 1, max = 20)
-  private String code;
-
-  @NotNull
   @Size(min = 1, max = 100)
   private String description;
 

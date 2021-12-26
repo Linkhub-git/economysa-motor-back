@@ -1,6 +1,6 @@
 package com.economysa.motor.app.core.controller;
 
-import com.economysa.motor.app.core.controller.request.ProductRequest;
+import com.economysa.motor.app.core.controller.dto.ProductDto;
 import com.economysa.motor.app.core.entity.Product;
 import com.economysa.motor.app.core.service.ProductService;
 import io.swagger.annotations.*;
@@ -109,7 +109,7 @@ public class ProductController {
   @PostMapping
   public ResponseEntity<Product> create(@AuthenticationPrincipal UserDetails details,
                                         @ApiParam(value = "Cuerpo de la petición", required = true)
-                                        @Valid @RequestBody ProductRequest request) {
+                                        @Valid @RequestBody ProductDto request) {
     return new ResponseEntity(service.create(details.getUsername(), request), HttpStatus.CREATED);
   }
 
@@ -140,7 +140,7 @@ public class ProductController {
                                         @ApiParam(value = "Identificador del Producto", required = true)
                                         @PathVariable Long id,
                                         @ApiParam(value = "Cuerpo de la petición", required = true)
-                                        @Valid @RequestBody ProductRequest request) {
+                                        @Valid @RequestBody ProductDto request) {
     return new ResponseEntity(service.update(details.getUsername(), id, request), HttpStatus.OK);
   }
 

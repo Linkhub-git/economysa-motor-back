@@ -1,6 +1,6 @@
 package com.economysa.motor.app.core.controller;
 
-import com.economysa.motor.app.core.controller.request.ProviderRequest;
+import com.economysa.motor.app.core.controller.dto.ProviderDto;
 import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.app.core.service.ProviderService;
 import io.swagger.annotations.*;
@@ -109,7 +109,7 @@ public class ProviderController {
 	@PostMapping
 	public ResponseEntity<Provider> create(@AuthenticationPrincipal UserDetails details,
 																				 @ApiParam(value = "Cuerpo de la petición", required = true)
-																				 @Valid @RequestBody ProviderRequest request) {
+																				 @Valid @RequestBody ProviderDto request) {
 		return new ResponseEntity(service.create(details.getUsername(), request), HttpStatus.CREATED);
 	}
 
@@ -140,7 +140,7 @@ public class ProviderController {
 																				 @ApiParam(value = "Identificador del Proveedor", required = true)
 																				 @PathVariable Long id,
 																				 @ApiParam(value = "Cuerpo de la petición", required = true)
-																				 @Valid @RequestBody ProviderRequest request) {
+																				 @Valid @RequestBody ProviderDto request) {
 		return new ResponseEntity(service.update(details.getUsername(), id, request), HttpStatus.OK);
 	}
 
