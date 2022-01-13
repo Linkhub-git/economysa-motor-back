@@ -33,6 +33,10 @@ public class MechanicDetailY {
   @NotNull
   private Long code;
 
+  @Column(name = "_factor")
+  @NotNull
+  private Integer factor;
+
   @Column(name = "_description")
   @NotNull
   @Size(min = 1, max = 100)

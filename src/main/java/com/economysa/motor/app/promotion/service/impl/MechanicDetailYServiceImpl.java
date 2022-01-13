@@ -24,6 +24,7 @@ public class MechanicDetailYServiceImpl implements MechanicDetailYService {
     detail.setMechanic(mechanicService.get(request.getMechanic()));
     detail.setType(request.getType());
     detail.setCode(request.getCode());
+    detail.setFactor(request.getFactor());
     detail.setDescription(request.getDescription());
     return detail;
   }

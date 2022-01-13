@@ -27,6 +27,9 @@ public class MechanicDetailRequest {
   private Long code;
 
   @NotNull
+  private Integer factor;
+
+  @NotNull
   @Size(min = 1, max = 100)
   private String description;
 }

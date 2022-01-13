@@ -25,6 +25,7 @@ public class MechanicDetailServiceImpl implements MechanicDetailService {
     detail.setIncluded(request.getIncluded());
     detail.setType(request.getType());
     detail.setCode(request.getCode());
+    detail.setFactor(request.getFactor());
     detail.setDescription(request.getDescription());
     return detail;
   }
