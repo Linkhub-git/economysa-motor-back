@@ -68,4 +68,10 @@ public class ConstantMessage {
 	public static final String MECHANIC_TYPE_ARTICLE_TEXT = "Articulo";
 	public static final String MECHANIC_TYPE_PROVIDER = "P";
 	public static final String MECHANIC_TYPE_PROVIDER_TEXT = "Proveedor";
+
+	public static final String EMITTER_PROVIDER = "P";
+	public static final String EMITTER_PROVIDER_TEXT = "Proveedor";
+
+	public static final String EMITTER_ECONOMYSA = "E";
+	public static final String EMITTER_ECONOMYSA_TEXT = "Economysa";
 }

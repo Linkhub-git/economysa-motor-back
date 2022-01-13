@@ -49,6 +49,7 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setRange2(request.getRange2());
     mechanic.setFactor(request.getFactor());
     mechanic.setConditional(request.getConditional());
+    mechanic.setEmitter(request.getEmitter());
     return mechanic;
   }
 

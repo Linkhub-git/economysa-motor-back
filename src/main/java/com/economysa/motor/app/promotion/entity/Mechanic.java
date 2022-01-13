@@ -70,6 +70,10 @@ public class Mechanic {
   @Size(max = 1)
   private String conditional;
 
+  @Column(name = "emitter")
+  @Size(min = 1, max = 1)
+  private String emitter;
+
   @Column(name = "creation_user")
   @NotNull
   private String creationUser;
@@ -93,6 +97,20 @@ public class Mechanic {
 
   @Transient
   private String statusText;
+
+  @Transient
+  private String emitterText;
+
+  public String getEmitterText() {
+    switch (emitter) {
+      case ConstantMessage.EMITTER_PROVIDER:
+        return ConstantMessage.EMITTER_PROVIDER_TEXT;
+      case ConstantMessage.EMITTER_ECONOMYSA:
+        return ConstantMessage.EMITTER_ECONOMYSA_TEXT;
+      default:
+        throw new IllegalArgumentException("Invalid Emitter");
+    }
+  }
 
   public String getStatusText() {
     switch (status) {

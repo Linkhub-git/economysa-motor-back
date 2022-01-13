@@ -43,4 +43,8 @@ public class MechanicRequest {
 
   @Size(max = 1)
   private String conditional;
+
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String emitter;
 }
