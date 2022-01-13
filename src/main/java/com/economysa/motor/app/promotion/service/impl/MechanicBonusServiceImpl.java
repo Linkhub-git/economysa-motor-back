@@ -6,6 +6,7 @@ import com.economysa.motor.app.promotion.entity.MechanicBonus;
 import com.economysa.motor.app.promotion.repository.MechanicBonusRepository;
 import com.economysa.motor.app.promotion.service.MechanicBonusService;
 import com.economysa.motor.app.promotion.service.MechanicService;
+import com.economysa.motor.error.exception.BadRequestException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,6 +42,16 @@ public class MechanicBonusServiceImpl implements MechanicBonusService {
   @Override
   public MechanicBonus add(MechanicBonusRequest request) {
     MechanicBonus bonus = init(request);
+    validateRequest(request);
     return repository.save(bonus);
+  }
+
+  private void validateRequest(MechanicBonusRequest request) {
+    if (request.getProduct() != null) {
+      if (repository.findByMechanicAndProduct(request.getMechanic(),
+            request.getProduct()).isPresent()) {
+        throw new BadRequestException("Item already added");
+      }
+    }
   }
 }

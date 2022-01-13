@@ -5,6 +5,7 @@ import com.economysa.motor.app.promotion.entity.MechanicDetailY;
 import com.economysa.motor.app.promotion.repository.MechanicDetailYRepository;
 import com.economysa.motor.app.promotion.service.MechanicDetailYService;
 import com.economysa.motor.app.promotion.service.MechanicService;
+import com.economysa.motor.error.exception.BadRequestException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,14 @@ public class MechanicDetailYServiceImpl implements MechanicDetailYService {
   @Override
   public MechanicDetailY add(MechanicDetailYRequest request) {
     MechanicDetailY detail = init(request);
+    validateRequest(request);
     return repository.save(detail);
+  }
+
+  private void validateRequest(MechanicDetailYRequest request) {
+    if (repository.findByMechanicAndTypeAndCode(request.getMechanic(),
+          request.getType(), request.getCode()).isPresent()) {
+      throw new BadRequestException("Item already added");
+    }
   }
 }
