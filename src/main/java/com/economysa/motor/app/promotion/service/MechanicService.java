@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface MechanicService {
 
-  Page<Mechanic> list(Pageable pageable);
+  Page<Mechanic> list(String emitter, Pageable pageable);
   Mechanic get(Long id);
   Mechanic create(String creationUser, MechanicRequest request);
   Mechanic update(Long id, String updateUser, MechanicRequest request);

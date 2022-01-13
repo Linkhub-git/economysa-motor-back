@@ -54,8 +54,12 @@ public class MechanicServiceImpl implements MechanicService {
   }
 
   @Override
-  public Page<Mechanic> list(Pageable pageable) {
-    return repository.findAll(pageable);
+  public Page<Mechanic> list(String emitter, Pageable pageable) {
+    if (emitter != null && !emitter.isEmpty()) {
+      return repository.find(emitter, pageable);
+    } else {
+      return repository.findAll(pageable);
+    }
   }
 
   @Override

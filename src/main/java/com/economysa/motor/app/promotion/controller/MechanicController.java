@@ -21,8 +21,8 @@ public class MechanicController {
   @Autowired private MechanicService service;
 
   @GetMapping
-  public ResponseEntity<Page<Mechanic>> list(Pageable pageable) {
-    return new ResponseEntity(service.list(pageable), HttpStatus.OK);
+  public ResponseEntity<Page<Mechanic>> list(@RequestParam(required = false) String emitter, Pageable pageable) {
+    return new ResponseEntity(service.list(emitter, pageable), HttpStatus.OK);
   }
 
   @GetMapping("/{id}")
