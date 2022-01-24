@@ -13,6 +13,6 @@ import java.util.Optional;
  */
 public interface UserRepository extends CrudRepository<User, Long> {
 
-	@Query("select u from User u where u.email = :email and u.status = 1")
+	@Query("select u from User u where u.email = :email and u.status = true")
 	Optional<User> findByEmail(@Param("email") String email);
 }
