@@ -15,7 +15,10 @@ public class ConstantMessage {
 	public static final String ERROR_VALIDATION_FAILED = "Validation Failed";
 	public static final String ERROR_INPUT_VALIDATION_FAILED = "Input Validation Failed";
 
+	public static final String SUCCESSFUL_OPERATION = "Operación realizada exitosamente";
+
 	public static final String USER_NOT_FOUND_EMAIL = "El correo ingresado no se encuentra registrado";
+	public static final String USER_ALREADY_EXISTS = "El correo ingresado ya se encuentra registrado";
 
 	public static final String ACTIVE = "Activo";
 	public static final String INACTIVE = "Inactivo";
@@ -74,4 +77,22 @@ public class ConstantMessage {
 
 	public static final String EMITTER_ECONOMYSA = "E";
 	public static final String EMITTER_ECONOMYSA_TEXT = "Economysa";
+
+	public static final String NOT_BLANK_EMAIL = "El campo Email es obligatorio";
+	public static final String INVALID_SIZE_EMAIL = "El tamaño debe estar comprendido entre 1 y 50 caracteres";
+	public static final String INVALID_EMAIL = "El formato del campo Email es inválido";
+
+	public static final String NOT_BLANK_PASSWORD = "El campo Password es obligatorio";
+	public static final String INVALID_SIZE_PASSWORD = "El tamaño debe estar comprendido entre 1 y 256 caracteres";
+
+	public static final String NOT_BLANK_ROLE = "El campo Role es obligatorio";
+	public static final String INVALID_SIZE_ROLE = "El tamaño debe estar comprendido entre 1 y 10 caracteres";
+
+	public static final String NOT_BLANK_NAME = "El campo Name es obligatorio";
+	public static final String INVALID_SIZE_NAME = "El tamanño debe estar comprendido entre 1 y 100 caracteres";
+
+	public static final String NOT_BLANK_LAST_NAME = "El campo LastName es obligatorio";
+	public static final String INVALID_SIZE_LAST_NAME = "El tamanño debe estar comprendido entre 1 y 100 caracteres";
+
+	public static final String INVALID_SIZE_PHONE = "El tamaño debe estar comprendido entre 9 y 9 caracteres";
 }

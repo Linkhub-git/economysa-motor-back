@@ -58,10 +58,24 @@ public class User {
 	@Column(name = "_phone")
 	private String phone;
 
+	@JoinColumn(name = "creation_user", referencedColumnName = "id")
+	@ManyToOne(optional = false)
+	@JsonIgnore
+	private User creationUser;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	@NotNull
 	@Column(name = "creation_date")
 	private Date creationDate;
+
+	@JoinColumn(name = "update_user", referencedColumnName = "id")
+	@ManyToOne
+	@JsonIgnore
+	private User updateUser;
+
+	@Column(name = "update_date")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date updateDate;
 
 	@NotNull
 	@Column(name = "_status")
@@ -69,6 +83,20 @@ public class User {
 
 	@Transient
 	private String statusText;
+
+	@Transient
+	private String creationUserText;
+
+	@Transient
+	private String updateUserText;
+
+	public String getCreationUserText() {
+		return creationUser.getEmail();
+	}
+
+	public String getUpdateUserText() {
+		return updateUser == null ? "-" : updateUser.getEmail();
+	}
 
 	public String getStatusText() {
 		return status ? ConstantMessage.ACTIVE : ConstantMessage.INACTIVE;
