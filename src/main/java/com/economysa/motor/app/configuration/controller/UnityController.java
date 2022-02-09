@@ -20,7 +20,7 @@ public class UnityController {
 	private final UnityService service;
 
 	@GetMapping
-	public ResponseEntity<Page> list(Pageable pageable) {
+	public ResponseEntity<Page<Unity>> list(Pageable pageable) {
 		return new ResponseEntity<>(service.list(pageable), HttpStatus.OK);
 	}
 
