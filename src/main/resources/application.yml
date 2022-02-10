@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/economysa?allowPublicKeyRetrieval=true&useSSL=false
+    url: ${db_url}
     username: ${db_user}
     password: ${db_password}
 
