@@ -1,5 +1,8 @@
 package com.economysa.motor.app.core.service.impl;
 
+import com.economysa.motor.app.configuration.service.BrandService;
+import com.economysa.motor.app.configuration.service.CategoryService;
+import com.economysa.motor.app.configuration.service.UnityService;
 import com.economysa.motor.app.core.controller.dto.ProductDto;
 import com.economysa.motor.app.core.entity.Product;
 import com.economysa.motor.app.core.repository.ProductRepository;
@@ -24,40 +27,45 @@ public class ProductServiceImpl implements ProductService {
 
   @Autowired private ProductRepository repository;
   @Autowired private ProviderService providerService;
+  @Autowired private CategoryService categoryService;
+  @Autowired private BrandService brandService;
+  @Autowired private UnityService unityService;
 
-  private Product init() {
+  @Override
+  public Product init(ProductDto dto) {
     Product product = new Product();
-    product.setMasterStockAmount(BigDecimal.ZERO);
-    product.setSalesPackaging(BigDecimal.ZERO);
-    product.setStockAmount(BigDecimal.ZERO);
-    product.setStock(BigDecimal.ZERO);
-    product.setBasePrice(BigDecimal.ZERO);
-    product.setMargin(BigDecimal.ZERO);
-    product.setFinalPrice(BigDecimal.ZERO);
+    product.setCode(dto.getCode());
+    product.setName(dto.getName());
+    product.setCategory(categoryService.get(dto.getCategory()));
+    product.setBrand(brandService.get(dto.getBrand()));
+    product.setProvider(providerService.getByCode(dto.getProvider()));
+
+    if (dto.getChatBot() == 1) {
+      product.setChatBot(true);
+    } else {
+      product.setChatBot(false);
+    }
+
+    if (dto.getTomaPedido() == 1) {
+      product.setTomaPedido(true);
+    } else {
+      product.setTomaPedido(false);
+    }
+
+    product.setUnitMaster(unityService.getByCode(dto.getUnitMaster()));
+    product.setUnitMasterDescription(dto.getUnitMasterDescription());
+    product.setUnitMasterEquivalent(dto.getUnitMasterEquivalent());
+    product.setUnitMin(unityService.getByCode(dto.getUnitMin()));
+    product.setUnitMinDescription(dto.getUnitMinDescription());
+    product.setUnitMinEquivalent(dto.getUnitMinEquivalent());
     product.setCreationDate(UtilCore.UtilDate.fechaActual());
-    product.setStatus(Boolean.TRUE);
+
     return product;
   }
 
-  private Product init(String creationUser, ProductDto request) {
-    Product product = init();
-    product = setData(product, request);
-    product.setCreationUser(creationUser);
-    return product;
-  }
-
-  private Product setData(Product product, ProductDto request) {
-    product.setProvider(providerService.get(request.getProvider()));
-    product.setName(request.getName());
-    product.setPurchasePackaging(request.getPurchasePackaging());
-    product.setMasterStockAmount(request.getMasterStockAmount());
-    product.setSalesPackaging(request.getSalesPackaging());
-    product.setStockAmount(request.getStockAmount());
-    product.setStock(request.getStock());
-    product.setBasePrice(request.getBasePrice());
-    product.setMargin(request.getMargin());
-    product.setFinalPrice(calculateFinalPrice());
-    return product;
+  @Override
+  public void saveAll(List<Product> items) {
+    items.forEach(p -> repository.save(p));
   }
 
   @Override
@@ -83,37 +91,5 @@ public class ProductServiceImpl implements ProductService {
       throw new ResourceNotFoundException(ConstantMessage.PRODUCT_NOT_FOUND);
     }
     return product.get();
-  }
-
-  @Override
-  public Product create(String creationUser, ProductDto request) {
-    Product product = init(creationUser, request);
-
-    return repository.save(product);
-  }
-
-  @Override
-  public Product update(String updateUser, Long id, ProductDto request) {
-    Product product = get(id);
-    product = setData(product, request);
-    product.setUpdateUser(updateUser);
-    product.setUpdateDate(UtilCore.UtilDate.fechaActual());
-
-    return repository.save(product);
-  }
-
-  @Override
-  public Product delete(String updateUser, Long id) {
-    Product product = get(id);
-    product.setStatus(Boolean.FALSE);
-    product.setUpdateUser(updateUser);
-    product.setUpdateDate(UtilCore.UtilDate.fechaActual());
-
-    return repository.save(product);
-  }
-
-  private BigDecimal calculateFinalPrice() {
-    // TODO: 16/10/21 Consultar como calcular el precio final
-    return BigDecimal.ONE;
   }
 }

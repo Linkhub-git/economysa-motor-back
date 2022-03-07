@@ -9,4 +9,5 @@ public interface CategoryService {
 
   Category save(CategoryDto dto);
   Page<Category> list(String name, Pageable pageable);
+  Category get(String name);
 }

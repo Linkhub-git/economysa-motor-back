@@ -13,4 +13,5 @@ public interface UnityService {
 	Unity get(Long id);
 	Unity init(UnityDto dto);
 	void saveAll(List<Unity> items);
+	Unity getByCode(String code);
 }

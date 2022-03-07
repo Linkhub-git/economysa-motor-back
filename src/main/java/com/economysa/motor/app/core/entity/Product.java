@@ -1,5 +1,8 @@
 package com.economysa.motor.app.core.entity;
 
+import com.economysa.motor.app.configuration.entity.Brand;
+import com.economysa.motor.app.configuration.entity.Category;
+import com.economysa.motor.app.configuration.entity.Unity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,65 +10,77 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.math.BigDecimal;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "tcore_product")
-public class Product extends BaseEntity {
+public class Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @Column(name = "_code")
+  @NotNull
+  @Size(min = 1, max = 10)
+  private String code;
+
+  @Column(name = "_name")
+  @NotNull
+  @Size(min = 1, max = 256)
+  private String name;
+
+  @JoinColumn(name = "_category", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  private Category category;
+
+  @JoinColumn(name = "_brand", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  private Brand brand;
+
   @JoinColumn(name = "_provider", referencedColumnName = "id")
   @ManyToOne(optional = false)
   private Provider provider;
 
-  @Column(name = "_name")
+  @Column(name = "chatbot")
   @NotNull
-  @Size(min = 1, max = 50)
-  private String name;
+  private Boolean chatBot;
 
-  @Column(name = "purchase_packaging")
+  @Column(name = "toma_pedido")
   @NotNull
-  @Size(min = 1, max = 20)
-  private String purchasePackaging;
+  private Boolean tomaPedido;
 
-  @Column(name = "master_stock_amount")
+  @JoinColumn(name = "unity_master")
+  @ManyToOne(optional = false)
+  private Unity unitMaster;
+
+  @Column(name = "unity_master_description")
   @NotNull
-  private BigDecimal masterStockAmount;
+  @Size(min = 1, max = 100)
+  private String unitMasterDescription;
 
-  @Column(name = "sales_packaging")
+  @Column(name = "unity_master_equivalent")
   @NotNull
-  private BigDecimal salesPackaging;
+  private Integer unitMasterEquivalent;
 
-  @Column(name = "stock_amount")
+  @JoinColumn(name = "unity_min", referencedColumnName = "id")
+  @ManyToOne(optional = false)
+  private Unity unitMin;
+
+  @Column(name = "unity_min_description")
   @NotNull
-  private BigDecimal stockAmount;
+  @Size(min = 1, max = 100)
+  private String unitMinDescription;
 
-  @Column(name = "_stock")
+  @Column(name = "unity_min_equivalent")
   @NotNull
-  private BigDecimal stock;
+  private Integer unitMinEquivalent;
 
-  @Column(name = "base_price")
+  @Column(name = "creation_date")
+  @Temporal(TemporalType.TIMESTAMP)
   @NotNull
-  private BigDecimal basePrice;
-
-  @Column(name = "_margin")
-  @NotNull
-  private BigDecimal margin;
-
-  @Column(name = "final_price")
-  @NotNull
-  private BigDecimal finalPrice;
-
-  @Transient
-  private String productDescription;
-
-  public String getProductDescription() {
-    return provider.getName() + " - " + name;
-  }
+  private Date creationDate;
 }

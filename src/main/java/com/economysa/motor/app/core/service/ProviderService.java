@@ -9,10 +9,10 @@ import java.util.List;
 
 public interface ProviderService {
 
+	Provider init(ProviderDto dto);
 	Page<Provider> list(Pageable pageable);
 	List<Provider> search(String name);
 	Provider get(Long id);
-	Provider create(String creationUser, ProviderDto request);
-	Provider update(String updateUser, Long id, ProviderDto request);
-	Provider delete(String updateUser, Long id);
+	void saveAll(List<Provider> items);
+	Provider getByCode(String code);
 }

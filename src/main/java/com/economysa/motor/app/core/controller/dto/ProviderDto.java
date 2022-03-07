@@ -13,7 +13,11 @@ import javax.validation.constraints.Size;
 public class ProviderDto {
 
 	@NotNull
-	@Size(min = 1, max = 50)
+	@Size(min = 1, max = 10)
+	private String code;
+
+	@NotNull
+	@Size(min = 1, max = 100)
 	private String name;
 
 	@NotNull

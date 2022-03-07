@@ -14,7 +14,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
   @Query("select c from Category c where c.parent.name = :name or c.name = :name order by c.name asc")
   Page<Category> findByParentOrName(@Param("name") String name, Pageable pageable);
 
-  @Query("select c from Category c order by c.name asc")
+  @Query("select c from Category c order by c.parent.name asc")
   Page<Category> find(Pageable pageable);
 
   @Query("select c from Category c where c.parent is null and c.name = :name")
@@ -22,4 +22,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
 
   @Query("select c from Category c where c.parent.id = :parentId and c.name = :name")
   Category findChildByName(@Param("parentId") Long parentId, @Param("name") String name);
+
+  @Query("select c from Category c where c.parent is not null and c.name = :name")
+  List<Category> findByNameAndParentNotNull(@Param("name") String name);
 }

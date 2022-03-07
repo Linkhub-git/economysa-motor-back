@@ -16,4 +16,7 @@ public interface UnityRepository extends CrudRepository<Unity, Long> {
 
 	@Query("select u from Unity u where u.id = :id")
 	Optional<Unity> findById(@Param("id") Long id);
+
+	@Query("select u from Unity u where u.code = :code")
+	Unity findByCode(@Param("code") String code);
 }

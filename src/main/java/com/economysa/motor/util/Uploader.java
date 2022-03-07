@@ -1,4 +1,4 @@
-package com.economysa.motor.app.configuration.service.uploader;
+package com.economysa.motor.util;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;

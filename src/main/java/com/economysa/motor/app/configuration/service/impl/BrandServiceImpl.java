@@ -56,4 +56,9 @@ public class BrandServiceImpl implements BrandService {
     }
     return repository.findByParentOrName(name, pageable);
   }
+
+  @Override
+  public Brand get(String name) {
+    return repository.findByNameAndParentNotNull(name).get(0);
+  }
 }

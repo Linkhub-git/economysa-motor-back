@@ -35,8 +35,14 @@ public class CategoryServiceImpl implements CategoryService {
   public Page<Category> list(String name, Pageable pageable) {
     if (name.equals("")) {
       return repository.find(pageable);
+    } else {
+      return repository.findByParentOrName(name, pageable);
     }
-    return repository.findByParentOrName(name, pageable);
+  }
+
+  @Override
+  public Category get(String name) {
+    return repository.findByNameAndParentNotNull(name).get(0);
   }
 
   @Override

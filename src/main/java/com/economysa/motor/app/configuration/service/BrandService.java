@@ -9,4 +9,5 @@ public interface BrandService {
 
   Brand save(BrandDto dto);
   Page<Brand> list(String name, Pageable pageable);
+  Brand get(String name);
 }

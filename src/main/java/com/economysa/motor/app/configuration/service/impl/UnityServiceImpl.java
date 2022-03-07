@@ -37,6 +37,11 @@ public class UnityServiceImpl implements UnityService {
 	}
 
 	@Override
+	public Unity getByCode(String code) {
+		return repository.findByCode(code);
+	}
+
+	@Override
 	public Page<Unity> list(Pageable pageable) {
 		return repository.findAll(pageable);
 	}

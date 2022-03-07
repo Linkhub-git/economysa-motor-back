@@ -22,4 +22,7 @@ public interface BrandRepository extends CrudRepository<Brand, Long> {
 
   @Query("select b from Brand b where b.parent.id = :parentId and b.name = :name")
   Brand findChildByName(@Param("parentId") Long parentId, @Param("name") String name);
+
+  @Query("select b from Brand b where b.parent is not null and b.name = :name")
+  List<Brand> findByNameAndParentNotNull(@Param("name") String name);
 }

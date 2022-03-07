@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -18,6 +19,7 @@ import java.util.Date;
  * @version 1.0
  */
 @Data
+@ToString(exclude = {"creationUser", "updateUser"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

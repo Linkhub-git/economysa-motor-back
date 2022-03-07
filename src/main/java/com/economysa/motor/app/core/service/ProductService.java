@@ -9,11 +9,10 @@ import java.util.List;
 
 public interface ProductService {
 
+  Product init(ProductDto dto);
+  void saveAll(List<Product> items);
   Page<Product> list(Pageable pageable);
   List<Product> listByProvider(Long providerId);
   List<Product> search(String name);
   Product get(Long id);
-  Product create(String creationUser, ProductDto request);
-  Product update(String updateUser, Long id, ProductDto request);
-  Product delete(String updateUser, Long id);
 }

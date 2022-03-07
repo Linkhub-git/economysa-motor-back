@@ -4,41 +4,34 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
 
-  @NotNull
-  private Long provider;
+  private String code;
 
-  @NotNull
-  @Size(min = 1, max = 50)
   private String name;
 
-  @NotNull
-  @Size(min = 1, max = 20)
-  private String purchasePackaging;
+  private String category;
 
-  @NotNull
-  private BigDecimal masterStockAmount;
+  private String brand;
 
-  @NotNull
-  private BigDecimal salesPackaging;
+  private String provider;
 
-  @NotNull
-  private BigDecimal stockAmount;
+  private Integer chatBot;
 
-  @NotNull
-  private BigDecimal stock;
+  private Integer tomaPedido;
 
-  @NotNull
-  private BigDecimal basePrice;
+  private String unitMaster;
 
-  @NotNull
-  private BigDecimal margin;
+  private String unitMasterDescription;
+
+  private Integer unitMasterEquivalent;
+
+  private String unitMin;
+
+  private String unitMinDescription;
+
+  private Integer unitMinEquivalent;
 }
