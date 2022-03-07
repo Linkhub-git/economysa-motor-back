@@ -14,7 +14,7 @@ public interface BrandRepository extends CrudRepository<Brand, Long> {
   @Query("select b from Brand b where b.parent.name = :name or b.name = :name order by b.name asc")
   Page<Brand> findByParentOrName(@Param("name") String name, Pageable pageable);
 
-  @Query("select b from Brand b order by b.name asc")
+  @Query("select b from Brand b order by b.parent.name asc")
   Page<Brand> find(Pageable pageable);
 
   @Query("select b from Brand b where b.parent is null and b.name = :name")

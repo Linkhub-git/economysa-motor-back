@@ -12,14 +12,14 @@ import java.util.Optional;
 
 public interface ProviderRepository extends CrudRepository<Provider, String> {
 
-//	@Query("select p from Provider p where p.status = true order by p.name asc")
-//	Page<Provider> findAll(Pageable pageable);
-//
-//	@Query("select p from Provider p where p.id = :id and p.status = true")
-//	Optional<Provider> findById(@Param("id") Long id);
-//
-//	@Query("select p from Provider p where p.name like %:name% and p.status = true order by p.name asc")
-//	List<Provider> find(@Param("name") String name);
+	@Query("select p from Provider p order by p.name asc")
+	Page<Provider> findAll(Pageable pageable);
+
+	@Query("select p from Provider p where p.id = :id")
+	Optional<Provider> findById(@Param("id") Long id);
+
+	@Query("select p from Provider p where p.name like %:name% order by p.name asc")
+	List<Provider> find(@Param("name") String name);
 
 	@Query("select p from Provider p where p.code = :code")
 	Provider findByCode(@Param("code") String code);
