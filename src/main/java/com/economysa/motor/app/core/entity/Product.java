@@ -42,7 +42,7 @@ public class Product {
   private Brand brand;
 
   @JoinColumn(name = "_provider", referencedColumnName = "id")
-  @ManyToOne(optional = false)
+  @ManyToOne
   private Provider provider;
 
   @Column(name = "chatbot")

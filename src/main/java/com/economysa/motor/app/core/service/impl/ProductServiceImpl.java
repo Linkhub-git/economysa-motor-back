@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
     product.setName(dto.getName());
     product.setCategory(categoryService.get(dto.getCategory()));
     product.setBrand(brandService.get(dto.getBrand()));
+    log.info("Provider: " + dto.getProvider());
     product.setProvider(providerService.getByCode(dto.getProvider()));
 
     if (dto.getChatBot() == 1) {
@@ -65,7 +66,8 @@ public class ProductServiceImpl implements ProductService {
 
   @Override
   public void saveAll(List<Product> items) {
-    items.forEach(p -> repository.save(p));
+//    items.forEach(p -> repository.save(p));
+    repository.saveAll(items);
   }
 
   @Override

@@ -31,7 +31,7 @@ public class ApiBaseApplication implements CommandLineRunner {
 //		categoryUploader.load();
 //		brandUploader.load();
 //		providerUploader.load();
-//		productUploader.load();;
+//		productUploader.load();
 	}
 }
 

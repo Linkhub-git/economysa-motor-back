@@ -54,7 +54,11 @@ public class ProductUploader extends Uploader<Product> {
 			} else if (i == 4) {
 				provider = cell.getStringCellValue();
 			} else if (i == 5) {
-				chatBot = Integer.valueOf(cell.getStringCellValue());
+				try {
+					chatBot = Integer.valueOf(cell.getStringCellValue());
+				} catch (IllegalStateException ex) {
+					chatBot = (int)cell.getNumericCellValue();
+				}
 			} else if (i == 6) {
 				tomaPedido = (int)cell.getNumericCellValue();
 			} else if (i == 7) {
@@ -73,11 +77,6 @@ public class ProductUploader extends Uploader<Product> {
 
 			i++;
 		}
-		List<Product> list = new ArrayList<>();
-		list.add(service.init(new ProductDto(code, name, category, brand, provider,
-				chatBot, tomaPedido, unitMaster, unitMasterDescription, unitMasterEquivalent,
-				unitMin, unitMinDescription, unitMinEquivalent)));
-		service.saveAll(list);
 		return service.init(new ProductDto(code, name, category, brand, provider,
 				chatBot, tomaPedido, unitMaster, unitMasterDescription, unitMasterEquivalent,
 				unitMin, unitMinDescription, unitMinEquivalent));
