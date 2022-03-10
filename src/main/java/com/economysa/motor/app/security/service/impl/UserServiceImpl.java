@@ -4,13 +4,12 @@ import com.economysa.motor.app.security.controller.dto.UpdateUserDto;
 import com.economysa.motor.app.security.controller.dto.UserDto;
 import com.economysa.motor.app.security.entity.User;
 import com.economysa.motor.app.security.repository.UserRepository;
+import com.economysa.motor.app.security.service.UserService;
 import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
-import com.economysa.motor.app.security.service.UserService;
 import com.economysa.motor.util.MessageResponse;
 import com.economysa.motor.util.UtilCore;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -71,7 +70,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User get(Long id) {
+	public User 	get(Long id) {
 		return repository.findById(id).orElseThrow(() -> {
 			log.info("No User found for ID [ " + id + " ]");
 			return new ResourceNotFoundException("No User found for ID [ " + id + " ]");

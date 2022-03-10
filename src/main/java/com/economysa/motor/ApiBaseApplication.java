@@ -28,10 +28,6 @@ public class ApiBaseApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		categoryUploader.load();
-//		brandUploader.load();
-//		providerUploader.load();
-//		productUploader.load();
 	}
 }
 
