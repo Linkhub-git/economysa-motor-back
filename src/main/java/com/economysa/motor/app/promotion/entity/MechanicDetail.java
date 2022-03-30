@@ -34,9 +34,13 @@ public class MechanicDetail {
   @Size(min = 1, max = 1)
   private String type;
 
-  @Column(name = "_code")
+  @Column(name = "_identifier")
   @NotNull
-  private Long code;
+  public Long identifier;
+
+  @Column(name = "_code")
+  @Size(max = 20)
+  private String code;
 
   @Column(name = "_factor")
   @NotNull
@@ -70,6 +74,10 @@ public class MechanicDetail {
         return ConstantMessage.MECHANIC_TYPE_ARTICLE_TEXT;
       case ConstantMessage.MECHANIC_TYPE_PROVIDER:
         return ConstantMessage.MECHANIC_TYPE_PROVIDER_TEXT;
+      case ConstantMessage.MECHANIC_TYPE_CATEGORY:
+        return ConstantMessage.MECHANIC_TYPE_CATEGORY_TEXT;
+      case ConstantMessage.MECHANIC_TYPE_BRAND:
+        return ConstantMessage.MECHANIC_TYPE_BRAND_TEXT;
       default:
         throw new IllegalArgumentException("Invalid Type value");
     }

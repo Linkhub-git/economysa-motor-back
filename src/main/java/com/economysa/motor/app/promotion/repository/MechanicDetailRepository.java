@@ -15,8 +15,8 @@ public interface MechanicDetailRepository extends CrudRepository<MechanicDetail,
 
 
   @Query("select md from MechanicDetail md where md.mechanic.id = :mechanicId" +
-         " and md.type = :type and md.code = :code")
+         " and md.type = :type and md.identifier = :identifier")
   Optional<MechanicDetail> findByMechanicAndTypeAndCode(@Param("mechanicId") Long mechanicId,
                                                         @Param("type") String type,
-                                                        @Param("code") Long code);
+                                                        @Param("identifier") Long identifier);
 }

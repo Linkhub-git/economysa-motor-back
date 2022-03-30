@@ -71,6 +71,10 @@ public class ConstantMessage {
 	public static final String MECHANIC_TYPE_ARTICLE_TEXT = "Articulo";
 	public static final String MECHANIC_TYPE_PROVIDER = "P";
 	public static final String MECHANIC_TYPE_PROVIDER_TEXT = "Proveedor";
+	public static final String MECHANIC_TYPE_CATEGORY = "C";
+	public static final String MECHANIC_TYPE_CATEGORY_TEXT = "Categoría";
+	public static final String MECHANIC_TYPE_BRAND = "B";
+	public static final String MECHANIC_TYPE_BRAND_TEXT = "Marca";
 
 	public static final String EMITTER_PROVIDER = "P";
 	public static final String EMITTER_PROVIDER_TEXT = "Proveedor";
@@ -95,4 +99,6 @@ public class ConstantMessage {
 	public static final String INVALID_SIZE_LAST_NAME = "El tamanño debe estar comprendido entre 1 y 100 caracteres";
 
 	public static final String INVALID_SIZE_PHONE = "El tamaño debe estar comprendido entre 9 y 9 caracteres";
+
+	public static final String ITEM_ALREADY_ADDED = "El item ya se encuentra agregado";
 }
