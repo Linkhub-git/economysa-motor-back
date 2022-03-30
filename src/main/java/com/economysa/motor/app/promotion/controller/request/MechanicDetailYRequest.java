@@ -20,7 +20,10 @@ public class MechanicDetailYRequest {
   private String type;
 
   @NotNull
-  private Long code;
+  private Long identifier;
+
+  @Size(max = 20)
+  private String code;
 
   @NotNull
   private Integer factor;

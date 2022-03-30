@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BrandRepository extends CrudRepository<Brand, Long> {
 
@@ -25,4 +26,7 @@ public interface BrandRepository extends CrudRepository<Brand, Long> {
 
   @Query("select b from Brand b where b.parent is not null and b.name = :name")
   List<Brand> findByNameAndParentNotNull(@Param("name") String name);
+
+  @Query("select b from Brand b where b.id = :id")
+  Optional<Brand> findById(@Param("id") Long id);
 }

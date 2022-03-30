@@ -98,7 +98,11 @@ public class MechanicDetailServiceImpl implements MechanicDetailService {
     } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_ARTICLE)) {
       productService.get(request.getIdentifier());
     } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_CATEGORY)) {
-
+      categoryService.get(request.getIdentifier());
+    } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_BRAND)) {
+      brandService.get(request.getIdentifier());
+    } else {
+      throw new IllegalArgumentException("Invalid Mechanic Type");
     }
   }
 }

@@ -4,6 +4,7 @@ import com.economysa.motor.app.configuration.controller.dto.BrandDto;
 import com.economysa.motor.app.configuration.entity.Brand;
 import com.economysa.motor.app.configuration.repository.BrandRepository;
 import com.economysa.motor.app.configuration.service.BrandService;
+import com.economysa.motor.error.exception.ResourceNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -60,5 +62,15 @@ public class BrandServiceImpl implements BrandService {
   @Override
   public Brand get(String name) {
     return repository.findByNameAndParentNotNull(name).get(0);
+  }
+
+  @Override
+  public Brand get(Long id) {
+    Optional<Brand> brand = repository.findById(id);
+    if (!brand.isPresent()) {
+      log.info("No Brand with ID [ " + id + " ]");
+      throw new ResourceNotFoundException("No Brand with ID [ " + id + " ]");
+    }
+    return brand.get();
   }
 }

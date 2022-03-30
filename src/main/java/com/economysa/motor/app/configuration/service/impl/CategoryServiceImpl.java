@@ -4,6 +4,7 @@ import com.economysa.motor.app.configuration.controller.dto.CategoryDto;
 import com.economysa.motor.app.configuration.entity.Category;
 import com.economysa.motor.app.configuration.repository.CategoryRepository;
 import com.economysa.motor.app.configuration.service.CategoryService;
+import com.economysa.motor.error.exception.ResourceNotFoundException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -43,6 +45,16 @@ public class CategoryServiceImpl implements CategoryService {
   @Override
   public Category get(String name) {
     return repository.findByNameAndParentNotNull(name).get(0);
+  }
+
+  @Override
+  public Category get(Long id) {
+    Optional<Category> category = repository.findById(id);
+    if (!category.isPresent()) {
+      log.info("No Category with ID [ " + id + " ]");
+      throw new ResourceNotFoundException("No Category with ID [ " + id + " ]");
+    }
+    return category.get();
   }
 
   @Override
