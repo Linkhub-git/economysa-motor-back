@@ -22,7 +22,7 @@ import java.util.List;
 public class MechanicDetailYServiceImpl implements MechanicDetailYService {
 
   @Autowired private MechanicDetailYRepository repository;
-  @Autowired private MechanicService mechanicService;
+  @Autowired private static MechanicService mechanicService;
 
   @Autowired private ProviderService providerService;
   @Autowired private ProductService productService;
