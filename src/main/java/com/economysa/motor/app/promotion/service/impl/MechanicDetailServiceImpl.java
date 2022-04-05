@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Servicio que gestiona las operaciones con respecto
@@ -50,7 +49,6 @@ public class MechanicDetailServiceImpl implements MechanicDetailService {
     detail.setType(request.getType());
     detail.setIdentifier(request.getIdentifier());
     detail.setCode(request.getCode());
-    detail.setFactor(request.getFactor());
     detail.setDescription(request.getDescription());
     return detail;
   }
