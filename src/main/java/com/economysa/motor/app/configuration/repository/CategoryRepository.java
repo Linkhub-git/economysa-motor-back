@@ -33,6 +33,6 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
   @Query("select c from Category c where c.parent is null order by c.name asc")
   List<Category> findParent();
 
-  @Query("select c from Category c where c.parent = :parentId order by c.name asc")
+  @Query("select c from Category c where c.parent.id = :parentId order by c.name asc")
   List<Category> findByParent(@Param("parentId") Long parentId);
 }

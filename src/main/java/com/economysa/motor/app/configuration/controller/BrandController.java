@@ -12,10 +12,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(
       name = "Marcas",
@@ -45,5 +44,15 @@ public class BrandController {
         @Parameter(name = "pageable", description = "Información de paginación. Normalmente se envía page y size.")
               Pageable pageable) {
     return new ResponseEntity<>(service.list(name, pageable), HttpStatus.OK);
+  }
+
+  @GetMapping("/parent")
+  public ResponseEntity<List<Brand>> listParent() {
+    return new ResponseEntity<>(service.listParent(), HttpStatus.OK);
+  }
+
+  @GetMapping("/parent/{parentId}")
+  public ResponseEntity<List<Brand>> listByParent(@PathVariable Long parentId) {
+    return new ResponseEntity<>(service.listByParent(parentId), HttpStatus.OK);
   }
 }

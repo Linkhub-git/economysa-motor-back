@@ -60,6 +60,16 @@ public class BrandServiceImpl implements BrandService {
   }
 
   @Override
+  public List<Brand> listParent() {
+    return repository.findParent();
+  }
+
+  @Override
+  public List<Brand> listByParent(Long parentId) {
+    return repository.findByParent(parentId);
+  }
+
+  @Override
   public Brand get(String name) {
     return repository.findByNameAndParentNotNull(name).get(0);
   }
