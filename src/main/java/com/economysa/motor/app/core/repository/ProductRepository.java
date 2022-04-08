@@ -21,6 +21,9 @@ public interface ProductRepository extends CrudRepository<Product, String> {
   @Query("select p from Product p where p.id = :id")
   Optional<Product> findById(@Param("id") Long id);
 
-  @Query("select p from Product p where p.name like %:name% order by p.name asc")
+  @Query("select p from Product p where (p.name like %:name% or p.code like %:name% " +
+        "or p.provider.name like %:name% or p.category.parent.name like %:name% " +
+        "or p.category.name like %:name% or p.brand.parent.name like %:name% " +
+        "or p.brand.name like %:name%) order by p.name asc")
   List<Product> find(@Param("name") String name);
 }
