@@ -1,5 +1,6 @@
 package com.economysa.motor.app.promotion.entity;
 
+import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.util.ConstantMessage;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -73,6 +74,10 @@ public class Mechanic {
   @Column(name = "emitter")
   @Size(min = 1, max = 1)
   private String emitter;
+
+  @JoinColumn(name = "emitter_id", referencedColumnName = "id")
+  @ManyToOne
+  private Provider emitterObj;
 
   @Column(name = "creation_user")
   @NotNull

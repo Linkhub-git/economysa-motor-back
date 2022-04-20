@@ -1,10 +1,13 @@
 package com.economysa.motor.app.promotion.service.impl;
 
+import com.economysa.motor.app.core.service.ProviderService;
 import com.economysa.motor.app.promotion.controller.request.MechanicRequest;
 import com.economysa.motor.app.promotion.entity.Mechanic;
 import com.economysa.motor.app.promotion.repository.MechanicRepository;
 import com.economysa.motor.app.promotion.service.MechanicService;
+import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
+import com.economysa.motor.util.ConstantCore;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
 import lombok.extern.log4j.Log4j2;
@@ -21,6 +24,7 @@ import java.util.Optional;
 public class MechanicServiceImpl implements MechanicService {
 
   @Autowired private MechanicRepository repository;
+  @Autowired private ProviderService providerService;
 
   private Mechanic init() {
     Mechanic mechanic = new Mechanic();
@@ -42,14 +46,17 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setDescription(request.getDescription());
     mechanic.setStartDate(new Date(request.getStartDate()));
     mechanic.setEndDate(new Date(request.getEndDate()));
-    mechanic.setAccumulate(request.getAccumulate());
-    mechanic.setPromotionType(request.getPromotionType());
-    mechanic.setType(request.getType());
+    mechanic.setAccumulate(getAccumulate(request.getAccumulate()));
+    mechanic.setPromotionType(getPromotionType(request.getPromotionType()));
+    mechanic.setType(getType(request.getType()));
     mechanic.setRange1(request.getRange1());
     mechanic.setRange2(request.getRange2());
     mechanic.setFactor(request.getFactor());
     mechanic.setConditional(request.getConditional());
     mechanic.setEmitter(request.getEmitter());
+    if (request.getEmitterId() != null) {
+      mechanic.setEmitterObj(providerService.get(request.getEmitterId()));
+    }
     return mechanic;
   }
 
@@ -109,5 +116,32 @@ public class MechanicServiceImpl implements MechanicService {
       zero += "0";
     }
     return zero + cant;
+  }
+
+  private String getAccumulate(String accumulate) {
+    if (accumulate.equals(ConstantMessage.MECHANIC_TYPE_SOL) ||
+          accumulate.equals(ConstantMessage.MECHANIC_TYPE_UNIT)) {
+      return accumulate;
+    } else {
+      throw new BadRequestException("Invalid accumulate value: [ " + accumulate + " ]");
+    }
+  }
+
+  private String getPromotionType(String promotionType) {
+    if (promotionType.equals(ConstantMessage.MECHANIC_PROMOTION_TYPE_DISCOUNT) ||
+          promotionType.equals(ConstantMessage.MECHANIC_PROMOTION_TYPE_PRODUCT)) {
+      return promotionType;
+    } else {
+      throw new BadRequestException("Invalid promotionType value: [ " + promotionType + " ]");
+    }
+  }
+
+  private String getType(String type) {
+    if (type.equals(ConstantMessage.MECHANIC_TYPE_RANGE) ||
+          type.equals(ConstantMessage.MECHANIC_TYPE_FACTOR)) {
+      return type;
+    } else {
+      throw new BadRequestException("Invalid type value: [ " + type + " ]");
+    }
   }
 }

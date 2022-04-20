@@ -15,6 +15,9 @@ public interface ProviderRepository extends CrudRepository<Provider, String> {
 	@Query("select p from Provider p order by p.name asc")
 	Page<Provider> findAll(Pageable pageable);
 
+	@Query("select p from Provider p order by p.name asc")
+	List<Provider> findAll();
+
 	@Query("select p from Provider p where p.id = :id")
 	Optional<Provider> findById(@Param("id") Long id);
 

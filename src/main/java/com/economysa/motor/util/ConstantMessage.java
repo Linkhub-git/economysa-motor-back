@@ -101,4 +101,22 @@ public class ConstantMessage {
 	public static final String INVALID_SIZE_PHONE = "El tamaño debe estar comprendido entre 9 y 9 caracteres";
 
 	public static final String ITEM_ALREADY_ADDED = "El item ya se encuentra agregado";
+
+	public static final String MECHANIC_TYPE_SOL = "S";
+	public static final String MECHANIC_TYPE_SOL_TEXT = "Soles";
+
+	public static final String MECHANIC_TYPE_UNIT = "U";
+	public static final String MECHANIC_TYPE_UNIT_TEXT = "Unidades";
+
+	public static final String MECHANIC_PROMOTION_TYPE_DISCOUNT = "D";
+	public static final String MECHANIC_PROMOTION_TYPE_DISCOUNT_TEXT = "Descuento";
+
+	public static final String MECHANIC_PROMOTION_TYPE_PRODUCT = "P";
+	public static final String MECHANIC_PROMOTION_TYPE_PRODUCT_TEXT = "Producto";
+
+	public static final String MECHANIC_TYPE_RANGE = "R";
+	public static final String MECHANIC_TYPE_RANGE_TEXT = "Rango";
+
+	public static final String MECHANIC_TYPE_FACTOR = "F";
+	public static final String MECHANIC_TYPE_FACTOR_TEXT = "Factor";
 }

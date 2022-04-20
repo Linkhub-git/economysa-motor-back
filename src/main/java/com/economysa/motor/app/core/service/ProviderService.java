@@ -11,6 +11,7 @@ public interface ProviderService {
 
 	Provider init(ProviderDto dto);
 	Page<Provider> list(Pageable pageable);
+	List<Provider> list();
 	List<Provider> search(String name);
 	Provider get(Long id);
 	void saveAll(List<Provider> items);

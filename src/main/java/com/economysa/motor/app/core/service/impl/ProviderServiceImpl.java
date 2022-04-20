@@ -38,6 +38,11 @@ public class ProviderServiceImpl implements ProviderService {
 	}
 
 	@Override
+	public List<Provider> list() {
+		return repository.findAll();
+	}
+
+	@Override
 	public List<Provider> search(String name) {
 		return repository.find(name);
 	}
@@ -51,7 +56,6 @@ public class ProviderServiceImpl implements ProviderService {
 		}
 		return provider.get();
 	}
-
 
 	@Override
 	public void saveAll(List<Provider> items) {

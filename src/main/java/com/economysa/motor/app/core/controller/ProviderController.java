@@ -22,6 +22,11 @@ public class ProviderController {
 		return new ResponseEntity(service.list(pageable), HttpStatus.OK);
 	}
 
+	@GetMapping("/all")
+	public ResponseEntity<List<Provider>> list() {
+		return new ResponseEntity<>(service.list(), HttpStatus.OK);
+	}
+
 	@GetMapping("/search")
 	public ResponseEntity<List<Provider>> search(@RequestParam String name) {
 		return new ResponseEntity(service.search(name), HttpStatus.OK);

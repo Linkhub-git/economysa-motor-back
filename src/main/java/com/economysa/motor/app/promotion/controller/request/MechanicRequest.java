@@ -47,4 +47,6 @@ public class MechanicRequest {
   @NotNull
   @Size(min = 1, max = 1)
   private String emitter;
+
+  private Long emitterId;
 }
