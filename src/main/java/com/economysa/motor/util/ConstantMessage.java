@@ -119,4 +119,13 @@ public class ConstantMessage {
 
 	public static final String MECHANIC_TYPE_FACTOR = "F";
 	public static final String MECHANIC_TYPE_FACTOR_TEXT = "Factor";
+
+	public static final String MECHANIC_TYPE_RANGE_FACTOR = "X";
+	public static final String MECHANIC_TYPE_RANGE_FACTOR_TEXT = "Rango y Factor";
+
+	public static final String MECHANIC_ENTRY_TYPE_LIST = "L";
+	public static final String MECHANIC_ENTRY_TYPE_LIST_TEXT = "Lista de Precio";
+
+	public static final String MECHANIC_ENTRY_TYPE_GIRO = "G";
+	public static final String MECHANIC_ENTRY_TYPE_GIRO_TEXT = "Giro";
 }

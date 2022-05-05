@@ -7,7 +7,6 @@ import com.economysa.motor.app.promotion.repository.MechanicRepository;
 import com.economysa.motor.app.promotion.service.MechanicService;
 import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
-import com.economysa.motor.util.ConstantCore;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
 import lombok.extern.log4j.Log4j2;
@@ -49,9 +48,9 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setAccumulate(getAccumulate(request.getAccumulate()));
     mechanic.setPromotionType(getPromotionType(request.getPromotionType()));
     mechanic.setType(getType(request.getType()));
-    mechanic.setRange1(request.getRange1());
-    mechanic.setRange2(request.getRange2());
-    mechanic.setFactor(request.getFactor());
+
+    mechanic = setRangeOrFactor(mechanic, request);
+
     mechanic.setConditional(request.getConditional());
     mechanic.setEmitter(request.getEmitter());
     if (request.getEmitterId() != null) {
@@ -138,10 +137,28 @@ public class MechanicServiceImpl implements MechanicService {
 
   private String getType(String type) {
     if (type.equals(ConstantMessage.MECHANIC_TYPE_RANGE) ||
-          type.equals(ConstantMessage.MECHANIC_TYPE_FACTOR)) {
+          type.equals(ConstantMessage.MECHANIC_TYPE_FACTOR) ||
+          type.equals(ConstantMessage.MECHANIC_TYPE_RANGE_FACTOR)) {
       return type;
     } else {
       throw new BadRequestException("Invalid type value: [ " + type + " ]");
     }
+  }
+
+  private Mechanic setRangeOrFactor(Mechanic mechanic, MechanicRequest request) {
+    if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_FACTOR)) {
+      mechanic.setFactor(request.getFactor());
+    } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_RANGE)) {
+      mechanic.setRange1(request.getRange1());
+      mechanic.setRange2(request.getRange2());
+    } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_RANGE_FACTOR)) {
+      mechanic.setFactor(request.getFactor());
+      mechanic.setRange1(request.getRange1());
+      mechanic.setRange2(request.getRange2());
+    } else {
+      throw new BadRequestException("Invalid type [ " + request.getType() + " ]");
+    }
+
+    return mechanic;
   }
 }

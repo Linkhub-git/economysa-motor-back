@@ -1,5 +1,6 @@
 package com.economysa.motor.app.promotion.entity;
 
+import com.economysa.motor.app.configuration.entity.ListPrice;
 import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.util.ConstantMessage;
 import lombok.AllArgsConstructor;
