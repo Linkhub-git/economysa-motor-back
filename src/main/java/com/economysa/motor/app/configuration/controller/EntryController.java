@@ -47,7 +47,10 @@ public class EntryController {
       }
   )
   @GetMapping
-  public ResponseEntity<List<Entry>> list(@RequestParam Long listPrice) {
+  public ResponseEntity<List<Entry>> list(
+      @Parameter(name = "listPrice", description = "Identificador de la lista de precio",
+          required = true)
+      @RequestParam Long listPrice) {
     return new ResponseEntity<>(service.listByListPrice(listPrice), HttpStatus.OK);
   }
 
@@ -72,7 +75,7 @@ public class EntryController {
   )
   @GetMapping("/search")
   public ResponseEntity<List<Entry>> search(
-      @Parameter(name = "query", description = "Texto de búsqueda")
+      @Parameter(name = "query", description = "Texto de búsqueda", required = true)
       @RequestParam String query) {
     return new ResponseEntity<>(service.search(query), HttpStatus.OK);
   }
