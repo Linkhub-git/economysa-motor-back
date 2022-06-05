@@ -46,13 +46,49 @@ public class BrandController {
     return new ResponseEntity<>(service.list(name, pageable), HttpStatus.OK);
   }
 
+  @Operation(
+      description = "Listado de Marcas",
+      summary = "Listado de Marcas",
+      method = "GET"
+  )
+  @ApiResponses(
+      {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Operación exitosa"
+          ),
+          @ApiResponse(
+              responseCode = "500",
+              description = "Error interno del sistema"
+          )
+      }
+  )
   @GetMapping("/parent")
   public ResponseEntity<List<Brand>> listParent() {
     return new ResponseEntity<>(service.listParent(), HttpStatus.OK);
   }
 
+  @Operation(
+      description = "Listado de Sub Marcas",
+      summary = "Listado de Sub Marcas",
+      method = "GET"
+  )
+  @ApiResponses(
+      {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Operación exitosa"
+          ),
+          @ApiResponse(
+              responseCode = "500",
+              description = "Error interno del sistema"
+          )
+      }
+  )
   @GetMapping("/parent/{parentId}")
-  public ResponseEntity<List<Brand>> listByParent(@PathVariable Long parentId) {
+  public ResponseEntity<List<Brand>> listByParent(
+      @Parameter(name = "parentId", description = "Identificador de la Marca padre", required = true)
+      @PathVariable Long parentId) {
     return new ResponseEntity<>(service.listByParent(parentId), HttpStatus.OK);
   }
 }
