@@ -46,13 +46,49 @@ public class CategoryController {
     return new ResponseEntity<>(service.list(name, pageable), HttpStatus.OK);
   }
 
+  @Operation(
+      description = "Listado de las Categorías padre",
+      summary = "Listado de las Categorías padre",
+      method = "GET"
+  )
+  @ApiResponses(
+      {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Operación exitosa"
+          ),
+          @ApiResponse(
+              responseCode = "500",
+              description = "Error interno en el sistema"
+          )
+      }
+  )
   @GetMapping("/parent")
   public ResponseEntity<List<Category>> listParent() {
     return new ResponseEntity<>(service.listParent(), HttpStatus.OK);
   }
 
+  @Operation(
+      description = "Listado de Sub Categorías",
+      summary = "Listado de Sub Categorías",
+      method = "GET"
+  )
+  @ApiResponses(
+      {
+          @ApiResponse(
+              responseCode = "200",
+              description = "Operación exitosa"
+          ),
+          @ApiResponse(
+              responseCode = "500",
+              description = "Error interno en el sistema"
+          )
+      }
+  )
   @GetMapping("/parent/{parentId}")
-  public ResponseEntity<List<Category>> listByParent(@PathVariable Long parentId) {
+  public ResponseEntity<List<Category>> listByParent(
+      @Parameter(description = "PathVariable parentId", required = true)
+      @PathVariable Long parentId) {
     return new ResponseEntity<>(service.listByParent(parentId), HttpStatus.OK);
   }
 }
