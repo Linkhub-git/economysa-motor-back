@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -68,6 +69,10 @@ public class MechanicServiceImpl implements MechanicService {
     }
   }
 
+  @Override
+  public List<Mechanic> findActive() {
+      return repository.findActive(UtilCore.UtilDate.fechaActual());
+  }
   @Override
   public Mechanic get(Long id) {
     Optional<Mechanic> mechanic = repository.findById(id);

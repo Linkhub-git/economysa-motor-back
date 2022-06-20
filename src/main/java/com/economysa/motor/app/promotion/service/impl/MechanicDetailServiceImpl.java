@@ -64,6 +64,16 @@ public class MechanicDetailServiceImpl implements MechanicDetailService {
   }
 
   /**
+   * Lista todos los items asociados a una lista de mecánicas.
+   * @param mechanicIds - Identificadores de las mecánicas
+   * @return - Listado de items asociados a la mecánica.
+   */
+  @Override
+  public List<MechanicDetail> list(List<Long> mechanicIds) {
+    return repository.findAll(mechanicIds);
+  }
+
+  /**
    * Agrega un nuevo item ( no repetido ) al detalle
    * de la mecánica.
    * @param request - Item a registrar

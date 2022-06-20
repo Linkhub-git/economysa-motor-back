@@ -17,4 +17,5 @@ public interface MechanicDetailService {
 
   List<MechanicDetail> list(Long mechanicId);
   MechanicDetail add(MechanicDetailRequest request);
+  List<MechanicDetail> list(List<Long> mechanicIds);
 }
