@@ -63,7 +63,7 @@ public class UnityController {
 							)
 				}
 	)
-	@GetMapping("/id")
+	@GetMapping("/{id}")
 	public ResponseEntity<Unity> get(
 				@Parameter(name = "id", description = "ID del recurso a buscar", required = true)
 				@PathVariable Long id) {

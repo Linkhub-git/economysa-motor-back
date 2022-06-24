@@ -26,8 +26,7 @@ import java.util.List;
 @RequestMapping("/api/v1/secured/entry")
 public class EntryController {
 
-  @Autowired
-  private EntryService service;
+  @Autowired private EntryService service;
 
   @Operation(
       description = "Listado de Giros de Negocio",
