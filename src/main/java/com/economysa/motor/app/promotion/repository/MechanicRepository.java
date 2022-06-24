@@ -19,6 +19,9 @@ public interface MechanicRepository extends CrudRepository<Mechanic, String> {
   @Query("select m from Mechanic m where m.startDate => :currentDate and m.endDate <= :currentDate and m.status = 'C'")
   List<Mechanic> findActive(@Param("currentDate") Date currentDate);
 
+  @Query("select m.id from Mechanic m where m.startDate => :currentDate and m.endDate <= :currentDate and m.status = 'C'")
+  List<Long> findActiveIds(@Param("currentDate") Date currentDate);
+
   @Query("select m from Mechanic m where m.emitter = :emitter order by m.creationDate desc")
   Page<Mechanic> find(@Param("emitter") String emitter, Pageable pageable);
 

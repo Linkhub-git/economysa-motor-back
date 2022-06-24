@@ -15,4 +15,5 @@ public interface MechanicService {
   Mechanic update(Long id, String updateUser, MechanicRequest request);
   Mechanic delete(String updateUser, Long id);
   List<Mechanic> findActive();
+  List<Long> findActiveIds();
 }

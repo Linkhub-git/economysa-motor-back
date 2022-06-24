@@ -23,15 +23,18 @@ public class CheckPromotionService {
 
         OutputOrder outputOrder = null;
 
-        List<Mechanic> list = mechanicService.findActive();
+        //List<Long> ids = mechanicService.findActiveIds();
 
-        List<Long> ids = new ArrayList<Long>();
+        //List<MechanicDetail> products = mechanicDetailService.list(ids);
 
-        for (Mechanic m : list) {
-            ids.add(m.getId());
-        }
 
-        mechanicDetailService.list(ids);
+        List<Mechanic> mechanics = mechanicService.findActive();
+
+
+
+        //for (MechanicDetail product : products){
+        //
+        //}
 
 
         return null;

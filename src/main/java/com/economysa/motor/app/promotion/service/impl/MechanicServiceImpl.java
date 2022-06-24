@@ -73,6 +73,11 @@ public class MechanicServiceImpl implements MechanicService {
   public List<Mechanic> findActive() {
       return repository.findActive(UtilCore.UtilDate.fechaActual());
   }
+
+  @Override
+  public List<Long> findActiveIds() {
+    return repository.findActiveIds(UtilCore.UtilDate.fechaActual());
+  }
   @Override
   public Mechanic get(Long id) {
     Optional<Mechanic> mechanic = repository.findById(id);
