@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 
 @Tag(
     name = "Mecánicas",
@@ -80,7 +81,7 @@ public class MechanicController {
   @Operation(
       description = "Crea un recurso Mecánica",
       summary = "Crea un recurso Mecánica",
-      method = "GET"
+      method = "POST"
   )
   @ApiResponses(
       {
@@ -100,7 +101,7 @@ public class MechanicController {
   )
   @PostMapping
   public ResponseEntity<Mechanic> create(@AuthenticationPrincipal UserDetails details,
-                                         @Valid @RequestBody MechanicRequest request) {
+                                         @Valid @RequestBody MechanicRequest request) throws ParseException {
     return new ResponseEntity(service.create(details.getUsername(), request), HttpStatus.CREATED);
   }
 
@@ -128,7 +129,7 @@ public class MechanicController {
   @PutMapping("/{id}")
   public ResponseEntity<Mechanic> update(@AuthenticationPrincipal UserDetails details,
                                          @PathVariable Long id,
-                                         @Valid @RequestBody MechanicRequest request) {
+                                         @Valid @RequestBody MechanicRequest request) throws ParseException {
     return new ResponseEntity(service.update(id, details.getUsername(), request), HttpStatus.OK);
   }
 

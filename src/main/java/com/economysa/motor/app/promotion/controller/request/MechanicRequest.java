@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.math.BigDecimal;
+import java.util.Date;
+import java.time.LocalTime;
 
 @Data
 @AllArgsConstructor
@@ -15,13 +17,23 @@ public class MechanicRequest {
 
   @NotNull
   @Size(min = 1, max = 100)
-  private String description;
+  private String providerDescription;
 
   @NotNull
-  private Long startDate;
+  @Size(min = 1, max = 100)
+  private String catalogDescription;
 
   @NotNull
-  private Long endDate;
+  private Date startDate;
+
+  @NotNull
+  private Date endDate;
+
+  @NotNull
+  private String startTime;
+
+  @NotNull
+  private String endTime;
 
   @NotNull
   @Size(min = 1, max = 1)
@@ -34,10 +46,6 @@ public class MechanicRequest {
   @NotNull
   @Size(min = 1, max = 1)
   private String type;
-
-  private BigDecimal range1;
-
-  private BigDecimal range2;
 
   private BigDecimal factor;
 

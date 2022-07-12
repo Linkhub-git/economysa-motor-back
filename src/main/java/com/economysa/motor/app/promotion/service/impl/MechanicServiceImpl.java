@@ -15,7 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Optional;
 
 @Service
@@ -32,7 +33,7 @@ public class MechanicServiceImpl implements MechanicService {
     return mechanic;
   }
 
-  private Mechanic init(String creationUser, MechanicRequest request) {
+  private Mechanic init(String creationUser, MechanicRequest request) throws ParseException {
     Mechanic mechanic = init();
     mechanic = setData(mechanic, request);
     mechanic.setCode(generateMechanicCode());
@@ -41,10 +42,13 @@ public class MechanicServiceImpl implements MechanicService {
     return mechanic;
   }
 
-  private Mechanic setData(Mechanic mechanic, MechanicRequest request) {
-    mechanic.setDescription(request.getDescription());
-    mechanic.setStartDate(new Date(request.getStartDate()));
-    mechanic.setEndDate(new Date(request.getEndDate()));
+  private Mechanic setData(Mechanic mechanic, MechanicRequest request) throws ParseException {
+    mechanic.setProviderDescription(request.getProviderDescription());
+    mechanic.setCatalogDescription(request.getCatalogDescription());
+    mechanic.setStartDate(request.getStartDate());
+    mechanic.setEndDate(request.getEndDate());
+    mechanic.setStartTime(new SimpleDateFormat("HH:mm").parse(request.getStartTime()));
+    mechanic.setEndTime(new SimpleDateFormat("HH:mm").parse(request.getEndTime()));
     mechanic.setAccumulate(getAccumulate(request.getAccumulate()));
     mechanic.setPromotionType(getPromotionType(request.getPromotionType()));
     mechanic.setType(getType(request.getType()));
@@ -79,13 +83,13 @@ public class MechanicServiceImpl implements MechanicService {
   }
 
   @Override
-  public Mechanic create(String creationUser, MechanicRequest request) {
+  public Mechanic create(String creationUser, MechanicRequest request) throws ParseException {
     Mechanic mechanic = init(creationUser, request);
     return repository.save(mechanic);
   }
 
   @Override
-  public Mechanic update(Long id, String updateUser, MechanicRequest request) {
+  public Mechanic update(Long id, String updateUser, MechanicRequest request) throws ParseException {
     log.info("Update mechanic: " + request);
     Mechanic mechanic = get(id);
 
@@ -149,12 +153,12 @@ public class MechanicServiceImpl implements MechanicService {
     if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_FACTOR)) {
       mechanic.setFactor(request.getFactor());
     } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_RANGE)) {
-      mechanic.setRange1(request.getRange1());
-      mechanic.setRange2(request.getRange2());
+      //mechanic.setRange1(request.getRange1());
+      //mechanic.setRange2(request.getRange2());
     } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_RANGE_FACTOR)) {
-      mechanic.setFactor(request.getFactor());
-      mechanic.setRange1(request.getRange1());
-      mechanic.setRange2(request.getRange2());
+      //mechanic.setFactor(request.getFactor());
+      //mechanic.setRange1(request.getRange1());
+      //mechanic.setRange2(request.getRange2());
     } else {
       throw new BadRequestException("Invalid type [ " + request.getType() + " ]");
     }
