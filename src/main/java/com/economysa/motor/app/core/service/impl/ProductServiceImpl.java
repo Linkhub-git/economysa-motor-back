@@ -81,6 +81,11 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  public List<Product> listByProviderCode(String providerCode) {
+    return repository.findByProviderCode(providerCode);
+  }
+
+  @Override
   public List<Product> search(String name) {
     return repository.find(name);
   }

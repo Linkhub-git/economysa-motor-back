@@ -1,6 +1,7 @@
 package com.economysa.motor.app.core.controller;
 
 import com.economysa.motor.app.core.entity.Product;
+import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.app.core.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -96,4 +97,60 @@ public class ProductController {
       @Parameter(name = "Identificador del recurso") @PathVariable Long id) {
     return new ResponseEntity(service.get(id), HttpStatus.OK);
   }
+
+    @Operation(
+            description = "Lista todos los productos por el ID del proveedor",
+            summary = "Lista todos los productos por el ID del proveedor",
+            method = "GET"
+    )
+    @ApiResponses(
+            {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Operación exitosa"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró el recurso"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del sistema"
+                    )
+            }
+    )
+    @GetMapping("provider/{id}")
+    public ResponseEntity<List<Product>> listByProvider(
+            @Parameter(name = "ID del proveedor") @PathVariable Long id) {
+        return new ResponseEntity(service.listByProvider(id), HttpStatus.OK);
+    }
+
+    @Operation(
+            description = "Lista todos los productos por el código del proveedor",
+            summary = "Lista todos los productos por el código del proveedor",
+            method = "GET"
+    )
+    @ApiResponses(
+            {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Operación exitosa"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró el recurso"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del sistema"
+                    )
+            }
+    )
+    @GetMapping("provider/code/{code}")
+    public ResponseEntity<List<Product>> listByProviderCode(
+            @Parameter(name = "Código del proveedor") @PathVariable String code) {
+        return new ResponseEntity(service.listByProviderCode(code), HttpStatus.OK);
+    }
 }
+
+

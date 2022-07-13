@@ -13,6 +13,7 @@ public interface ProductService {
   void saveAll(List<Product> items);
   Page<Product> list(Pageable pageable);
   List<Product> listByProvider(Long providerId);
+  List<Product> listByProviderCode(String providerCode);
   List<Product> search(String name);
   Product get(Long id);
 }

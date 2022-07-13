@@ -18,6 +18,9 @@ public interface ProductRepository extends CrudRepository<Product, String> {
   @Query("select p from Product p where p.provider.id = :providerId")
   List<Product> findByProvider(@Param("providerId") Long providerId);
 
+  @Query("select p from Product p inner join p.provider where p.provider.code = :providerCode")
+  List<Product> findByProviderCode(@Param("providerCode") String providerCode);
+
   @Query("select p from Product p where p.id = :id")
   Optional<Product> findById(@Param("id") Long id);
 
