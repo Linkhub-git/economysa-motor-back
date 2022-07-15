@@ -151,6 +151,61 @@ public class ProductController {
             @Parameter(name = "Código del proveedor") @PathVariable String code) {
         return new ResponseEntity(service.listByProviderCode(code), HttpStatus.OK);
     }
+    
+    @Operation(
+            description = "Lista todos los productos por el ID de la marca",
+            summary = "Lista todos los productos por el ID de la marca",
+            method = "GET"
+    )
+    @ApiResponses(
+            {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Operación exitosa"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró el recurso"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del sistema"
+                    )
+            }
+    )
+    @GetMapping("brand/{id}")
+    public ResponseEntity<List<Product>> listByBrand(
+            @Parameter(name = "ID de la marca") @PathVariable Long id) {
+        return new ResponseEntity(service.listByBrand(id), HttpStatus.OK);
+    }
+
+    @Operation(
+            description = "Lista todos los productos por el código de la marca",
+            summary = "Lista todos los productos por el código de la marca",
+            method = "GET"
+    )
+    @ApiResponses(
+            {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Operación exitosa"
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "No se encontró el recurso"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del sistema"
+                    )
+            }
+    )
+    @GetMapping("brand/name/{name}")
+    public ResponseEntity<List<Product>> listByBrandCode(
+            @Parameter(name = "Código de la marca") @PathVariable String name) {
+        return new ResponseEntity(service.listByBrandName(name), HttpStatus.OK);
+    }
+    
 }
 
 

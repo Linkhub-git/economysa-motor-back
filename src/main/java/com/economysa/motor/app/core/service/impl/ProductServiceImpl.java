@@ -86,6 +86,16 @@ public class ProductServiceImpl implements ProductService {
   }
 
   @Override
+  public List<Product> listByBrand(Long brandId) {
+    return repository.findByBrand(brandId);
+  }
+
+  @Override
+  public List<Product> listByBrandName(String brandName) {
+    return repository.findByBrandName(brandName);
+  }
+  
+  @Override
   public List<Product> search(String name) {
     return repository.find(name);
   }

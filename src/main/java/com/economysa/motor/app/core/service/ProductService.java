@@ -14,6 +14,8 @@ public interface ProductService {
   Page<Product> list(Pageable pageable);
   List<Product> listByProvider(Long providerId);
   List<Product> listByProviderCode(String providerCode);
+  List<Product> listByBrand(Long brandId);
+  List<Product> listByBrandName(String brandName);
   List<Product> search(String name);
   Product get(Long id);
 }
