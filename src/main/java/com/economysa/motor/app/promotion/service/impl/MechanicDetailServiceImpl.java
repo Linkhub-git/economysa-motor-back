@@ -38,7 +38,7 @@ public class MechanicDetailServiceImpl implements MechanicDetailService {
   @Autowired private BrandService brandService;
 
   /**
-   * Inicializa un objecto MechanicDetail.
+   * Inicializa un objeto MechanicDetail.
    * @param request - Item a registrar
    * @return - Retorna el objeto inicializado.
    */
