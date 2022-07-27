@@ -19,7 +19,7 @@ spring:
     hibernate:
       ddl-auto: none
     database-platform: org.hibernate.dialect.MySQLDialect
-    show-sql: false
+    show-sql: true
   cache:
     type: none
   jackson:
