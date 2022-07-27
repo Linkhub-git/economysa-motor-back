@@ -39,9 +39,14 @@ public class MechanicDetail {
   public Long identifier;
 
   @Column(name = "_code")
+  @NotNull
   @Size(max = 20)
   private String code;
 
+  @Column(name = "_factor")
+  @NotNull
+  private String factor;
+  
   @Column(name = "_description")
   @NotNull
   @Size(min = 1, max = 100)

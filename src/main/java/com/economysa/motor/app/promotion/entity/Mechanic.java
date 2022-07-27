@@ -1,17 +1,27 @@
 package com.economysa.motor.app.promotion.entity;
 
-import com.economysa.motor.app.configuration.entity.ListPrice;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.util.ConstantMessage;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -29,21 +39,36 @@ public class Mechanic {
   @Size(min = 1, max = 20)
   private String code;
 
-  @Column(name = "_description")
+  @Column(name = "provider_description")
   @NotNull
   @Size(min = 1, max = 100)
-  private String description;
+  private String providerDescription;
 
+  @Column(name = "catalog_description")
+  @NotNull
+  @Size(min = 1, max = 100)
+  private String catalogDescription;
+  
   @Column(name = "start_date")
   @NotNull
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   private Date startDate;
 
   @Column(name = "end_date")
   @NotNull
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   private Date endDate;
 
+  @Column(name = "start_time")
+  @NotNull
+  @Temporal(TemporalType.TIME)
+  private Date startTime;
+
+  @Column(name = "end_time")
+  @NotNull
+  @Temporal(TemporalType.TIME)
+  private Date endTime;
+  
   @Column(name = "accumulate")
   @NotNull
   @Size(min = 1, max = 1)
@@ -58,16 +83,7 @@ public class Mechanic {
   @NotNull
   @Size(min = 1, max = 1)
   private String type;
-
-  @Column(name = "range1")
-  private BigDecimal range1;
-
-  @Column(name = "range2")
-  private BigDecimal range2;
-
-  @Column(name = "_factor")
-  private BigDecimal factor;
-
+  
   @Column(name = "conditional")
   @Size(max = 1)
   private String conditional;
