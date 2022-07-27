@@ -1,18 +1,21 @@
 package com.economysa.motor.app.promotion.service.impl;
 
-
-import com.economysa.motor.app.promotion.controller.request.MechanicDetailRequest;
 import com.economysa.motor.app.promotion.controller.request.MechanicRuleRequest;
+import com.economysa.motor.app.promotion.controller.request.MechanicRulesRequest;
 import com.economysa.motor.app.promotion.entity.MechanicRule;
 import com.economysa.motor.app.promotion.repository.MechanicRuleRepository;
 import com.economysa.motor.app.promotion.service.MechanicRuleService;
 import com.economysa.motor.app.promotion.service.MechanicService;
 import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.util.ConstantMessage;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Log4j2
 public class MechanicRuleServiceImpl implements MechanicRuleService {
 
     @Autowired private MechanicRuleRepository repository;
@@ -36,10 +39,13 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
      * @return - Retorna el item ya registrado.
      */
     @Override
-    public MechanicRule add(MechanicRuleRequest request) {
-        MechanicRule rule = init(request);
-        validateRequest(request);
-        return repository.save(rule);
+    public void add(MechanicRulesRequest request) {
+
+        for(MechanicRuleRequest req:request.getMechanicRules()){
+            MechanicRule rule = init(request.getMechanic(), req);
+            validateRequest(request.getMechanic(), req);
+            repository.save(rule);
+        }
     }
 
     /**
@@ -47,9 +53,10 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
      * @param request - Item a registrar
      * @return - Retorna el objeto inicializado.
      */
-    private MechanicRule init(MechanicRuleRequest request) {
+    private MechanicRule init(Long mechanicId, MechanicRuleRequest request) {
+
         MechanicRule rule = new MechanicRule();
-        rule.setMechanic(mechanicService.get(request.getMechanic()));
+        rule.setMechanic(mechanicService.get(mechanicId));
         rule.setStartRange(request.getStartRange());
         rule.setEndRange(request.getEndRange());
         rule.setFactor(request.getFactor());
@@ -64,34 +71,25 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
      * @throws BadRequestException - Lanza excepción si el
      * item ya se encuentra registrado.
      */
-    private void validateRequest(MechanicRuleRequest request) {
+    private void validateRequest(Long mechanicId, MechanicRuleRequest request) {
 
-        if (repository.findByMechanicAndStartRangeAndEndRange(request.getMechanic(), request.getStartRange(), request.getEndRange()).isPresent()) {
-            log.info(ConstantMessage.ITEM_ALREADY_ADDED);
-            throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED);
-        }
+        String type = mechanicService.get(mechanicId).getType();
 
-        if (repository.findByMechanicAndStartRangeAndEndRangeAndFactor(request.getMechanic(), request.getStartRange(), request.getEndRange(), request.getFactor()).isPresent()) {
-            log.info(ConstantMessage.ITEM_ALREADY_ADDED);
-            throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED);
-        }
-
-        if (repository.findByMechanicAndFactor(request.getMechanic(), request.getFactor()).isPresent()) {
-            log.info(ConstantMessage.ITEM_ALREADY_ADDED);
-            throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED);
-        }
-
-        // Valida el identificador
-        if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_PROVIDER)) {
-            providerService.get(request.getIdentifier());
-        } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_ARTICLE)) {
-            productService.get(request.getIdentifier());
-        } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_CATEGORY)) {
-            categoryService.get(request.getIdentifier());
-        } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_BRAND)) {
-            brandService.get(request.getIdentifier());
-        } else {
-            throw new IllegalArgumentException("Invalid Mechanic Type");
+        if ( type.equals("R")){
+            if (repository.findByMechanicAndStartRangeAndEndRange(mechanicId, request.getStartRange(), request.getEndRange()).isPresent()) {
+                log.info(ConstantMessage.ITEM_ALREADY_ADDED);
+                throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED);
+            }
+        } else if (type.equals("X")) {
+            if (repository.findByMechanicAndStartRangeAndEndRangeAndFactor(mechanicId, request.getStartRange(), request.getEndRange(), request.getFactor()).isPresent()) {
+                log.info(ConstantMessage.ITEM_ALREADY_ADDED);
+                throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED);
+            }
+        } else if (type.equals("F")) {
+            if (repository.findByMechanicAndFactor(mechanicId, request.getFactor()).isPresent()) {
+                log.info(ConstantMessage.ITEM_ALREADY_ADDED);
+                throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED);
+            }
         }
     }
 }

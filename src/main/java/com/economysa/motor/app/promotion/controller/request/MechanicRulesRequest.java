@@ -5,17 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MechanicRuleRequest {
+public class MechanicRulesRequest {
 
-    private Double startRange;
+    @NotNull
+    private Long mechanic;
 
-    private Double endRange;
-
-    private Double factor;
-
-    private Integer priority;
+    @NotNull
+    private List<MechanicRuleRequest> mechanicRules;
 }
