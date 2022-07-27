@@ -20,12 +20,9 @@ public class MechanicBonus {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @JoinColumn(name = "_mechanic", referencedColumnName = "id")
+  @JoinColumn(name = "_rule", referencedColumnName = "id")
   @ManyToOne(optional = false)
-  private Mechanic mechanic;
-
-  @Column(name = "percentage_discount")
-  private BigDecimal percentageDiscount;
+  private MechanicRules mechanicRules;
 
   @Column(name = "bonus_quantity")
   private BigDecimal bonusQuantity;
@@ -36,10 +33,6 @@ public class MechanicBonus {
   @JoinColumn(name = "_product", referencedColumnName = "id")
   @ManyToOne
   private Product product;
-
-  @Column(name = "_priority")
-  @NotNull
-  private Integer priority;
 
   @Column(name = "quantity_use")
   @NotNull
