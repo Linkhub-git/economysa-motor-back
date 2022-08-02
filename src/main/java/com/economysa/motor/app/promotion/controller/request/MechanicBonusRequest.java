@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 public class MechanicBonusRequest {
 
   @NotNull
-  private Long mechanic;
+  private Long mechanicRule;
 
   private BigDecimal percentageDiscount;
 

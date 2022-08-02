@@ -24,12 +24,9 @@ public class MechanicBonusServiceImpl implements MechanicBonusService {
 
   private MechanicBonus init(MechanicBonusRequest request) {
     MechanicBonus bonus = new MechanicBonus();
-    bonus.setMechanic(mechanicService.get(request.getMechanic()));
-    bonus.setPercentageDiscount(request.getPercentageDiscount());
-    bonus.setBonusQuantity(request.getBonusQuantity());
+   // bonus.setMechanicRules(mechanicService.get(request.getMechanicRule()));
     bonus.setBonusMax(request.getBonusMax());
     bonus.setProduct(productService.get(request.getProduct()));
-    bonus.setPriority(request.getPriority());
     bonus.setQuantityUse(BigDecimal.ZERO);
     return bonus;
   }
@@ -48,7 +45,7 @@ public class MechanicBonusServiceImpl implements MechanicBonusService {
 
   private void validateRequest(MechanicBonusRequest request) {
     if (request.getProduct() != null) {
-      if (repository.findByMechanicAndProduct(request.getMechanic(),
+      if (repository.findByMechanicAndProduct(request.getMechanicRule(),
             request.getProduct()).isPresent()) {
         throw new BadRequestException("Item already added");
       }

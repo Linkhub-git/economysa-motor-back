@@ -15,8 +15,12 @@ public class MechanicRequest {
 
   @NotNull
   @Size(min = 1, max = 100)
-  private String description;
+  private String providerDescription;
 
+  @NotNull
+  @Size(min = 1, max = 100)
+  private String catalogDescription;
+  
   @NotNull
   private Long startDate;
 
