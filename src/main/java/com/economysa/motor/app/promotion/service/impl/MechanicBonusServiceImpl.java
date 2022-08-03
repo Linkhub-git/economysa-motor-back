@@ -5,6 +5,7 @@ import com.economysa.motor.app.promotion.controller.request.MechanicBonusRequest
 import com.economysa.motor.app.promotion.entity.MechanicBonus;
 import com.economysa.motor.app.promotion.repository.MechanicBonusRepository;
 import com.economysa.motor.app.promotion.service.MechanicBonusService;
+import com.economysa.motor.app.promotion.service.MechanicRuleService;
 import com.economysa.motor.app.promotion.service.MechanicService;
 import com.economysa.motor.error.exception.BadRequestException;
 import lombok.extern.log4j.Log4j2;
@@ -22,9 +23,11 @@ public class MechanicBonusServiceImpl implements MechanicBonusService {
   @Autowired private MechanicService mechanicService;
   @Autowired private ProductService productService;
 
+  @Autowired private MechanicRuleService mechanicRuleService;
+
   private MechanicBonus init(MechanicBonusRequest request) {
     MechanicBonus bonus = new MechanicBonus();
-    bonus.setMechanic(mechanicService.get(request.getMechanic()));
+    bonus.mechanicRules(mechanicRuleService.get(request.getMechanic()));
     bonus.setPercentageDiscount(request.getPercentageDiscount());
     bonus.setBonusQuantity(request.getBonusQuantity());
     bonus.setBonusMax(request.getBonusMax());

@@ -1,8 +1,8 @@
 package com.economysa.motor.app.promotion.controller;
 
-import com.economysa.motor.app.promotion.controller.request.MechanicDetailRequest;
-import com.economysa.motor.app.promotion.entity.MechanicDetail;
-import com.economysa.motor.app.promotion.service.MechanicDetailService;
+import com.economysa.motor.app.promotion.controller.request.MechanicRulesRequest;
+import com.economysa.motor.app.promotion.entity.MechanicRule;
+import com.economysa.motor.app.promotion.service.MechanicRuleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Tag(
         name = "",
@@ -23,4 +22,26 @@ import java.util.List;
 @RequestMapping("/api/v1/secured/mechanic_rules")
 public class MechanicRuleController {
 
+    @Autowired private MechanicRuleService service;
+    @Operation(
+            description = "Agrega un listado de reglas a la Mecánica",
+            summary = "Agrega un listado de reglas a la Mecánica",
+            method = "POST"
+    )
+    @ApiResponses(
+            {
+                    @ApiResponse(
+                            responseCode = "201",
+                            description = "Operación exitosa"
+                    ),
+                    @ApiResponse(
+                            responseCode = "500",
+                            description = "Error interno del sistema"
+                    )
+            }
+    )
+    @PostMapping
+    public ResponseEntity<MechanicRule> add(@Valid @RequestBody MechanicRulesRequest request) {
+        return new ResponseEntity(service.add(request), HttpStatus.CREATED);
+    }
 }

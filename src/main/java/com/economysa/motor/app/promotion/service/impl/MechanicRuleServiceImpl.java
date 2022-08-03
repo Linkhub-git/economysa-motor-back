@@ -33,19 +33,21 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
     }
 
     /**
-     * Agrega un nuevo item ( no repetido ) a las reglas
+     * Agrega un listado nuevo de items ( no repetido ) a las reglas
      * de la mecánica.
-     * @param request - Item a registrar
-     * @return - Retorna el item ya registrado.
+     * @param request - Items a registrar
+     * @return - Retorna los item ya registrados.
      */
     @Override
-    public void add(MechanicRulesRequest request) {
+    public List<MechanicRule> add(MechanicRulesRequest request) {
 
         for(MechanicRuleRequest req:request.getMechanicRules()){
             MechanicRule rule = init(request.getMechanic(), req);
             validateRequest(request.getMechanic(), req);
             repository.save(rule);
         }
+
+        return list(request.getMechanic());
     }
 
     /**

@@ -9,5 +9,6 @@ public interface MechanicRuleService {
 
     List<MechanicRule> list(Long mechanicId);
 
-    void add(MechanicRulesRequest request);
+    List<MechanicRule> add(MechanicRulesRequest request);
+
 }
