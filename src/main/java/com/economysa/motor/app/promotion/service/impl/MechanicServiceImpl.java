@@ -42,15 +42,13 @@ public class MechanicServiceImpl implements MechanicService {
   }
 
   private Mechanic setData(Mechanic mechanic, MechanicRequest request) {
-    mechanic.setDescription(request.getDescription());
+    mechanic.setProviderDescription(request.getProviderDescription());
+    mechanic.setCatalogDescription(request.getCatalogDescription());
     mechanic.setStartDate(new Date(request.getStartDate()));
     mechanic.setEndDate(new Date(request.getEndDate()));
     mechanic.setAccumulate(getAccumulate(request.getAccumulate()));
     mechanic.setPromotionType(getPromotionType(request.getPromotionType()));
     mechanic.setType(getType(request.getType()));
-
-    mechanic = setRangeOrFactor(mechanic, request);
-
     mechanic.setConditional(request.getConditional());
     mechanic.setEmitter(request.getEmitter());
     if (request.getEmitterId() != null) {
@@ -145,20 +143,4 @@ public class MechanicServiceImpl implements MechanicService {
     }
   }
 
-  private Mechanic setRangeOrFactor(Mechanic mechanic, MechanicRequest request) {
-    if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_FACTOR)) {
-      mechanic.setFactor(request.getFactor());
-    } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_RANGE)) {
-      mechanic.setRange1(request.getRange1());
-      mechanic.setRange2(request.getRange2());
-    } else if (request.getType().equals(ConstantMessage.MECHANIC_TYPE_RANGE_FACTOR)) {
-      mechanic.setFactor(request.getFactor());
-      mechanic.setRange1(request.getRange1());
-      mechanic.setRange2(request.getRange2());
-    } else {
-      throw new BadRequestException("Invalid type [ " + request.getType() + " ]");
-    }
-
-    return mechanic;
-  }
 }
