@@ -10,11 +10,11 @@ import java.util.Optional;
 
 public interface MechanicBonusRepository extends CrudRepository<MechanicBonus, Long> {
 
-  @Query("select mb from MechanicBonus mb where mb.mechanic.id = :mechanicId order by mb.priority asc")
-  List<MechanicBonus> findAll(@Param("mechanicId") Long mechanicId);
+  @Query("select mb from MechanicBonus mb where mb.mechanicRules.id = :mechanicRulesId")
+  List<MechanicBonus> findAll(@Param("mechanicRulesId") Long mechanicRulesId);
 
-  @Query("select mb from MechanicBonus mb where mb.mechanic.id = :mechanicId" +
+  @Query("select mb from MechanicBonus mb where mb.mechanicRules.id = :mechanicRulesId" +
          " and mb.product.id = :product")
-  Optional<MechanicBonus> findByMechanicAndProduct(@Param("mechanicId") Long mechanicId,
+  Optional<MechanicBonus> findByMechanicAndProduct(@Param("mechanicRulesId") Long mechanicRulesId,
                                                    @Param("product") Long product);
 }

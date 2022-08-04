@@ -1,5 +1,6 @@
 package com.economysa.motor.app.promotion.entity;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -19,6 +20,7 @@ import javax.validation.constraints.Size;
 import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.util.ConstantMessage;
 
+import ch.qos.logback.classic.pattern.Util;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -51,23 +53,19 @@ public class Mechanic {
   
   @Column(name = "start_date")
   @NotNull
-  @Temporal(TemporalType.DATE)
-  private Date startDate;
+  private java.sql.Date startDate;
 
   @Column(name = "end_date")
   @NotNull
-  @Temporal(TemporalType.DATE)
-  private Date endDate;
+  private java.sql.Date endDate;
 
   @Column(name = "start_time")
   @NotNull
-  @Temporal(TemporalType.TIME)
-  private Date startTime;
+  private Time startTime;
 
   @Column(name = "end_time")
   @NotNull
-  @Temporal(TemporalType.TIME)
-  private Date endTime;
+  private Time endTime;
   
   @Column(name = "accumulate")
   @NotNull

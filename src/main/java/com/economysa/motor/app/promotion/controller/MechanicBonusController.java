@@ -23,49 +23,49 @@ import java.util.List;
 @RequestMapping("/api/v1/secured/mechanic_bonus")
 public class MechanicBonusController {
 
-  @Autowired private MechanicBonusService service;
-
-  @Operation(
-      description = "Listado de Bonificaciones de una Mecánica",
-      summary = "Listado de Bonificaciones de una Mecánica",
-      method = "GET"
-  )
-  @ApiResponses(
-      {
-          @ApiResponse(
-              responseCode = "200",
-              description = "Operación exitosa"
-          ),
-          @ApiResponse(
-              responseCode = "500",
-              description = "Error interno del sistema"
-          )
-      }
-  )
-  @GetMapping
-  public ResponseEntity<List<MechanicBonus>> list(@RequestParam Long mechanicId) {
-    return new ResponseEntity(service.list(mechanicId), HttpStatus.OK);
-  }
-
-  @Operation(
-      description = "Agrega una Bonificación a la Mecánica",
-      summary = "Agrega una Bonificación a la Mecánica",
-      method = "GET"
-  )
-  @ApiResponses(
-      {
-          @ApiResponse(
-              responseCode = "201",
-              description = "Operación exitosa"
-          ),
-          @ApiResponse(
-              responseCode = "500",
-              description = "Error interno del sistema"
-          )
-      }
-  )
-  @PostMapping
-  public ResponseEntity<MechanicBonus> add(@Valid @RequestBody MechanicBonusRequest request) {
-    return new ResponseEntity(service.add(request), HttpStatus.CREATED);
-  }
+//  @Autowired private MechanicBonusService service;
+//
+//  @Operation(
+//      description = "Listado de Bonificaciones de una Mecánica",
+//      summary = "Listado de Bonificaciones de una Mecánica",
+//      method = "GET"
+//  )
+//  @ApiResponses(
+//      {
+//          @ApiResponse(
+//              responseCode = "200",
+//              description = "Operación exitosa"
+//          ),
+//          @ApiResponse(
+//              responseCode = "500",
+//              description = "Error interno del sistema"
+//          )
+//      }
+//  )
+//  @GetMapping
+//  public ResponseEntity<List<MechanicBonus>> list(@RequestParam Long mechanicId) {
+//    return new ResponseEntity(service.list(mechanicId), HttpStatus.OK);
+//  }
+//
+//  @Operation(
+//      description = "Agrega una Bonificación a la Mecánica",
+//      summary = "Agrega una Bonificación a la Mecánica",
+//      method = "GET"
+//  )
+//  @ApiResponses(
+//      {
+//          @ApiResponse(
+//              responseCode = "201",
+//              description = "Operación exitosa"
+//          ),
+//          @ApiResponse(
+//              responseCode = "500",
+//              description = "Error interno del sistema"
+//          )
+//      }
+//  )
+//  @PostMapping
+//  public ResponseEntity<MechanicBonus> add(@Valid @RequestBody MechanicBonusRequest request) {
+//    return new ResponseEntity(service.add(request), HttpStatus.CREATED);
+//  }
 }

@@ -23,25 +23,26 @@ import javax.validation.Valid;
 public class MechanicRuleController {
 
     @Autowired private MechanicRuleService service;
-    @Operation(
-            description = "Agrega un listado de reglas a la Mecánica",
-            summary = "Agrega un listado de reglas a la Mecánica",
-            method = "POST"
-    )
-    @ApiResponses(
-            {
-                    @ApiResponse(
-                            responseCode = "201",
-                            description = "Operación exitosa"
-                    ),
-                    @ApiResponse(
-                            responseCode = "500",
-                            description = "Error interno del sistema"
-                    )
-            }
-    )
-    @PostMapping
-    public ResponseEntity<MechanicRule> add(@Valid @RequestBody MechanicRulesRequest request) {
-        return new ResponseEntity(service.add(request), HttpStatus.CREATED);
-    }
+    
+//    @Operation(
+//            description = "Agrega un listado de reglas a la Mecánica",
+//            summary = "Agrega un listado de reglas a la Mecánica",
+//            method = "POST"
+//    )
+//    @ApiResponses(
+//            {
+//                    @ApiResponse(
+//                            responseCode = "201",
+//                            description = "Operación exitosa"
+//                    ),
+//                    @ApiResponse(
+//                            responseCode = "500",
+//                            description = "Error interno del sistema"
+//                    )
+//            }
+//    )
+//    @PostMapping
+//    public ResponseEntity<MechanicRule> add(@Valid @RequestBody MechanicRulesRequest request) {
+//        return new ResponseEntity(service.add(request), HttpStatus.CREATED);
+//    }
 }

@@ -1,5 +1,13 @@
 package com.economysa.motor.app.promotion.service.impl;
 
+import java.sql.Time;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
 import com.economysa.motor.app.core.service.ProviderService;
 import com.economysa.motor.app.promotion.controller.request.MechanicRequest;
 import com.economysa.motor.app.promotion.entity.Mechanic;
@@ -9,14 +17,8 @@ import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Optional;
+import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
@@ -44,8 +46,10 @@ public class MechanicServiceImpl implements MechanicService {
   private Mechanic setData(Mechanic mechanic, MechanicRequest request) {
     mechanic.setProviderDescription(request.getProviderDescription());
     mechanic.setCatalogDescription(request.getCatalogDescription());
-    mechanic.setStartDate(new Date(request.getStartDate()));
-    mechanic.setEndDate(new Date(request.getEndDate()));
+    mechanic.setStartDate(fecha(request.getStartDate()));
+    mechanic.setEndDate(fecha(request.getEndDate()));
+    mechanic.setStartTime(Time.valueOf(request.getStartTime()));
+    mechanic.setEndTime(Time.valueOf(request.getEndTime()));
     mechanic.setAccumulate(getAccumulate(request.getAccumulate()));
     mechanic.setPromotionType(getPromotionType(request.getPromotionType()));
     mechanic.setType(getType(request.getType()));
@@ -143,4 +147,21 @@ public class MechanicServiceImpl implements MechanicService {
     }
   }
 
+  private java.sql.Date fecha(String fecha) {
+	  
+	  java.sql.Date fec = new java.sql.Date(0);
+	  
+	  try {
+		  
+		  fec = fec.valueOf(fecha);
+				
+		  return fec;
+		  
+	  }catch(Exception e) {
+		  
+	      throw new BadRequestException("Invalid date value: [ " + fecha + " ]");
+
+	  }
+	  
+  }
 }

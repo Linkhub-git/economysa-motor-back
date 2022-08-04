@@ -11,12 +11,12 @@ import java.util.Optional;
 
 public interface MechanicRepository extends CrudRepository<Mechanic, String> {
 
-  @Query("select m from Mechanic m order by m.creationDate desc")
+  @Query("select m from Mechanic m where status <> 'D' order by m.creationDate desc")
   Page<Mechanic> findAll(Pageable pageable);
 
-  @Query("select m from Mechanic m where m.emitter = :emitter order by m.creationDate desc")
+  @Query("select m from Mechanic m where m.emitter = :emitter and status <> 'D' order by m.creationDate desc")
   Page<Mechanic> find(@Param("emitter") String emitter, Pageable pageable);
 
-  @Query("select m from Mechanic m where m.id = :id")
+  @Query("select m from Mechanic m where m.id = :id and status <> 'D' ")
   Optional<Mechanic> findById(@Param("id") Long id);
 }

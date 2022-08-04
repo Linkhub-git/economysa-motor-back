@@ -1,12 +1,11 @@
 package com.economysa.motor.app.promotion.controller.request;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.math.BigDecimal;
 
 @Data
 @AllArgsConstructor
@@ -22,11 +21,17 @@ public class MechanicRequest {
   private String catalogDescription;
   
   @NotNull
-  private Long startDate;
+  private String startDate;
 
   @NotNull
-  private Long endDate;
+  private String endDate;
 
+  @NotNull
+  private String startTime;
+
+  @NotNull
+  private String endTime;
+  
   @NotNull
   @Size(min = 1, max = 1)
   private String accumulate;
@@ -38,12 +43,6 @@ public class MechanicRequest {
   @NotNull
   @Size(min = 1, max = 1)
   private String type;
-
-  private BigDecimal range1;
-
-  private BigDecimal range2;
-
-  private BigDecimal factor;
 
   @Size(max = 1)
   private String conditional;

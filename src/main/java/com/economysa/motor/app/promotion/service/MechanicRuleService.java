@@ -7,8 +7,8 @@ import java.util.List;
 
 public interface MechanicRuleService {
 
-    List<MechanicRule> list(Long mechanicId);
-
-    List<MechanicRule> add(MechanicRulesRequest request);
+//    List<MechanicRule> list(Long mechanicId);
+//
+//    List<MechanicRule> add(MechanicRulesRequest request);
 
 }
