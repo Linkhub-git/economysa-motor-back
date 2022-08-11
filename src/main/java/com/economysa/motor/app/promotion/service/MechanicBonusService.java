@@ -1,12 +1,12 @@
 package com.economysa.motor.app.promotion.service;
 
-import com.economysa.motor.app.promotion.controller.request.MechanicBonusRequest;
+import com.economysa.motor.app.promotion.controller.request.MechanicRuleRequest;
 import com.economysa.motor.app.promotion.entity.MechanicBonus;
 
-import java.util.List;
-
 public interface MechanicBonusService {
+	  
+  MechanicBonus add(MechanicRuleRequest mechanicRuleRequest,Long mechanicRuleId);
+  
+  void delete(MechanicBonus mechanicBonus);  
 
-  List<MechanicBonus> list(Long mechanicId);
-  MechanicBonus add(MechanicBonusRequest request);
 }

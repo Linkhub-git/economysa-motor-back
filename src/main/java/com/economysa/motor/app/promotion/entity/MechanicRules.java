@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tprom_mechanic_entry")
+@Table(name = "tprom_mechanic_rules")
 public class MechanicRules {
 
   @Id

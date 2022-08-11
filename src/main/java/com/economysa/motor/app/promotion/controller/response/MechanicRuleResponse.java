@@ -1,4 +1,4 @@
-package com.economysa.motor.app.promotion.controller.request;
+package com.economysa.motor.app.promotion.controller.response;
 
 import java.math.BigDecimal;
 
@@ -9,15 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MechanicRuleRequest {
+public class MechanicRuleResponse {
 
-    private BigDecimal startRange;
+    private Double startRange;
 
-    private BigDecimal endRange;
+    private Double endRange;
 
-    private BigDecimal factor;
+    private Double factor;
 
-    private Long priority;
+    private Integer priority;
     
     private BigDecimal percentageDiscount;
 
