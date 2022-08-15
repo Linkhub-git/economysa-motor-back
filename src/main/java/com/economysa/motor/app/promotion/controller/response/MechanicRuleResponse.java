@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MechanicRuleResponse {
+	
+    private BigDecimal startRange;
 
-    private Double startRange;
+    private BigDecimal endRange;
 
-    private Double endRange;
+    private BigDecimal factor;
 
-    private Double factor;
-
-    private Integer priority;
+    private Long priority;
     
     private BigDecimal percentageDiscount;
 

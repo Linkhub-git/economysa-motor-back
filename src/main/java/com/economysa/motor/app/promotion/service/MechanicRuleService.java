@@ -2,6 +2,7 @@ package com.economysa.motor.app.promotion.service;
 
 import com.economysa.motor.app.promotion.controller.request.MechanicRulesRequest;
 import com.economysa.motor.app.promotion.controller.response.MechanicRulesResponse;
+import com.economysa.motor.app.promotion.entity.Mechanic;
 import com.economysa.motor.app.promotion.entity.MechanicRules;
 
 public interface MechanicRuleService {

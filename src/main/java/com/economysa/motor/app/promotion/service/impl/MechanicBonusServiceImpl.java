@@ -1,6 +1,7 @@
 package com.economysa.motor.app.promotion.service.impl;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,10 @@ public class MechanicBonusServiceImpl implements MechanicBonusService {
     bonus.setQuantityUse(BigDecimal.ZERO);
     
     return bonus;
+  }
+
+  public List<MechanicBonus> findAll(Long mechanicId){
+	return repository.findAll(mechanicId);  
   }
 
   @Override

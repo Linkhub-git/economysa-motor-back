@@ -1,5 +1,7 @@
 package com.economysa.motor.app.promotion.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,13 @@ public class MechanicDiscountServiceImpl implements MechanicDiscountService {
 	    
 	    return discount;
 	  }
+
+	    public List<MechanicDiscount> findAll(Long mechanicId){
+
+	    	return repository.findAll(mechanicId);
+		
+		}
+
 
 	  @Override
 	  public MechanicDiscount add(MechanicRuleRequest mechanicRuleRequest, Long mechanicRuleId) {	 
