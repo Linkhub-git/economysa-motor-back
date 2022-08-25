@@ -2,13 +2,14 @@ package com.economysa.motor.app.promotion.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
-import javax.transaction.Transactional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.economysa.motor.app.core.service.ProductService;
 import com.economysa.motor.app.promotion.controller.request.MechanicRuleRequest;
 import com.economysa.motor.app.promotion.controller.request.MechanicRulesRequest;
 import com.economysa.motor.app.promotion.controller.response.MechanicRuleResponse;
@@ -22,6 +23,7 @@ import com.economysa.motor.app.promotion.service.MechanicBonusService;
 import com.economysa.motor.app.promotion.service.MechanicDiscountService;
 import com.economysa.motor.app.promotion.service.MechanicRuleService;
 import com.economysa.motor.app.promotion.service.MechanicService;
+import com.economysa.motor.error.exception.BadRequestException;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 
@@ -33,6 +35,7 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
 
     @Autowired private MechanicRulesRepository repository;
 
+    @Autowired private ProductService productService;
     @Autowired private MechanicService mechanicService;
     @Autowired private MechanicBonusService mechanicBonusService;
     @Autowired private MechanicDiscountService mechanicDiscountService;
@@ -50,7 +53,7 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
 
     	Mechanic mec = mechanicService.get(mechanicId);
     	
-    	if(mec.getPromotionType().equals("P")) {
+    	if(mec.getPromotionType().equals(ConstantMessage.MECHANIC_PROMOTION_TYPE_PRODUCT)) {
     		
         	List<MechanicBonus> listBonus = mechanicBonusService.findAll(mechanicId);
         	
@@ -139,7 +142,9 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
 
     	Mechanic mec = mechanicService.get(request.getMechanic());
     	
-    	if(mec.getPromotionType().equals("P")) {
+    	validateRequest(mec,request);
+    	
+    	if(mec.getPromotionType().equals(ConstantMessage.MECHANIC_PROMOTION_TYPE_PRODUCT)) {
 
         	List<MechanicBonus> listBonus = mechanicBonusService.findAll(request.getMechanic());
 
@@ -199,6 +204,93 @@ public class MechanicRuleServiceImpl implements MechanicRuleService {
     }
 
 
+    /**
+     * Verifica si tienes los campos mandatorios y si los rangos no se repiten
+     * @param request - Item a registrar
+     * @throws BadRequestException - Lanza excepción si el
+     * item no cuenta con todos los campos o si los rangos se repiten.
+     */
+    private void validateRequest(Mechanic mec, MechanicRulesRequest request) {
+    	
+    
+	    if(mec.getPromotionType().equals(ConstantMessage.MECHANIC_PROMOTION_TYPE_PRODUCT)) {
+	    	
+
+	    	List<String> duplicateList = request.getMechanicRules()
+					    	            .stream()
+					    	            .collect(Collectors.groupingBy(s -> s.getStartRange()+"-"+s.getEndRange()))
+					    	            .entrySet()
+					    	            .stream()
+					    	            .filter(e -> e.getValue().size() > 1)
+					    	            .map(e -> e.getKey())
+					    	            .collect(Collectors.toList());
+	    	
+	    	if(duplicateList.size()>0) {
+	    		
+	    		log.info(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" Range Repeat");
+		        throw new BadRequestException(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" Range Repeat");
+	    	}
+	    	
+	    	for(MechanicRuleRequest obj: request.getMechanicRules()) {
+	    		
+	    		if(obj.getBonusMax()==null) {
+	    			
+	    			log.info(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" BonusMax");
+	    	        throw new BadRequestException(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" BonusMax");
+	    		}
+	    		
+				if(obj.getBonusQuantity()==null) {
+					    			
+					log.info(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" BonusQuantity");
+			        throw new BadRequestException(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" BonusQuantity");
+				}
+				
+				if(obj.getProductId()==null) {
+					
+					log.info(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" ProductId");
+			        throw new BadRequestException(ConstantMessage.ITEM_ALREADY_ADDED +" ProductId");					
+					
+				}else {
+					
+					productService.get(obj.getProductId());
+					
+				}
+				
+	    	}
+	    	
+	    }
+	    
+	    if(mec.getPromotionType().equals(ConstantMessage.MECHANIC_PROMOTION_TYPE_DISCOUNT)) {
+	    	
+	    	List<String> duplicateList = request.getMechanicRules()
+    	            .stream()
+    	            .collect(Collectors.groupingBy(s -> s.getStartRange()+"-"+s.getEndRange()))
+    	            .entrySet()
+    	            .stream()
+    	            .filter(e -> e.getValue().size() > 1)
+    	            .map(e -> e.getKey())
+    	            .collect(Collectors.toList());
+
+			if(duplicateList.size()>0) {
+			
+			log.info(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" Range Repeat");
+			throw new BadRequestException(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" Range Repeat");
+			}
+
+	    	for(MechanicRuleRequest obj: request.getMechanicRules()) {
+
+	    		if(obj.getPercentageDiscount()==null) {
+	    			
+	    			log.info(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" percentageDiscount");
+	    	        throw new BadRequestException(ConstantMessage.ERROR_INPUT_VALIDATION_FAILED +" percentageDiscount");
+	    		}
+
+	    	}
+	    	
+	    }
+	    
+    }   	
+      
 
    
 }

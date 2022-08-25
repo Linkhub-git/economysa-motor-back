@@ -87,6 +87,7 @@ public class Mechanic {
   private String conditional;
 
   @Column(name = "emitter")
+  @NotNull
   @Size(min = 1, max = 1)
   private String emitter;
 

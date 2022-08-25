@@ -55,9 +55,23 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setType(getType(request.getType()));
     mechanic.setConditional(request.getConditional());
     mechanic.setEmitter(request.getEmitter());
-    if (request.getEmitterId() != null) {
-      mechanic.setEmitterObj(providerService.get(request.getEmitterId()));
+    
+    
+    if (request.getEmitter().equals(ConstantMessage.EMITTER_PROVIDER) ) {
+    	
+    	if(request.getEmitterId()==null) {
+    		
+    		log.info("EmitterId is mandatory for emitter [ " + request.getEmitter() + " ]");
+            throw new ResourceNotFoundException(ConstantMessage.ERROR_BAD_REQUEST + " - emitterId is mandatory");
+            
+    	}else {
+    		
+    	      mechanic.setEmitterObj(providerService.get(request.getEmitterId()));
+
+    	}
+
     }
+    
     return mechanic;
   }
 
