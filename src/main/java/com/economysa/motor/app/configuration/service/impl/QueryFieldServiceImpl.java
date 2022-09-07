@@ -18,4 +18,9 @@ public class QueryFieldServiceImpl implements QueryFieldService {
 	    return (List<QueryField>) repository.findAll();
 	  }
 
+  public QueryField get(Long id) {
+	  
+	  return repository.findById(id).orElseThrow();
+  }
+  
 }

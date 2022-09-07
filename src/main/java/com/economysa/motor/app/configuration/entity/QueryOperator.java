@@ -28,5 +28,10 @@ public class QueryOperator {
 	  @NotNull
 	  @Size(min = 1, max = 50)
 	  private String name;
-	  
+
+	  @Column(name = "name_db")
+	  @NotNull
+	  @Size(min = 1, max = 50)
+	  private String namedb;
+	 
 }

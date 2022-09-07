@@ -18,9 +18,13 @@ public class QueryFieldOperServiceImpl implements QueryFieldOperService{
 
   public QueryFieldOperResponse listOperatorByField(Long fieldId){
 	  
-	  QueryFieldOperResponse response = new QueryFieldOperResponse();
+	  QueryFieldOperResponse response = null;
 	  
 	  List<QueryFieldOper> list = repository.findOperators(fieldId);
+	  
+	  if(!list.isEmpty()) {
+		  response = new QueryFieldOperResponse();
+	  }
 	  
 	  for(QueryFieldOper obj: list) {
 		  

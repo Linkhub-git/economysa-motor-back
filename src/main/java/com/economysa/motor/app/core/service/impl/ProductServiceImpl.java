@@ -18,8 +18,12 @@ import org.springframework.stereotype.Service;
 
 import com.economysa.motor.app.configuration.entity.Brand;
 import com.economysa.motor.app.configuration.entity.Category;
+import com.economysa.motor.app.configuration.entity.QueryField;
+import com.economysa.motor.app.configuration.entity.QueryOperator;
 import com.economysa.motor.app.configuration.service.BrandService;
 import com.economysa.motor.app.configuration.service.CategoryService;
+import com.economysa.motor.app.configuration.service.QueryFieldService;
+import com.economysa.motor.app.configuration.service.QueryOperatorService;
 import com.economysa.motor.app.configuration.service.UnityService;
 import com.economysa.motor.app.core.controller.dto.ProductDto;
 import com.economysa.motor.app.core.controller.request.SearchRequest;
@@ -28,6 +32,8 @@ import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.app.core.repository.ProductRepository;
 import com.economysa.motor.app.core.service.ProductService;
 import com.economysa.motor.app.core.service.ProviderService;
+import com.economysa.motor.app.promotion.controller.request.ConditionRuleRequest;
+import com.economysa.motor.app.promotion.entity.ConditionRules;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
@@ -43,6 +49,9 @@ public class ProductServiceImpl implements ProductService {
   @Autowired private CategoryService categoryService;
   @Autowired private BrandService brandService;
   @Autowired private UnityService unityService;
+  @Autowired private QueryFieldService queryFieldService;
+  @Autowired private QueryOperatorService queryOperatorService;
+  
   @Autowired private EntityManager em;
 	
   @Override
@@ -90,7 +99,7 @@ public class ProductServiceImpl implements ProductService {
   }
   
   @Override
-  public List<Product> filter(SearchRequest req) {
+  public List<Product> findByConditions(SearchRequest req) {
 	  
 		  
 	CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -99,75 +108,157 @@ public class ProductServiceImpl implements ProductService {
 
 	List<Predicate> predicates = new ArrayList<>();
 
-	 if(req.getProduct() != null) {
-	        
-	    	if(req.getProduct().getCode()!=null && !req.getProduct().getCode().isBlank() ) {
-	    		
-	    	    predicates.add(cb.equal(root.get("code"), req.getProduct().getCode()));
+	for(ConditionRuleRequest obj:req.getConditionRules()) {
+		
+		QueryField field = queryFieldService.get(obj.getField_id());
+		QueryOperator operator = queryOperatorService.get(obj.getOperator_id());
 
-	    	}
-	    	
-	    	if(req.getProduct().getName()!=null && !req.getProduct().getName().isBlank()) {
+		Join<Product, Provider> join = null;
+    	Join<Product, Brand> join2 = null;
+    	Join<Product, Category> join3 = null;
+		
+		switch (field.getTabledb()) {
+		case "product":
+			
+			switch (operator.getNamedb()) {
+			case "EQUAL":
+				
+	    	    predicates.add(cb.equal(root.get(field.getNamedb()), obj.getValue()));
 
-	    	    predicates.add(cb.like(cb.lower(root.get("name")),"%" + req.getProduct().getName() + "%"));
+				break;
 
-	        }
-	    }
-	    
-	    if(req.getProvider() != null) {
-	    	
-	    	if((req.getProvider().getCode()!=null && !req.getProvider().getCode().isBlank() ) || 
-	    			(req.getProvider().getName()!=null && !req.getProvider().getName().isBlank())) {
+			case "NOT EQUAL":
+				
 
-	    	Join<Product, Provider> join = root.join("provider");
+				break;
+						
+			case "LIKE":
+				
+	    	    predicates.add(cb.like(cb.lower(root.get(field.getNamedb())),"%" + obj.getValue() + "%"));
 
+				break;
+				
+			case "IN":
+				
+				break;
 
-	    	if(req.getProvider().getCode()!=null && !req.getProvider().getCode().isBlank() ) {
+			}
+			
+			break;
 
-	    	    predicates.add(cb.equal(join.get("code"), req.getProvider().getCode()));
+		case "provider":
+			
+			if(join==null) {
+				
+		    	join = root.join(field.getTabledb());
 
-	    	}
-	    	
-	    	if(req.getProvider().getName()!=null && !req.getProvider().getName().isBlank()) {
+			}
+			
+			switch (operator.getNamedb()) {
+			case "EQUAL":
+				
+	    	    predicates.add(cb.equal(join.get(field.getNamedb()), obj.getValue()));
 
-	    	    predicates.add(cb.like(cb.lower(join.get("name")),"%" + req.getProvider().getName() + "%"));
+				break;
 
-	        }
-	    
-	    	}
-	    
-	    }
-	    
-	    if(req.getBrand() != null) {
-	    		    	
-	    	if(req.getBrand().getName()!=null && !req.getBrand().getName().isBlank()) {
+			case "NOT EQUAL":
+				
 
-		    	Join<Product, Brand> join2 = root.join("brand");
+				break;
+						
+			case "LIKE":
+				
+	    	    predicates.add(cb.like(cb.lower(join.get(field.getNamedb())),"%" + obj.getValue() + "%"));
 
-	    	    predicates.add(cb.like(cb.lower(join2.get("name")),"%" + req.getBrand().getName() + "%"));
+				break;
+				
+			case "IN":
+				
+				break;
 
-	        }
-	    
-	    }
-	    
-	    if(req.getCategory() != null) {
-	    	
-	    	if(req.getCategory().getName()!=null && !req.getCategory().getName().isBlank()) {
+			}
+			
+			break;
 
-		    	Join<Product, Category> join3 = root.join("category");
+		case "brand":
+			
+			if(join2==null) {
+				
+				join2 = root.join(field.getTabledb());
+			}
+			
+			switch (operator.getNamedb()) {
+			case "EQUAL":
+				
+	    	    predicates.add(cb.equal(join2.get(field.getNamedb()), obj.getValue()));
 
-	    	    predicates.add(cb.like(cb.lower(join3.get("name")),"%" + req.getCategory().getName() + "%"));
+				break;
 
-	        }
-	    
-	    }
-	    
+			case "NOT EQUAL":
+				
+
+				break;
+						
+			case "LIKE":
+				
+	    	    predicates.add(cb.like(cb.lower(join2.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+
+				break;
+				
+			case "IN":
+				
+				break;
+
+			}
+			
+			break;
+
+		case "category":
+			
+			if(join3==null) {
+				
+				join3 = root.join(field.getTabledb());
+
+			}
+			
+			switch (operator.getNamedb()) {
+			case "EQUAL":
+				
+	    	    predicates.add(cb.equal(join3.get(field.getNamedb()), obj.getValue()));
+
+				break;
+
+			case "NOT EQUAL":
+				
+	    	    predicates.add(cb.like(cb.lower(join3.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+
+				break;
+						
+			case "LIKE":
+				
+				break;
+				
+			case "IN":
+				
+				break;
+
+			}
+			
+			break;
+
+		}
+	
+		
+	}
+	
     cq.select(root).where(cb.and(predicates.toArray(new Predicate[0])));
 
-    return em.createQuery(cq).getResultList();        
+    return em.createQuery(cq).getResultList();       
 
   }
 
+  
+  
   @Override
   public Product get(Long id) {
     Optional<Product> product = repository.listByProductId(id);

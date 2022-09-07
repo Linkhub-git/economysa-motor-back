@@ -14,7 +14,7 @@ public interface ProductService {
   void saveAll(List<Product> items);
   
   Page<Product> list(Pageable pageable);
-  List<Product> filter(SearchRequest req);
+  List<Product> findByConditions(SearchRequest req);
   
   Product get(Long id);
   Product listByProductCode(String id);

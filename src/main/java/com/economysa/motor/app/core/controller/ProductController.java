@@ -69,10 +69,10 @@ public class ProductController {
 	          )
 	      }
 	  )
-  @PostMapping("/filter")
-  public ResponseEntity<List<Product>> filter(@Valid @RequestBody SearchRequest req) {
+  @PostMapping("/conditions")
+  public ResponseEntity<List<Product>> findByConditions(@Valid @RequestBody SearchRequest req) {
 	  
-    return new ResponseEntity(service.filter(req), HttpStatus.OK);
+    return new ResponseEntity(service.findByConditions(req), HttpStatus.OK);
   }
   
   

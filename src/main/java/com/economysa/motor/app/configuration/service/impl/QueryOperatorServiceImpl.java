@@ -18,4 +18,10 @@ public class QueryOperatorServiceImpl implements QueryOperatorService {
     return (List<QueryOperator>) repository.findAll();
   }
 
+
+  public QueryOperator get(Long id) {
+	  
+	  return repository.findById(id).orElseThrow();
+  }
+  
 }

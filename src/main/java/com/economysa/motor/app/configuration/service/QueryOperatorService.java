@@ -7,4 +7,7 @@ import com.economysa.motor.app.configuration.entity.QueryOperator;
 public interface QueryOperatorService {
 
   List<QueryOperator> listOperators();
+  
+  QueryOperator get(Long id);
+
 }

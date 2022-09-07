@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.economysa.motor.app.configuration.controller.response.FieldResponse;
 import com.economysa.motor.app.configuration.controller.response.QueryCondFieldResponse;
+import com.economysa.motor.app.configuration.controller.response.QueryFieldOperResponse;
 import com.economysa.motor.app.configuration.entity.QueryCondField;
 import com.economysa.motor.app.configuration.repository.QueryCondFieldRepository;
 import com.economysa.motor.app.configuration.service.QueryCondFieldService;
@@ -18,9 +19,13 @@ public class QueryCondFieldServiceImpl implements QueryCondFieldService{
 
 	public QueryCondFieldResponse listFieldByCondition(Long conditionId){
 
-		QueryCondFieldResponse response = new QueryCondFieldResponse();
+		QueryCondFieldResponse response = null;
 		  
 		  List<QueryCondField> list = repository.findFields(conditionId);
+		  
+		  if(!list.isEmpty()) {
+			  response = new QueryCondFieldResponse();
+		  }
 		  
 		  for(QueryCondField obj: list) {
 			  

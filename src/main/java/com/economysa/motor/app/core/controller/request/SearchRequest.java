@@ -1,5 +1,9 @@
 package com.economysa.motor.app.core.controller.request;
 
+import java.util.List;
+
+import com.economysa.motor.app.promotion.controller.request.ConditionRuleRequest;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,12 +14,7 @@ import lombok.NoArgsConstructor;
 public class SearchRequest {
 
 
-  private ProductRequest product;
-  
-  private ProviderRequest provider;
-  
-  private BrandRequest brand;
-  
-  private CategoryRequest category;
+    private List<ConditionRuleRequest> conditionRules;
+
   
 }

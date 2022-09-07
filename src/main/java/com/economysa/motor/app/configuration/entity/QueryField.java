@@ -34,4 +34,9 @@ public class QueryField {
   @Size(min = 1, max = 50)
   private String namedb;
  
+  @Column(name = "table_db")
+  @NotNull
+  @Size(min = 1, max = 50)
+  private String tabledb;
+  
 }
