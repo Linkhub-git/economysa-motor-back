@@ -117,6 +117,8 @@ public class ProductServiceImpl implements ProductService {
     	Join<Product, Brand> join2 = null;
     	Join<Product, Category> join3 = null;
 		
+    	List<String> list = null;
+    	
 		switch (field.getTabledb()) {
 		case "product":
 			
@@ -129,6 +131,7 @@ public class ProductServiceImpl implements ProductService {
 
 			case "NOT EQUAL":
 				
+	    	    predicates.add(cb.notEqual(root.get(field.getNamedb()), obj.getValue()));
 
 				break;
 						
@@ -140,6 +143,14 @@ public class ProductServiceImpl implements ProductService {
 				
 			case "IN":
 				
+				list = new ArrayList<String>();
+				
+				for(String s:obj.getValue().split(",")) {
+					list.add(s);
+				}
+				
+	    	    predicates.add(cb.in(root.get(field.getNamedb())).value(list));
+	    	    
 				break;
 
 			}
@@ -163,6 +174,7 @@ public class ProductServiceImpl implements ProductService {
 
 			case "NOT EQUAL":
 				
+	    	    predicates.add(cb.notEqual(join.get(field.getNamedb()), obj.getValue()));
 
 				break;
 						
@@ -174,6 +186,14 @@ public class ProductServiceImpl implements ProductService {
 				
 			case "IN":
 				
+				list = new ArrayList<String>();
+				
+				for(String s:obj.getValue().split(",")) {
+					list.add(s);
+				}
+				
+	    	    predicates.add(cb.in(join.get(field.getNamedb())).value(list));
+	    	    
 				break;
 
 			}
@@ -196,6 +216,7 @@ public class ProductServiceImpl implements ProductService {
 
 			case "NOT EQUAL":
 				
+	    	    predicates.add(cb.notEqual(join2.get(field.getNamedb()), obj.getValue()));
 
 				break;
 						
@@ -207,6 +228,14 @@ public class ProductServiceImpl implements ProductService {
 				
 			case "IN":
 				
+				list = new ArrayList<String>();
+				
+				for(String s:obj.getValue().split(",")) {
+					list.add(s);
+				}
+				
+	    	    predicates.add(cb.in(join2.get(field.getNamedb())).value(list));
+	    	    
 				break;
 
 			}
@@ -230,16 +259,26 @@ public class ProductServiceImpl implements ProductService {
 
 			case "NOT EQUAL":
 				
-	    	    predicates.add(cb.like(cb.lower(join3.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+	    	    predicates.add(cb.notEqual(join3.get(field.getNamedb()), obj.getValue()));
 
 				break;
 						
 			case "LIKE":
 				
+	    	    predicates.add(cb.like(cb.lower(join3.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+
 				break;
 				
 			case "IN":
 				
+				list = new ArrayList<String>();
+				
+				for(String s:obj.getValue().split(",")) {
+					list.add(s);
+				}
+				
+	    	    predicates.add(cb.in(join3.get(field.getNamedb())).value(list));
+	    	    
 				break;
 
 			}
