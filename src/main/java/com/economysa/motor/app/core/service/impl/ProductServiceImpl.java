@@ -26,6 +26,7 @@ import com.economysa.motor.app.configuration.service.QueryFieldService;
 import com.economysa.motor.app.configuration.service.QueryOperatorService;
 import com.economysa.motor.app.configuration.service.UnityService;
 import com.economysa.motor.app.core.controller.dto.ProductDto;
+import com.economysa.motor.app.core.controller.request.SearchGroupRequest;
 import com.economysa.motor.app.core.controller.request.SearchRequest;
 import com.economysa.motor.app.core.entity.Product;
 import com.economysa.motor.app.core.entity.Provider;
@@ -33,7 +34,6 @@ import com.economysa.motor.app.core.repository.ProductRepository;
 import com.economysa.motor.app.core.service.ProductService;
 import com.economysa.motor.app.core.service.ProviderService;
 import com.economysa.motor.app.promotion.controller.request.ConditionRuleRequest;
-import com.economysa.motor.app.promotion.entity.ConditionRules;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
@@ -104,193 +104,215 @@ public class ProductServiceImpl implements ProductService {
 		  
 	CriteriaBuilder cb = em.getCriteriaBuilder();
 	CriteriaQuery<Product> cq = cb.createQuery(Product.class);	    
+	
 	Root<Product> root = cq.from(Product.class);
+	Join<Product, Provider> join1 = root.join("provider");
+	Join<Product, Brand> join2 = root.join("brand");
+	Join<Product, Category> join3 = root.join("category");
+	
+	
+	List<Predicate> predicatesGroups = new ArrayList<>();
+	List<Predicate> predicatesConditions = null;
 
-	List<Predicate> predicates = new ArrayList<>();
+	QueryField field = null;
+	QueryOperator operator = null;
+	List<String> list = null;
 
-	for(ConditionRuleRequest obj:req.getConditionRules()) {
+	Predicate groupPredicate = null;
+	Predicate finalPredicate = null;
+	
+	for(SearchGroupRequest group:req.getSearchRules().getGroups()) {
 		
-		QueryField field = queryFieldService.get(obj.getField_id());
-		QueryOperator operator = queryOperatorService.get(obj.getOperator_id());
+		predicatesConditions = new ArrayList<>();
 
-		Join<Product, Provider> join = null;
-    	Join<Product, Brand> join2 = null;
-    	Join<Product, Category> join3 = null;
+		for(ConditionRuleRequest condition : group.getConditions()) {
+			
+			field = queryFieldService.get(condition.getField_id());
+			operator = queryOperatorService.get(condition.getOperator_id());
+						
+			switch (field.getTabledb()) {
+			
+			case "product":
 		
-    	List<String> list = null;
-    	
-		switch (field.getTabledb()) {
-		case "product":
-			
-			switch (operator.getNamedb()) {
-			case "EQUAL":
+				switch (operator.getNamedb()) {
 				
-	    	    predicates.add(cb.equal(root.get(field.getNamedb()), obj.getValue()));
+				case "EQUAL":
+					
+					predicatesConditions.add(cb.equal(root.get(field.getNamedb()), condition.getValue()));
 
-				break;
+					break;
 
-			case "NOT EQUAL":
-				
-	    	    predicates.add(cb.notEqual(root.get(field.getNamedb()), obj.getValue()));
+				case "NOT EQUAL":
+					
+					predicatesConditions.add(cb.notEqual(root.get(field.getNamedb()), condition.getValue()));
 
-				break;
-						
-			case "LIKE":
-				
-	    	    predicates.add(cb.like(cb.lower(root.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+					break;
+							
+				case "LIKE":
+					
+					predicatesConditions.add(cb.like(cb.lower(root.get(field.getNamedb())),"%" + condition.getValue() + "%"));
 
-				break;
-				
-			case "IN":
-				
-				list = new ArrayList<String>();
-				
-				for(String s:obj.getValue().split(",")) {
-					list.add(s);
+					break;
+					
+				case "IN":
+					
+					list = new ArrayList<String>();
+					
+					for(String s:condition.getValue().split(",")) {
+						list.add(s);
+					}
+					
+					predicatesConditions.add(cb.in(root.get(field.getNamedb())).value(list));
+		    	    
+					break;
+
 				}
 				
-	    	    predicates.add(cb.in(root.get(field.getNamedb())).value(list));
-	    	    
-				break;
-
-			}
-			
 			break;
 
-		case "provider":
+			case "provider":
+				
+				switch (operator.getNamedb()) {
+				case "EQUAL":
+					
+					predicatesConditions.add(cb.equal(join1.get(field.getNamedb()), condition.getValue()));
+
+					break;
+
+				case "NOT EQUAL":
+					
+					predicatesConditions.add(cb.notEqual(join1.get(field.getNamedb()), condition.getValue()));
+
+					break;
+							
+				case "LIKE":
+					
+					predicatesConditions.add(cb.like(cb.lower(join1.get(field.getNamedb())),"%" + condition.getValue() + "%"));
+
+					break;
+					
+				case "IN":
+					
+					list = new ArrayList<String>();
+					
+					for(String s:condition.getValue().split(",")) {
+						list.add(s);
+					}
+					
+					predicatesConditions.add(cb.in(join1.get(field.getNamedb())).value(list));
+		    	    
+					break;
+
+				}
+								
+
+			break;
 			
-			if(join==null) {
+			case "brand":
 				
-		    	join = root.join(field.getTabledb());
+				switch (operator.getNamedb()) {
+				case "EQUAL":
+					
+					predicatesConditions.add(cb.equal(join2.get(field.getNamedb()), condition.getValue()));
 
-			}
-			
-			switch (operator.getNamedb()) {
-			case "EQUAL":
-				
-	    	    predicates.add(cb.equal(join.get(field.getNamedb()), obj.getValue()));
+					break;
 
-				break;
+				case "NOT EQUAL":
+					
+					predicatesConditions.add(cb.notEqual(join2.get(field.getNamedb()), condition.getValue()));
 
-			case "NOT EQUAL":
-				
-	    	    predicates.add(cb.notEqual(join.get(field.getNamedb()), obj.getValue()));
+					break;
+							
+				case "LIKE":
+					
+					predicatesConditions.add(cb.like(cb.lower(join2.get(field.getNamedb())),"%" + condition.getValue() + "%"));
 
-				break;
-						
-			case "LIKE":
-				
-	    	    predicates.add(cb.like(cb.lower(join.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+					break;
+					
+				case "IN":
+					
+					list = new ArrayList<String>();
+					
+					for(String s:condition.getValue().split(",")) {
+						list.add(s);
+					}
+					
+					predicatesConditions.add(cb.in(join2.get(field.getNamedb())).value(list));
+		    	    
+					break;
 
-				break;
-				
-			case "IN":
-				
-				list = new ArrayList<String>();
-				
-				for(String s:obj.getValue().split(",")) {
-					list.add(s);
 				}
 				
-	    	    predicates.add(cb.in(join.get(field.getNamedb())).value(list));
-	    	    
-				break;
 
-			}
-			
 			break;
+				
+			case "category":
+				
+				switch (operator.getNamedb()) {
+				case "EQUAL":
+					
+					predicatesConditions.add(cb.equal(join3.get(field.getNamedb()), condition.getValue()));
 
-		case "brand":
-			
-			if(join2==null) {
-				
-				join2 = root.join(field.getTabledb());
-			}
-			
-			switch (operator.getNamedb()) {
-			case "EQUAL":
-				
-	    	    predicates.add(cb.equal(join2.get(field.getNamedb()), obj.getValue()));
+					break;
 
-				break;
+				case "NOT EQUAL":
+					
+					predicatesConditions.add(cb.notEqual(join3.get(field.getNamedb()), condition.getValue()));
 
-			case "NOT EQUAL":
-				
-	    	    predicates.add(cb.notEqual(join2.get(field.getNamedb()), obj.getValue()));
+					break;
+							
+				case "LIKE":
+					
+					predicatesConditions.add(cb.like(cb.lower(join3.get(field.getNamedb())),"%" + condition.getValue() + "%"));
 
-				break;
-						
-			case "LIKE":
-				
-	    	    predicates.add(cb.like(cb.lower(join2.get(field.getNamedb())),"%" + obj.getValue() + "%"));
+					break;
+					
+				case "IN":
+					
+					list = new ArrayList<String>();
+					
+					for(String s:condition.getValue().split(",")) {
+						list.add(s);
+					}
+					
+					predicatesConditions.add(cb.in(join3.get(field.getNamedb())).value(list));
+		    	    
+					break;
 
-				break;
-				
-			case "IN":
-				
-				list = new ArrayList<String>();
-				
-				for(String s:obj.getValue().split(",")) {
-					list.add(s);
 				}
 				
-	    	    predicates.add(cb.in(join2.get(field.getNamedb())).value(list));
-	    	    
-				break;
-
-			}
-			
 			break;
-
-		case "category":
-			
-			if(join3==null) {
 				
-				join3 = root.join(field.getTabledb());
-
-			}
-			
-			switch (operator.getNamedb()) {
-			case "EQUAL":
-				
-	    	    predicates.add(cb.equal(join3.get(field.getNamedb()), obj.getValue()));
-
-				break;
-
-			case "NOT EQUAL":
-				
-	    	    predicates.add(cb.notEqual(join3.get(field.getNamedb()), obj.getValue()));
-
-				break;
-						
-			case "LIKE":
-				
-	    	    predicates.add(cb.like(cb.lower(join3.get(field.getNamedb())),"%" + obj.getValue() + "%"));
-
-				break;
-				
-			case "IN":
-				
-				list = new ArrayList<String>();
-				
-				for(String s:obj.getValue().split(",")) {
-					list.add(s);
-				}
-				
-	    	    predicates.add(cb.in(join3.get(field.getNamedb())).value(list));
-	    	    
-				break;
-
-			}
-			
-			break;
-
 		}
 	
+	}
+		
+		if(group.getGroupOperator().equals("AND")) {
+			
+			groupPredicate  = cb.and(predicatesConditions.toArray(new Predicate[0]));
+
+		}else {
+			
+			groupPredicate  = cb.or(predicatesConditions.toArray(new Predicate[0]));
+
+		}
+		
+		predicatesGroups.add(groupPredicate);
 		
 	}
+		
 	
-    cq.select(root).where(cb.and(predicates.toArray(new Predicate[0])));
+	if(req.getSearchRules().getSearchOperator().equals("AND")) {
+		
+		finalPredicate  = cb.and(predicatesGroups.toArray(new Predicate[0]));
+		
+	}else {
+		
+		finalPredicate  = cb.or(predicatesGroups.toArray(new Predicate[0]));
+
+	}	
+
+    cq.select(root).where(finalPredicate);
 
     return em.createQuery(cq).getResultList();       
 
