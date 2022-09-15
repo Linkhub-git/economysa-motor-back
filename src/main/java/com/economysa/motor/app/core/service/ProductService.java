@@ -17,7 +17,8 @@ public interface ProductService {
   List<Product> findByConditions(SearchRequest req);
   
   Product get(Long id);
-  Product listByProductCode(String id);
+  Product getByProductCode(String id);
+  
   List<Product> listByProductName(String id);
   List<Product> listByProviderId(Long providerId);
   List<Product> listByProviderCode(String providerCode);

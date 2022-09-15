@@ -18,10 +18,10 @@ public interface ProductRepository extends CrudRepository<Product, String>, JpaS
 Page<Product> findAll(Pageable pageable);
 
 @Query("select p from Product p where p.id = :id")
-Optional<Product> listByProductId(@Param("id") Long id);
+Optional<Product> getByProductId(@Param("id") Long id);
   
 @Query("select p from Product p where p.code = :code")
-Optional<Product> listByProductCode(@Param("code") String code);
+Optional<Product> getByProductCode(@Param("code") String code);
   
 @Query("select p from Product p where p.name like %:name% order by p.name asc")
 List<Product> listByProductName(@Param("name") String name);

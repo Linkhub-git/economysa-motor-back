@@ -29,6 +29,9 @@ public class ConstantMessage {
 	public static final String PRODUCT_NOT_FOUND = "No se encontró el producto";
 	public static final String PRODUCT_ALREADY_EXISTS = "Ya existe el producto para el ID registrado";
 
+	public static final String CUSTOMER_NOT_FOUND = "No se encontró el cliente";
+	public static final String CUSTOMER_ALREADY_EXISTS = "Ya existe el cliente para el ID registrado";
+	
 	public static final String MODALITY_NOT_FOUND = "No se encontró la modalidad";
 
 	public static final String PROMOTION_TYPE_NOT_FOUND = "No se encontró el tipo de promoción";

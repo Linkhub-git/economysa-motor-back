@@ -322,7 +322,7 @@ public class ProductServiceImpl implements ProductService {
   
   @Override
   public Product get(Long id) {
-    Optional<Product> product = repository.listByProductId(id);
+    Optional<Product> product = repository.getByProductId(id);
     if (!product.isPresent()) {
       log.info("No Product entity for ID [ " + id + " ]");
       throw new ResourceNotFoundException(ConstantMessage.PRODUCT_NOT_FOUND);
@@ -331,8 +331,8 @@ public class ProductServiceImpl implements ProductService {
   }
   
   @Override
-  public Product listByProductCode(String code) {
-    Optional<Product> product = repository.listByProductCode(code);
+  public Product getByProductCode(String code) {
+    Optional<Product> product = repository.getByProductCode(code);
     if (!product.isPresent()) {
       log.info("No Product entity for code [ " + code + " ]");
       throw new ResourceNotFoundException(ConstantMessage.PRODUCT_NOT_FOUND);

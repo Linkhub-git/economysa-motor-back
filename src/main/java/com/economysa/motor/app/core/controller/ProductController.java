@@ -151,7 +151,7 @@ public class ProductController {
 	  @GetMapping("/code/{code}")
 	  public ResponseEntity<Product> listByProductCode(
 	      @Parameter(name = "Codigo de producto") @PathVariable String code) {
-	    return new ResponseEntity(service.listByProductCode(code), HttpStatus.OK);
+	    return new ResponseEntity(service.getByProductCode(code), HttpStatus.OK);
 	  }
   
   //PROVIDER
