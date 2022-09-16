@@ -154,6 +154,12 @@ public class ProductServiceImpl implements ProductService {
 
 					break;
 					
+				case "NOT LIKE":
+					
+					predicatesConditions.add(cb.notLike(cb.lower(root.get(field.getNamedb())),"%" + condition.getValue() + "%"));
+
+					break;
+					
 				case "IN":
 					
 					list = new ArrayList<String>();
@@ -190,7 +196,13 @@ public class ProductServiceImpl implements ProductService {
 					predicatesConditions.add(cb.like(cb.lower(join1.get(field.getNamedb())),"%" + condition.getValue() + "%"));
 
 					break;
+				
+				case "NOT LIKE":
 					
+					predicatesConditions.add(cb.notLike(cb.lower(join1.get(field.getNamedb())),"%" + condition.getValue() + "%"));
+
+					break;
+
 				case "IN":
 					
 					list = new ArrayList<String>();
@@ -229,6 +241,12 @@ public class ProductServiceImpl implements ProductService {
 
 					break;
 					
+				case "NOT LIKE":
+					
+					predicatesConditions.add(cb.notLike(cb.lower(join2.get(field.getNamedb())),"%" + condition.getValue() + "%"));
+
+					break;
+
 				case "IN":
 					
 					list = new ArrayList<String>();
@@ -264,6 +282,12 @@ public class ProductServiceImpl implements ProductService {
 				case "LIKE":
 					
 					predicatesConditions.add(cb.like(cb.lower(join3.get(field.getNamedb())),"%" + condition.getValue() + "%"));
+
+					break;
+				
+				case "NOT LIKE":
+					
+					predicatesConditions.add(cb.notLike(cb.lower(join3.get(field.getNamedb())),"%" + condition.getValue() + "%"));
 
 					break;
 					
