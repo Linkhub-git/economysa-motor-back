@@ -1,4 +1,4 @@
-package com.economysa.motor.app.core.controller.request;
+package com.economysa.motor.app.promotion.controller.response;
 
 import java.util.List;
 
@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class SearchRulesRequest {
+public class SearchRulesResponse {
 	
 
 	private Long searchId;
 
     private String searchOperator;
     
-    private List<SearchGroupRequest> groups;	
+    private List<SearchGroupResponse> groups;	
 }

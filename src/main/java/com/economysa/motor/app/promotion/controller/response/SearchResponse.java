@@ -1,6 +1,4 @@
-package com.economysa.motor.app.promotion.controller.request;
-
-import java.util.List;
+package com.economysa.motor.app.promotion.controller.response;
 
 import javax.validation.constraints.NotNull;
 
@@ -11,17 +9,16 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ConditionRulesRequest {
-
-
+public class SearchResponse {
+	
+	
     @NotNull
     private Long mechanic;
 
     @NotNull
     private String type;
     
-    private ConditionRuleRequest conditionRule;
-
-    private List<ConditionRuleRequest> conditionRules;
+    @NotNull
+    private SearchRulesResponse searchRules;
     
 }

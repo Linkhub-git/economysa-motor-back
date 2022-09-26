@@ -131,4 +131,9 @@ public class ConstantMessage {
 
 	public static final String MECHANIC_ENTRY_TYPE_GIRO = "G";
 	public static final String MECHANIC_ENTRY_TYPE_GIRO_TEXT = "Giro";
+	
+	public static final String SEARCH_NOT_FOUND = "No se encontró la regla de busqueda";
+	public static final String GROUP_NOT_FOUND = "No se encontró el grupo de busqueda";
+	public static final String CONDITION_NOT_FOUND = "No se encontró la condicion de busqueda";
+
 }

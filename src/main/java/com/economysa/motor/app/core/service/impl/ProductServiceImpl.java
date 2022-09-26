@@ -26,6 +26,7 @@ import com.economysa.motor.app.configuration.service.QueryFieldService;
 import com.economysa.motor.app.configuration.service.QueryOperatorService;
 import com.economysa.motor.app.configuration.service.UnityService;
 import com.economysa.motor.app.core.controller.dto.ProductDto;
+import com.economysa.motor.app.core.controller.request.SearchConditionRequest;
 import com.economysa.motor.app.core.controller.request.SearchGroupRequest;
 import com.economysa.motor.app.core.controller.request.SearchRequest;
 import com.economysa.motor.app.core.entity.Product;
@@ -33,7 +34,6 @@ import com.economysa.motor.app.core.entity.Provider;
 import com.economysa.motor.app.core.repository.ProductRepository;
 import com.economysa.motor.app.core.service.ProductService;
 import com.economysa.motor.app.core.service.ProviderService;
-import com.economysa.motor.app.promotion.controller.request.ConditionRuleRequest;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 import com.economysa.motor.util.UtilCore;
@@ -125,10 +125,10 @@ public class ProductServiceImpl implements ProductService {
 		
 		predicatesConditions = new ArrayList<>();
 
-		for(ConditionRuleRequest condition : group.getConditions()) {
+		for(SearchConditionRequest condition : group.getConditions()) {
 			
-			field = queryFieldService.get(condition.getField_id());
-			operator = queryOperatorService.get(condition.getOperator_id());
+			field = queryFieldService.get(condition.getFieldId());
+			operator = queryOperatorService.get(condition.getOperatorId());
 						
 			switch (field.getTabledb()) {
 			

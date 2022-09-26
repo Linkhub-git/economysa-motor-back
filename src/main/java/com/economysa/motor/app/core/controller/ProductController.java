@@ -69,7 +69,7 @@ public class ProductController {
 	          )
 	      }
 	  )
-  @PostMapping("/conditions")
+  @PostMapping("/search")
   public ResponseEntity<List<Product>> findByConditions(@Valid @RequestBody SearchRequest req) {
 	  
     return new ResponseEntity(service.findByConditions(req), HttpStatus.OK);

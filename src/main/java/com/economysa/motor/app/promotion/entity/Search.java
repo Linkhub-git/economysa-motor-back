@@ -1,7 +1,10 @@
 package com.economysa.motor.app.promotion.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -16,8 +20,6 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.economysa.motor.app.configuration.entity.QueryField;
-import com.economysa.motor.app.configuration.entity.QueryOperator;
 import com.economysa.motor.util.ConstantMessage;
 
 import lombok.AllArgsConstructor;
@@ -28,8 +30,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tprom_condition_rules")
-public class ConditionRules {
+@Table(name = "tprom_search")
+public class Search {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,17 +46,17 @@ public class ConditionRules {
   @ManyToOne(optional = false)
   private Mechanic mechanic;
     
-  @JoinColumn(name = "field_id", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  private QueryField field;
-  
-  @JoinColumn(name = "operator_id", referencedColumnName = "id")
-  @ManyToOne(optional = false)
-  private QueryOperator operator;
-  
-  @Column(name = "value")
+  @Column(name = "search_operator")
   @NotNull
-  private String value;
+  @Size(min = 2, max = 3)
+  private String searchOperator; 
+  
+  @OneToMany(
+	        mappedBy = "search",
+	        cascade = CascadeType.ALL,
+	        orphanRemoval = true
+	    )
+  private List<SearchGroup> groups = new ArrayList<>();
   
   @Column(name = "creation_user")
   @NotNull

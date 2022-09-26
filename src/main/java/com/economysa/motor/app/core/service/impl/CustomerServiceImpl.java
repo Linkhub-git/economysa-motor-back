@@ -22,6 +22,7 @@ import com.economysa.motor.app.configuration.entity.QueryOperator;
 import com.economysa.motor.app.configuration.service.QueryFieldService;
 import com.economysa.motor.app.configuration.service.QueryOperatorService;
 import com.economysa.motor.app.core.controller.dto.CustomerDto;
+import com.economysa.motor.app.core.controller.request.SearchConditionRequest;
 import com.economysa.motor.app.core.controller.request.SearchGroupRequest;
 import com.economysa.motor.app.core.controller.request.SearchRequest;
 import com.economysa.motor.app.core.entity.BusinessClass;
@@ -33,7 +34,6 @@ import com.economysa.motor.app.core.entity.Province;
 import com.economysa.motor.app.core.entity.Warehouse;
 import com.economysa.motor.app.core.repository.CustomerRepository;
 import com.economysa.motor.app.core.service.CustomerService;
-import com.economysa.motor.app.promotion.controller.request.ConditionRuleRequest;
 import com.economysa.motor.error.exception.ResourceNotFoundException;
 import com.economysa.motor.util.ConstantMessage;
 
@@ -100,10 +100,10 @@ public class CustomerServiceImpl implements CustomerService {
 		
 		predicatesConditions = new ArrayList<>();
 
-		for(ConditionRuleRequest condition : group.getConditions()) {
+		for(SearchConditionRequest condition : group.getConditions()) {
 			
-			field = queryFieldService.get(condition.getField_id());
-			operator = queryOperatorService.get(condition.getOperator_id());
+			field = queryFieldService.get(condition.getFieldId());
+			operator = queryOperatorService.get(condition.getOperatorId());
 						
 			switch (field.getTabledb()) {
 			

@@ -75,7 +75,7 @@ public class CustomerController {
 	          )
 	      }
 	  )
-  @PostMapping("/conditions")
+  @PostMapping("/search")
   public ResponseEntity<List<Customer>> findByConditions(@Valid @RequestBody SearchRequest req) {
 	  
     return new ResponseEntity(service.findByConditions(req), HttpStatus.OK);
