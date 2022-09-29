@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.economysa.motor.app.core.controller.request.SearchConditionRequest;
 import com.economysa.motor.app.core.controller.request.SearchGroupRequest;
 import com.economysa.motor.app.core.controller.request.SearchRequest;
+import com.economysa.motor.app.core.controller.request.SearchSaveRequest;
 import com.economysa.motor.app.promotion.controller.response.SearchConditionResponse;
 import com.economysa.motor.app.promotion.controller.response.SearchGroupResponse;
 import com.economysa.motor.app.promotion.controller.response.SearchResponse;
@@ -46,14 +47,14 @@ public class SearchServiceImpl implements SearchService {
     return cond;
   }
 
-  private Search init(String creationUser, SearchRequest request) {
+  private Search init(String creationUser, SearchSaveRequest request) {
 	  Search cond = init();
     cond = setData(cond, request);
     cond.setCreationUser(creationUser);
     return cond;
   }
 
-  private Search setData(Search cond,SearchRequest request) {
+  private Search setData(Search cond,SearchSaveRequest request) {
 
 	cond.setMechanic(mechanicService.get(request.getMechanic()));
     cond.setType(request.getType());
@@ -130,9 +131,8 @@ public class SearchServiceImpl implements SearchService {
     return obj.get();
   }
 
-  
   @Override
-  public SearchResponse create(String creationUser, SearchRequest request) {
+  public SearchResponse create(String creationUser, SearchSaveRequest request) {
 
 	  
 	  	  Optional<Search> optional = repository.findAll(request.getType(), request.getMechanic());
@@ -179,7 +179,7 @@ public class SearchServiceImpl implements SearchService {
   }
   
   @Override
-  public SearchResponse update(String updateUser, SearchRequest request) {
+  public SearchResponse update(String updateUser, SearchSaveRequest request) {
 	  
 
 	  Search search = null;

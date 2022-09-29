@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.economysa.motor.app.core.controller.request.SearchRequest;
+import com.economysa.motor.app.core.controller.request.SearchSaveRequest;
 import com.economysa.motor.app.promotion.controller.response.SearchResponse;
 import com.economysa.motor.app.promotion.service.SearchConditionService;
 import com.economysa.motor.app.promotion.service.SearchGroupService;
@@ -87,7 +88,7 @@ public class SearchController {
   
   @PostMapping
   public ResponseEntity<SearchResponse> create(@AuthenticationPrincipal UserDetails details,
-                                         @Valid @RequestBody SearchRequest request) {
+                                         @Valid @RequestBody SearchSaveRequest request) {
 	  
     return new ResponseEntity(service.create(details.getUsername(), request), HttpStatus.CREATED);
   }
@@ -116,7 +117,7 @@ public class SearchController {
   
   @PutMapping("/{id}")
   public ResponseEntity<SearchResponse> createConditions(@AuthenticationPrincipal UserDetails details,
-                                         @Valid @RequestBody SearchRequest request) {
+                                         @Valid @RequestBody SearchSaveRequest request) {
     return new ResponseEntity(service.update(details.getUsername(), request), HttpStatus.OK);
   }
 

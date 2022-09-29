@@ -9,11 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchRequest {
+public class SearchSaveRequest {
 	
-	
+    @NotNull
     private Long mechanic;
 
+    @NotNull
     private String type;
     
     @NotNull
