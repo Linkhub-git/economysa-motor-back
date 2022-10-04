@@ -51,6 +51,24 @@ public class Mechanic {
   @Size(min = 1, max = 100)
   private String catalogDescription;
   
+  @Column(name = "level")
+  @NotNull
+  private Integer level;
+  
+  @Column(name = "chatbot")
+  @NotNull
+  private Boolean chatBot;
+  
+  
+  @Column(name = "funder")
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String funder;
+  
+  @JoinColumn(name = "funder_id", referencedColumnName = "id")
+  @ManyToOne
+  private Provider funderObj;
+    
   @Column(name = "start_date")
   @NotNull
   private java.sql.Date startDate;
@@ -122,6 +140,9 @@ public class Mechanic {
   @Transient
   private String emitterText;
 
+  @Transient
+  private String funderText;
+  
   public String getEmitterText() {
     switch (emitter) {
       case ConstantMessage.EMITTER_PROVIDER:
@@ -133,6 +154,17 @@ public class Mechanic {
     }
   }
 
+  public String getFunderText() {
+	    switch (funder) {
+	      case ConstantMessage.EMITTER_PROVIDER:
+	        return ConstantMessage.EMITTER_PROVIDER_TEXT;
+	      case ConstantMessage.EMITTER_ECONOMYSA:
+	        return ConstantMessage.EMITTER_ECONOMYSA_TEXT;
+	      default:
+	        throw new IllegalArgumentException("Funder Emitter");
+	    }
+	  }
+  
   public String getStatusText() {
     switch (status) {
       case ConstantMessage.MECHANIC_STATUS_CREATED:

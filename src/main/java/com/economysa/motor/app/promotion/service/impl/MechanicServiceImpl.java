@@ -55,7 +55,9 @@ public class MechanicServiceImpl implements MechanicService {
     mechanic.setType(getType(request.getType()));
     mechanic.setConditional(request.getConditional());
     mechanic.setEmitter(request.getEmitter());
-    
+    mechanic.setLevel(request.getLevel());
+    mechanic.setChatBot(request.getChatBot()==1);
+    mechanic.setFunder(request.getFunder());
     
     if (request.getEmitter().equals(ConstantMessage.EMITTER_PROVIDER) ) {
     	
@@ -67,6 +69,21 @@ public class MechanicServiceImpl implements MechanicService {
     	}else {
     		
     	      mechanic.setEmitterObj(providerService.get(request.getEmitterId()));
+
+    	}
+
+    }
+    
+    if (request.getFunder().equals(ConstantMessage.EMITTER_PROVIDER) ) {
+    	
+    	if(request.getFunderId()==null) {
+    		
+    		log.info("FunderId is mandatory for funder [ " + request.getFunder() + " ]");
+            throw new ResourceNotFoundException(ConstantMessage.ERROR_BAD_REQUEST + " - funderId is mandatory");
+            
+    	}else {
+    		
+  	      mechanic.setFunderObj(providerService.get(request.getFunderId()));
 
     	}
 

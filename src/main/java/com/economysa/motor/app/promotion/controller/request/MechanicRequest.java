@@ -52,4 +52,14 @@ public class MechanicRequest {
   private String emitter;
 
   private Long emitterId;
+  
+  private Integer chatBot;
+
+  private Integer level;
+
+  @NotNull
+  @Size(min = 1, max = 1)
+  private String funder;
+
+  private Long funderId;
 }
